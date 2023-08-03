@@ -55,6 +55,7 @@ export class Taluka {
     id: number;
     name: string;
     cityId: number;
+    isActive:boolean;
     // districtId: number;
     // districtName: string;
 }

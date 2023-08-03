@@ -49,10 +49,19 @@
                     <option *ngFor="let news of lookupService.newsPapers" [value]="news.id">{{news.name}}</option>
                   </select>
                 </div>
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                   <label class="dg-lable" for="daterange">Date Range:</label>
                   <input id="txtSearchDateRange" class="form-control input-sm col-md-6" name="daterange"
                     placeholder="Select Date Range" type="text" />
+                </div> -->
+                <div class="col-md-3">
+                  <label class="dg-lable" for="landCategoryId">Land Category:</label>
+                  <select [(ngModel)]="searchReportModel.landCategoryId" name="as-landCategoryId"
+                    class="form-control input-sm">
+                    <option value="0">All Categories</option>
+                    <option *ngFor="let land of lookupService.landCategoryList" [value]="land.id">
+                      {{land.displayName}}</option>
+                  </select>
                 </div>
                 <div class="col-md-3">
                   <label class="dg-lable" for="cityId">District:</label>
@@ -65,14 +74,36 @@
               </div>
               <div class="form-group">
 
+            
                 <div class="col-md-3">
-                  <label class="dg-lable" for="landCategoryId">Land Category:</label>
-                  <select [(ngModel)]="searchReportModel.landCategoryId" name="as-landCategoryId"
-                    class="form-control input-sm">
-                    <option value="0">All Categories</option>
-                    <option *ngFor="let land of lookupService.landCategoryList" [value]="land.id">
-                      {{land.displayName}}</option>
-                  </select>
+                  <label class="dg-lable" for="startDate"
+                    >Start Date:</label
+                  >
+                  <input
+                    #startdate
+                    tabindex="8"
+                    id="txtSearchStartDate"
+                   
+                    class="form-control input-sm"
+                    name="startDate"
+                    placeholder="Select Start Date"
+                    type="date"
+                  />
+                </div>
+                <div class="col-md-3">
+                  <label class="dg-lable" for="startDate"
+                    >End Date:</label
+                  >
+                  <input
+                    #startdate
+                    tabindex="8"
+                    id="txtSearchStartDate"
+                   
+                    class="form-control input-sm"
+                    name="startDate"
+                    placeholder="Select Start Date"
+                    type="date"
+                  />
                 </div>
               </div>
               <div class="form-group text-center">

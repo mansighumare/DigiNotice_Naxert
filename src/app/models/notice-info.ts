@@ -1,7 +1,7 @@
 import { City } from './model';
 export class NoticeAdvocateModel{
           Id : number;
-          Fullname :string;
+          fullName :string;
           Address1 :string;
           Address2 :string;
           MobileNo :string;
@@ -187,7 +187,7 @@ export class AddNoticeModel {
     imageUrl: string = "";
     userName: string = "";
     googleMapLink:string="";  
-    
+    borrowerName?:string='';  
 }
 
 export class NoticeDetail {

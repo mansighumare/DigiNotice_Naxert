@@ -88,7 +88,7 @@ export class LocationMasterService {
     var url = this.appConfig.getApiPath("Lookup", "GetTalukas", [cityId, isActiveOnly]);
     this.http.get(url).subscribe((talukas: any) => {
       this.talukaList = talukas;
-      // this.talukaList = talukas.filter(talukas => talukas.isActive === true)
+       this.talukaList = talukas.filter(talukas => talukas.isActive === true)
       this.isShowLocationLoader = false;
     }, error => {
       this.talukaList = [];

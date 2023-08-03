@@ -750,15 +750,18 @@
                   </div>
 
                   <div class="form-group text-center">
-                    <div class="col-md-12">
-                      <button
+                    <div class="col-md-12 ">
+                      <button (click)="onSearchNotice(true)" type="button" class="btn btn-default search-cs green">
+                        <i style="color: white;" class="fa fa-search"></i> <span style="color: white; margin-left: 5px;">Search Notice</span> 
+                      </button>
+                      <!-- <button
                         [disabled]="isShowLoader"
                         (click)="onSearchNotice(true)"
                         type="button"
-                        class="btn notification-cs btn green"
+                        class="btn notification-cs btn green "
                       >
                         <i class="fa fa-search"></i> Search Notice
-                      </button>
+                      </button> -->
                       <!--    <button (click)="getRecentNoticesBtn()" type="button" class="btn btn-default search-cs">
                         <i class="fa fa-search"></i> Recent Notices
                       </button>&nbsp;
@@ -796,18 +799,17 @@
                     <button
                       [disabled]="isShowLoader"
                       (click)="getRecentNoticesBtn()"
-                      type="button"
-                      class="btn notification-cs btn green"
+                      type="button" class="btn btn-default search-cs green"
                     >
-                      <i class="fa fa-search"></i> Recent Notice
+                      <i class="fa fa-search"></i> <span style="color: white; margin-left: 5px;">Recent Notice</span> 
                     </button>
-                    <button
+                    <span style="margin-left: 10px;"></span>
+                    <button 
                       [disabled]="isShowLoader"
                       (click)="onDownload()"
-                      type="button"
-                      class="btn notification-cs btn green"
+                      type="button" class="btn btn-default search-cs green"
                     >
-                      <i class="fa fa-download"></i> Download
+                      <i class="fa fa-download" style="color: white;"></i> <span style="color: white; margin-left: 5px;">Download</span> 
                     </button>
                   </div>
                 </div>

@@ -139,8 +139,13 @@
                 <div class="form-group">
                   <div class="col-md-3">
                     <label class="dg-lable" for="publishedDate">Notice Date:</label>
-                    <input tabindex="11" id="txtNoticeDate" class="form-control input-sm" name="publishDate"
-                      placeholder="Select Notice Date" type="text" />
+                    <input
+                    [(ngModel)]="publishDate"
+                    class="form-control input-sm"
+                    name="startDate"
+                    placeholder="Select Start Date"
+                    type="date"
+                  />
                   </div>
                   <div class="col-md-3">
                     <label class="dg-lable" for="stateId">State:</label>
@@ -693,10 +698,15 @@
                   <div class="col-md-6">
                     <label class="dg-lable" for="isActive">Notice Status:</label>
                     <div class="notice-status">
-                      <span tabindex="93+{{count}}" (click)="onNoticeStatusChange(addNoticeModel)"
-                        (keypress)="onEnterKeyPressChangeStatus($event,addNoticeModel)"
-                        [ngClass]="{'checked': addNoticeModel.isActive}" class="dg-checkbox"
-                        for="activeNoticesOnly">Active </span>
+                      <mat-checkbox
+                      tabindex="93+{{count}}"
+                      (change)="onNoticeStatusChange(addNoticeModel)"
+                      (keydown.enter)="onEnterKeyPressChangeStatus($event, addNoticeModel)"
+                      [checked]="addNoticeModel.isActive"
+                      class="mat-checkbox"
+                    >
+                      Active
+                    </mat-checkbox>
                     </div>
                   </div>
                 </div>

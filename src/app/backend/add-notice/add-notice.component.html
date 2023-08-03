@@ -58,7 +58,7 @@
                     <label class="dg-lable" for="noticeTitle">Notice Title:</label>
                     <select tabindex="1" [(ngModel)]="addNoticeModel.noticeTypeId" (change)="onNoticeTypeChange($event)"
                       name="noticeTitle" class="form-control input-sm">
-                      <!-- <option>Select Notice Title</option> -->
+                   
                       <option *ngFor="let noticetype of NoticeType" [value]="noticetype.id">
                         {{noticetype.name}}</option>
                     </select>
@@ -94,6 +94,11 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-3" *ngIf="addNoticeModel.isPublisher=='true'">
+                    <label class="dg-lable" for="borrowerName">Borrower Name:</label>
+                    <input tabindex="4" [(ngModel)]="addNoticeModel.borrowerName" name="borrowerName" type="text"
+                      class="form-control input-sm" placeholder="Borrower Name">
+                  </div>
                   <div class="col-md-3">
                     <label class="dg-lable" for="ownerFullName">Seller Name:</label>
                     <input tabindex="4" [(ngModel)]="addNoticeModel.ownerFullName" name="ownerFullName" type="text"
@@ -121,7 +126,7 @@
                     <div id="table-scroll">
                       <table *ngFor="let person of personList">
                         <tr>
-                          <td (click)="persondetail(person)">{{person.Fullname}}</td>
+                          <td (click)="persondetail(person)">{{person.fullName}}</td>
                         </tr>
                       </table>
                     </div>
@@ -181,8 +186,13 @@
                 <div class="form-group">
                   <div class="col-md-3">
                     <label class="dg-lable" for="publishedDate">Notice Date:</label>
-                    <input tabindex="11" id="txtNoticeDate" class="form-control input-sm" name="publishDate"
-                      placeholder="Select Notice Date" type="text" />
+                    <input
+                    [(ngModel)]="publishDate"
+                    class="form-control input-sm"
+                    name="startDate"
+                    placeholder="Select Start Date"
+                    type="date"
+                  />
                   </div>
                   <div class="col-md-3">
                     <label class="dg-lable" for="stateId">State:</label>
@@ -654,7 +664,7 @@
                         <input tabindex="49" style="margin-top: 10px;" [(ngModel)]="addNoticeDetail.complaintNoReportNo"
                           (ngModelChange)="addNoticeDetail.complaintNoReportNo= $event.toUpperCase()"
                           name="complaintNoReportNo" type="text" class="form-control input-sm"
-                          placeholder="Complaint No/Report No">
+                          placeholder="Complaint No/Report No">consoa
                       </div>
 
                       <div class="col-md-2" style="margin-top: 10px;" *ngIf="addNoticeModel.landCategoryId == '1'">
@@ -730,13 +740,11 @@
                     <div class="notice-status">
                       
                       <mat-checkbox
-                    
                       tabindex="93+{{count}}"
                       (change)="onNoticeStatusChange(addNoticeModel)"
                       (keydown.enter)="onEnterKeyPressChangeStatus($event, addNoticeModel)"
                       [checked]="addNoticeModel.isActive"
                       class="mat-checkbox"
-           
                     >
                       Active
                     </mat-checkbox>

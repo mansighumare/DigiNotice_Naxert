@@ -89,7 +89,7 @@ import { SharedModule } from '../modules/shared.module';
 
 import {NgxChartsModule  } from '@swimlane/ngx-charts';
 
-import { ToastrModule } from 'ngx-toastr';
+
 
 const routes: Routes = [
   {
@@ -292,7 +292,7 @@ const routes: Routes = [
     OcrAddNoticeComponent
   ],
   imports: [
-    ToastrModule,
+
     //ChartsModule,
     MatOptionModule,
     MatSelectModule,

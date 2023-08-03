@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { OcrAddNoticeModel, OcrNoticeDetail, OcrNoticeImage } from 'src/app/models/ocr-notice-info';
 import { SharedModelService, NoticeService, LookupService } from 'src/app/services';
 import { OcrServiceService } from 'src/app/services/ocr-service.service';
-declare var toastr;
+
 declare var $;
 
 @Component({
@@ -16,13 +17,18 @@ declare var $;
 })
 export class OcrAddNoticeComponent implements OnInit {
 
+
   constructor(
     public sharedModel: SharedModelService,
     public ocrServiceService: OcrServiceService,
     public lookupService: LookupService,
     public router: Router,
-    public http: HttpClient
+    public http: HttpClient,
+    private toastr:ToastrService
   ) { }
+
+
+  publishDate:string=this.getDefaultStartDate();
   addNoticeModel: OcrAddNoticeModel = new OcrAddNoticeModel();
   addNoticeDetail: OcrNoticeDetail = new OcrNoticeDetail();
   public is_add_other_details: boolean = false;
@@ -55,6 +61,11 @@ export class OcrAddNoticeComponent implements OnInit {
       this.router.navigate(["./login"]);
     }
   }
+  getDefaultStartDate(): string {
+    const defaultDate = new Date(); // You can set this to any desired default date
+    return defaultDate.toISOString().substr(0, 10); // Convert to YYYY-MM-DD format
+  }
+
   getNoticeType() {
     this.lookupService.getNoticeType().subscribe(
       (r) => {
@@ -89,7 +100,7 @@ export class OcrAddNoticeComponent implements OnInit {
     function readURL(input) {
       if (input.files.length > 1) {
         // Display an error message if multiple files are selected
-        toastr.error('Please select only one file.', "Error");
+        this.toastr.error('Please select only one file.', "Error");
         return;
       }
 
@@ -152,15 +163,15 @@ export class OcrAddNoticeComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
   }
   onAddNotice() {
-    // if (this.addNoticeModel.advocateName == "" || this.addNoticeModel.advocateName == undefined || this.addNoticeModel.advocateName == null || this.addNoticeModel.advocateName != this.searchControl.value) {
-    //   this.addNoticeModel.advocateName = this.searchControl.value;
-    // }
+    if (this.addNoticeModel.advocateName == "" || this.addNoticeModel.advocateName == undefined || this.addNoticeModel.advocateName == null || this.addNoticeModel.advocateName != this.searchControl.value) {
+      this.addNoticeModel.advocateName = this.searchControl.value;
+    }
     this.addNoticeModel.advocateName = this.searchControl.value;
     if (!this.validateForm())
       return false;
@@ -180,7 +191,7 @@ export class OcrAddNoticeComponent implements OnInit {
     this.addNoticeModel.createdBy = loggedInUserString.userId;
     this.addNoticeModel.isOcr = 1;
     var $dateField = $('#txtNoticeDate');
-    this.addNoticeModel.PublishedDateString = $dateField.data('daterangepicker').startDate.format('YYYY-MM-DD');
+    this.addNoticeModel.PublishedDateString = this.publishDate;
     this.addNoticeModel.noticeDetailList.forEach((notice: OcrNoticeDetail) => {
       if (notice.unitTypeId == "") {
         notice.area = "Not Mentioned";
@@ -203,13 +214,13 @@ export class OcrAddNoticeComponent implements OnInit {
     this.isShowLoader = true;
     this.ocrServiceService.addNotice(this.addNoticeModel)
       .subscribe((addedRow: any) => {
-        toastr.success('Notice Added Successsfully!', "Success");
+        this.toastr.success('Notice Added Successsfully!', "Success");
         this.isShowLoader = false;
         this.clearForm();
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed to create notice!', "Error");
+          this.toastr.error('Failed to create notice!', "Error");
         });
   }
 
@@ -237,7 +248,7 @@ export class OcrAddNoticeComponent implements OnInit {
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed to upload notice image!', "Error");
+          this.toastr.error('Failed to upload notice image!', "Error");
         });
   }
 
@@ -412,7 +423,7 @@ export class OcrAddNoticeComponent implements OnInit {
   onAddNoticeDetail() {
     this.count + 100;
     if (Object.values(this.addNoticeDetail).every(val => val.trim() === '')) {
-      toastr.error("Please enter at least one value", "Error");
+      this.toastr.error("Please enter at least one value", "Error");
       return false;
     }
     let noticeDetail = JSON.parse(JSON.stringify(this.addNoticeDetail));

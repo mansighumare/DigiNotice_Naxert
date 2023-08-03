@@ -18,8 +18,9 @@ declare var $;
   styleUrls: ['./add-notice.component.scss']
 })
 export class AddNoticeComponent implements OnInit {
+  publishDate:string=this.getDefaultStartDate();
 
-
+ 
   @Input() editNoticeModel: AddNoticeModel = null;
   addNoticeModel: AddNoticeModel = new AddNoticeModel();
   @Output() onClose: EventEmitter<string> = new EventEmitter();
@@ -41,7 +42,7 @@ export class AddNoticeComponent implements OnInit {
     public lookupService: LookupService,
     public router: Router,
     public http: HttpClient,
-    private toastr:ToastrService) {
+    private toastr: ToastrService) {
 
 
   }
@@ -62,11 +63,14 @@ export class AddNoticeComponent implements OnInit {
         this.noticeService.initDateRangePicker();
       });
 
+
+
+
       this.subscription.add(
         this.searchControl.valueChanges.pipe(
           startWith(''),
           debounceTime(500),
-          switchMap(value =>{
+          switchMap(value => {
             if (this.flag == true) {
               this.flag = false;
             } else if (!!value.length && value.length > 3) {
@@ -83,10 +87,11 @@ export class AddNoticeComponent implements OnInit {
             this.flag = false;
           }
           this.personList = personList;
+
           this.isShowLoader = false;
         })
       );
-      
+
       this.getNoticeType();
     }
     else {
@@ -96,8 +101,8 @@ export class AddNoticeComponent implements OnInit {
 
 
   onNoticeTypeChange(event) {
-     this.addNoticeModel.noticeTypeId=event.target.value[0];
-      this.addNoticeModel.noticeTitle=event.target.name[1];
+    this.addNoticeModel.noticeTypeId = event.target.value[0];
+    this.addNoticeModel.noticeTitle = event.target.name[1];
     const selectedIndex = (event.target as HTMLSelectElement).selectedIndex;
     const selectedNoticeType = this.NoticeType[selectedIndex];
     this.addNoticeModel.noticeTypeId = selectedNoticeType.id;
@@ -183,12 +188,12 @@ export class AddNoticeComponent implements OnInit {
   }
 
   validateForm() {
-    
+
     let validationErrors: Array<string> = [];
     let isValid: boolean = true;
     let validationMessage = "Please Enter ";
-     if (this.addNoticeModel.ownerFullName.trim() == "")
-       validationErrors.push("Owner Name");
+    if (this.addNoticeModel.ownerFullName.trim() == "")
+      validationErrors.push("Owner Name");
 
     if (this.addNoticeModel.paperId == 0)
       validationErrors.push("Paper");
@@ -222,7 +227,7 @@ export class AddNoticeComponent implements OnInit {
     }
   }
 
-  onAddNotice():any{
+  onAddNotice(): any {
     if (this.addNoticeModel.advocateName == "" || this.addNoticeModel.advocateName == undefined || this.addNoticeModel.advocateName == null) {
       this.addNoticeModel.advocateName = this.searchControl.value;
     }
@@ -248,11 +253,11 @@ export class AddNoticeComponent implements OnInit {
     let loggedInUserString: any = localStorage.getItem("LoggedInUser");
     loggedInUserString = JSON.parse(loggedInUserString);
     this.addNoticeModel.createdBy = loggedInUserString.userId;
-    this.addNoticeModel.isOcr=0;
+    this.addNoticeModel.isOcr = 0;
     var $dateField = $('#txtNoticeDate');
-    // this.addNoticeModel.publishedDate = $dateField.data('daterangepicker').startDate.format('DD/MM/YYYY');
-    // this.addNoticeModel.publishedDate = $dateField.data('daterangepicker').startDate.format('DD/MM/YYYY');
-    this.addNoticeModel.PublishedDateString = $dateField.data('daterangepicker').startDate.format('YYYY-MM-DD');
+  
+ 
+    this.addNoticeModel.PublishedDateString = this.publishDate;
     this.addNoticeModel.noticeDetailList.forEach((notice: NoticeDetail) => {
       if (notice.unitTypeId == "") {
         notice.area = "Not Mentioned";
@@ -305,7 +310,10 @@ export class AddNoticeComponent implements OnInit {
       }
     );
   }
-
+  getDefaultStartDate(): string {
+    const defaultDate = new Date(); // You can set this to any desired default date
+    return defaultDate.toISOString().substr(0, 10); // Convert to YYYY-MM-DD format
+  }
 
   clearForm() {
     this.searchControl.setValue("");
@@ -389,7 +397,7 @@ export class AddNoticeComponent implements OnInit {
     }
   }
 
-  addNoticeDetail:any = new NoticeDetail();
+  addNoticeDetail: any = new NoticeDetail();
   count: number = 0;
   onAddNoticeDetail() {
     this.count + 100;

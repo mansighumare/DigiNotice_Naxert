@@ -121,44 +121,6 @@
                                             <!-- Pagination -->
                                             <mat-paginator [length]="talukaId.length" [pageSizeOptions]="[5, 10, 15]"
                                                 showFirstLastButtons></mat-paginator>
-
-
-                                            <!--  <table id="tbl-users-list" class="table table-hover"
-                                                [mfData]="locationMasterService.talukaList" #mf="mfDataTable"
-                                                [mfRowsOnPage]="10">
-                                                <thead>
-                                                    <tr>
-                                                        <th> Taluka Name </th>
-                                                        <th> Action </th>
-                                                        <th> Status </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr *ngIf="!isShowLoader && mf.data== 0" class="no-records">
-                                                        <td colspan="10">No Records Found</td>
-                                                    </tr>
-                                                    <tr *ngFor="let taluka of mf.data;let index = index;">
-
-                                                        <td> {{taluka.name}} </td>
-                                                        <td>
-                                                            <i (click)="onEditTaluka(taluka)" class="fa fa-pencil"></i>
-                                                        </td>
-                                                        <td>
-                                                            <span (click)="onActiveInActive(taluka, 'Taluka')"
-                                                                [ngClass]="{'checked': taluka.isActive}"
-                                                                class="dg-checkbox" for="isTalukaActive"></span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td colspan="9">
-                                                           <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"> 
-                                                            </mfBootstrapPaginator>
-                                                        </td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table> -->
                                         </ng-container>
                                         <ng-container *ngIf="locationTableName == 'Village'">
                                             <!--   <table id="tbl-users-list" class="table table-hover" [mfData]="villageList"

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthenticationService, AppConfig } from 'src/app/services';
@@ -66,7 +66,19 @@ collaps:boolean=true;
     }
 
   }
+  isTogglerVisible = true; // Initially visible
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    // Add your logic to determine when to hide the toggler based on display size
+    this.isTogglerVisible = !this.shouldHideToggler(); // Implement the shouldHideToggler() function
+  }
+
+  shouldHideToggler(): boolean {
+    
+    this.shared.setBoolean(true); 
+    return window.innerWidth < 990; // Example: hide if width is less than 768px
+  }
   
   NotificationCount: number;
   getNotifactionCount() {

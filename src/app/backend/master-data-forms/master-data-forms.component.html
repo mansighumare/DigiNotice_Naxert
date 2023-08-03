@@ -1,0 +1,43 @@
+<!-- <app-loader *ngIf="isShowLoader || !isDataLoaded"></app-loader> -->
+
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-database"></i>
+          <span class="caption-subject font-blue bold" style="font-size: 16px;">Master Data Forms</span>
+        </div>        
+      </div>      
+      <div class="caption">
+        <div class="dropdown">
+          <button type="button" class="btn green dropdown-toggle" data-toggle="dropdown">
+            {{selectedTableName}}
+            <span class="caret"></span>
+          </button>
+          <div class="dropdown-menu">
+            <a *ngFor="let tableName of tableNames" (click)="onTableChange(tableName)"
+               class="dropdown-item">
+               <!-- [ngClass]="{'active':tableName == selectedTableName}" -->
+              {{tableName}}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="portlet-body">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+          <div class="row">
+            <ng-container *ngIf="isDataLoaded">
+              <!-- <app-table (onAdd)="onRowAdded($event)" (onUpdate)="onRowUpdated($event)"
+                (onDelete)="onRowDeleted($event)" (onSort)="onColumnSort($event)" (onPageChange)="onPageChange($event)"
+                [tableConfig]="tableConfig" [tableRows]="tableRows">
+              </app-table> -->
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

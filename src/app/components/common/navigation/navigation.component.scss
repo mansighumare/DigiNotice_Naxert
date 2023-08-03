@@ -1,0 +1,58 @@
+.nav-item .fa-warning {
+  float: right;
+  color: yellow;
+  font-size: 14pt;
+  margin-right: 20px;
+  padding: 2px 0;
+}
+
+.page-sidebar-menu-closed {
+  .nav-item .fa-warning {
+    display: none;
+  }
+}
+
+.page-sidebar-menu-closed {
+  .nav-item {
+    i {
+      font-size: 2rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 760px) {
+  .page-sidebar {
+    position: fixed;
+    top: 50px;
+    height: 100vh;
+    width: 17%;
+  }
+  .user-initials-md {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+}
+
+.user-panel > .info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  line-height: 0.5;
+  margin-left: 5px;
+  margin-top: -5px;
+  position: relative;
+}
+
+.info .image{
+  text-align: center;
+}
+.user-panel>.info p{
+  font-size: 16px;
+}
+
+
+.page-sidebar-menu::-webkit-scrollbar {
+  width: 0;
+}

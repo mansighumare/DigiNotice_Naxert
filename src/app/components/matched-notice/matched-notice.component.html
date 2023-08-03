@@ -1,0 +1,319 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+
+<!-- <div class="row" style="margin-top: 20px;">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="container">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <div class="portlet light" style="margin-top:90px;">
+              <div class="profile-userpic">
+                <img src="{{accountService.profileImageUrl}}" class="img-responsive" alt="" style="height:119px;">
+              </div>
+
+              <br>
+              <div class="form-group">
+                <input type="file" id="exampleInputFile" (change)="getFileDetails($event)">
+                <p class="help-block" style="align-items: center;">Allowed JPG,PNG</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="portlet light">
+              <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                  <i class="icon-globe theme-font hide"></i>
+                  <span class="caption-subject font-blue-madison bold uppercase">Your info</span>
+                </div>
+              </div>
+              <div class="portlet-body">
+                <div>
+
+
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                        data-toggle="tab">Update Profile</a></li>
+
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab"
+                        data-toggle="tab">Change Password</a></li>
+
+                  </ul>
+
+                  <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="home">
+                      <form>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              <label class="dg-lable" for="Prefix">Prefix</label>
+                              <select name="as-cityId" placeholder="User Prefix" [(ngModel)]="profileInfo.prefix"
+                                class="form-control" name="prefix">
+                                <option value="" selected>Please Select Prefix</option>
+                                <option *ngFor="let prefix of prefixOptions" [value]="prefix.name">
+                                  {{prefix.label}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="noticeTitle">First Name: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.firstName" name="firstName" type="text"
+                              class="form-control input-sm" placeholder="First Name">
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="noticeTitle">Last Name: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.lastName" name="lastName" type="text"
+                              class="form-control input-sm" placeholder="Last Name">
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="noticeTitle">Email: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.email" name="email" type="text"
+                              class="form-control input-sm" placeholder="Email">
+                          </div>
+
+                        </div>
+                        <div class="row">
+
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="noticeTitle">Phone: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.phone" name="phone" type="text"
+                              class="form-control input-sm" placeholder="Phone">
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              <label class="dg-lable" for="countryId">Country: </label>
+                              <select name="as-countryId" placeholder="User Coutnry" class="form-control"
+                                name="selectedcountry" disabled>
+                                <option value="1" selected>India</option>
+                              </select>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              <label class="dg-lable" for="stateId">State: </label>
+                              <select name="as-stateId" placeholder="User State" [(ngModel)]="profileInfo.stateId"
+                                class="form-control" name="selectedstate" (change)="onOptionsSelectedState($event)">
+                                <option value="" selected>Please Select State</option>
+                                <option *ngFor="let state of State" [value]="state.id">
+                                  {{ state.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              <label class="dg-lable" for="cityId">City</label>
+                              <select name="as-cityId" placeholder="User City" [(ngModel)]="profileInfo.cityId"
+                                class="form-control" name="selectedcity">
+                                <option value="" selected>Please Select City</option>
+                                <option *ngFor="let city of City" [value]="city.id">
+                                  {{city.name}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="pinCode">Zip Code:</label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.pinCode" name="pinCode" type="text"
+                              class="form-control input-sm" placeholder="Zip Code">
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="Occupation">Occupation: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.occupation" name="Occupation" type="text"
+                              class="form-control input-sm" placeholder="Occupation">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 col-sm-12">
+                            <label class="dg-lable" for="address">Address: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.address" name="address" type="text"
+                              class="form-control input-sm" placeholder="Please Enter Address">
+                          </div>
+                        </div>
+
+
+                        <button type="submit" class="btn green" style="margin-top: 10px; float: right;"
+                          (click)="onUpdateProfile()">Update</button>
+                      </form>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="messages">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                          <label class="dg-lable" for="noticeTitle">Old Password: </label>
+                          <input tabindex="1" [(ngModel)]="changePasswordModel.oldPassword" name="firstName"
+                            type="password" class="form-control input-sm" placeholder="Old Password">
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                          <label class="dg-lable" for="noticeTitle">New Password: </label>
+                          <input tabindex="1" [(ngModel)]="changePasswordModel.newPassword" name="firstName"
+                            type="password" class="form-control input-sm" placeholder="New Password">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                          <label class="dg-lable" for="noticeTitle">Confirm Password: </label>
+                          <input tabindex="1" [(ngModel)]="changePasswordModel.confirmPassword" name="lastName"
+                            type="password" class="form-control input-sm" placeholder="Confirm Password">
+                        </div>
+                      </div>
+                      <button type="submit" class="btn green" style="margin-top: 10px; float: right;"
+                        (click)="onChangePasswordSubmit()">Update</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- Existing Matched Notices -->
+<div class="portlet light bordered" style="margin-top: 20px;">
+  <div class="portlet-title">
+    <div class="caption font-dark float-l">
+      <i class="fa fa-files-o"></i>
+      <span class="caption-subject font-blue bold ">Matched Notice</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+
+    <!-- <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">
+            Precise Match</a></li>
+
+        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">
+            Partial Match</a></li>
+
+      </ul>
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">          
+            <ng-container *ngFor="let nt of notices;let propertyIndex = index;">
+              <div class="row" style="padding:15px">
+                <div class="col-lg-3">
+                  <app-property-card (onView)="onViewProperty($event)" [editPropertyModel]="nt.asset"
+                    [propertyIndex]="propertyIndex">
+                  </app-property-card>
+                </div>
+                <div class="col-lg-9">
+                  <div class="row" style="display:flex; flex-wrap:wrap;">
+                    <div *ngIf="nt.notices.length == 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      No Notices Found
+                    </div>
+                    <ng-container *ngFor="let noticeInfo of nt.notices">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <app-notice-card [noticeInfo]="noticeInfo"></app-notice-card>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                </div>
+              </div>
+              <hr><br>
+            </ng-container>          
+        </div>
+        <div role="tabpanel" class="tab-pane" id="messages">
+        </div>
+      </div> -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" href="#precise" aria-controls="precise" role="tab" data-toggle="tab"
+          (click)="getRedMatchedNotices()">
+          Precise Match</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" href="#partial" aria-controls="partial" role="tab" data-toggle="tab"
+          (click)="getYellowMatchedNotices()">
+          Partial Match</a>        
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="precise">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+          <div class="row">
+            <ng-container *ngFor="let nt of notices;let propertyIndex = index;">
+              <div class="row" style="padding:15px">
+                <div class="col-lg-3">
+                  <app-property-card (onView)="onViewProperty($event)" [editPropertyModel]="nt.asset"
+                    [propertyIndex]="propertyIndex" [isDropdownMenu]="false">
+                  </app-property-card>
+                </div>
+                <div class="col-lg-9">
+                  <div class="row" style="display:flex; flex-wrap:wrap;">
+                    <div *ngIf="nt.notices.length == 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      No Notices Found
+                    </div>
+                    <ng-container *ngFor="let noticeInfo of nt.notices">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <app-notice-card [noticeInfo]="noticeInfo"></app-notice-card>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                </div>
+              </div>
+              <hr><br>
+            </ng-container>
+            <div style="text-align: center;" *ngIf="notices.length==0">
+              No Precise Matched Notices Found
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="partial">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+          <div class="row">
+            <ng-container *ngFor="let nt of notices;let propertyIndex = index;">
+              <div class="row" style="padding:15px">
+                <div class="col-lg-3">
+                  <app-property-card (onView)="onViewProperty($event)" [editPropertyModel]="nt.asset"
+                    [propertyIndex]="propertyIndex">
+                  </app-property-card>
+                </div>
+                <div class="col-lg-9">
+                  <div class="row" style="display:flex; flex-wrap:wrap;">
+                    <div *ngIf="nt.notices.length == 0" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      No Notices Found
+                    </div>
+                    <ng-container *ngFor="let noticeInfo of nt.notices">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <app-notice-card [noticeInfo]="noticeInfo"></app-notice-card>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                </div>
+              </div>
+              <hr><br>
+            </ng-container>
+
+            <div style="text-align: center;" *ngIf="notices.length==0">
+              No Partial Matched Notices Found
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-view-property [editPropertyModel]="viewProperty"></app-view-property>

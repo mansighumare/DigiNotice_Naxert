@@ -1,0 +1,190 @@
+<div class="row" style="margin-top: 20px;">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="portlet light"
+              style="margin-top:79px;border: 2px solid #ccc; background-color: #f7f7f7; padding: 29px;">
+              <div class="profile-userpic">
+                <img src="{{accountService.profileImageUrl}}" class="img-responsive" alt="" style="height:119px;">
+              </div>
+              <div class="profile-info" *ngIf="this.loggedInUserRoleGuid=='5A684E94-A768-45B7-8A2E-1F3BF22FC8B4' || this.loggedInUserRoleGuid=='52068551-9841-4EBA-BB87-96D0DCBF1595' || this.loggedInUserRoleGuid=='64B4686D-6086-4AD8-AE9C-D4FB4F409588'">
+                <div class="role-label">Organization: {{loggedInUserOrgName}}</div>
+                <div class="role-label"  *ngIf="this.loggedInUserRoleGuid=='52068551-9841-4EBA-BB87-96D0DCBF1595' || this.loggedInUserRoleGuid=='64B4686D-6086-4AD8-AE9C-D4FB4F409588'">Branch      : {{this.loggedInUserBranchName}}</div>
+                <div class="role-label">Role        : {{this.loggedInUserRole}}</div>
+              </div>
+              <br>
+              <!-- <div class="form-group">
+                <input type="file" id="exampleInputFile" (change)="getFileDetails($event)">
+                <p class="help-block" style="align-items: center;">Allowed JPG,PNG</p>
+              </div> -->
+              <div class="form-group" style="text-align: center;">
+                <input type="file" id="exampleInputFile" (change)="getFileDetails($event)">
+                <label class="custom-file-upload" for="exampleInputFile">Choose File</label>
+                <p class="help-block" style="align-items: center;">Allowed JPG, PNG</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="portlet light">
+              <div class="portlet-title tabbable-line">
+                <div class="caption caption-md">
+                  <i class="icon-globe theme-font hide"></i>
+                  <span class="caption-subject font-blue-madison bold uppercase">Your info</span>
+                </div>
+              </div>
+              <div class="portlet-body">
+                <div>
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="nav-item">
+                      <a class="nav-link active" href="#home" aria-controls="home" role="tab" data-toggle="tab">Update Profile</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <a class="nav-link" href="#messages" aria-controls="messages" role="tab"
+                        data-toggle="tab">Change Password</a>
+                    </li>
+                  </ul>
+                  <div class="tab-content pt-2">
+                    <div role="tabpanel" class="tab-pane active" aria-labelledby="home-tab" id="home">
+                      <form>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              <label class="dg-lable" for="Prefix">Prefix</label>
+                              <select name="as-cityId" placeholder="User Prefix" [(ngModel)]="profileInfo.prefix"
+                                class="form-control" name="prefix">
+                                <option value="" selected>Please Select Prefix</option>
+                                <option *ngFor="let prefix of prefixOptions" [value]="prefix.name">
+                                  {{prefix.label}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="noticeTitle">First Name: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.firstName" name="firstName" type="text"
+                              class="form-control input-sm" placeholder="First Name">
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="noticeTitle">Last Name: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.lastName" name="lastName" type="text"
+                              class="form-control input-sm" placeholder="Last Name">
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="noticeTitle">Email: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.email" name="email" type="text"
+                              class="form-control input-sm" placeholder="Email">
+                          </div>
+
+                        </div>
+                        <div class="row">
+
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="noticeTitle">Phone: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.phone" name="phone" type="text"
+                              class="form-control input-sm" placeholder="Phone">
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              <label class="dg-lable" for="countryId">Country: </label>
+                              <select name="as-countryId" placeholder="User Coutnry" class="form-control"
+                                name="selectedcountry" disabled>
+                                <option value="1" selected>India</option>
+                              </select>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              <label class="dg-lable" for="stateId">State: </label>
+                              <select name="as-stateId" placeholder="User State" [(ngModel)]="profileInfo.stateId"
+                                class="form-control" name="selectedstate" (change)="onOptionsSelectedState($event)">
+                                <option value="" selected>Please Select State</option>
+                                <option *ngFor="let state of State" [value]="state.id">
+                                  {{ state.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <div class="form-group">
+                              <label class="dg-lable" for="cityId">District</label>
+                              <select name="as-cityId" placeholder="User District" [(ngModel)]="profileInfo.cityId"
+                                class="form-control" name="selectedcity">
+                                <option value="" selected>Please Select District</option>
+                                <option *ngFor="let city of City" [value]="city.id">
+                                  {{city.name}}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="pinCode">Zip Code:</label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.pinCode" name="pinCode" type="text"
+                              class="form-control input-sm" placeholder="Zip Code">
+                          </div>
+                          <div class="col-md-6 col-sm-6">
+                            <label class="dg-lable" for="Occupation">Occupation: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.occupation" name="Occupation" type="text"
+                              class="form-control input-sm" placeholder="Occupation">
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12 col-sm-12">
+                            <label class="dg-lable" for="address">Address: </label>
+                            <input tabindex="1" [(ngModel)]="profileInfo.address" name="address" type="text"
+                              class="form-control input-sm" placeholder="Please Enter Address">
+                          </div>
+                        </div>
+
+
+                        <button type="submit" class="btn green" style="margin-top: 10px; float: right;"
+                          (click)="onUpdateProfile()">Update</button>
+                      </form>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="messages">
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                          <label class="dg-lable" for="noticeTitle">Old Password: </label>
+                          <input tabindex="1" [(ngModel)]="changePasswordModel.oldPassword" name="firstName"
+                            type="password" class="form-control input-sm" placeholder="Old Password">
+                        </div>
+
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                          <label class="dg-lable" for="noticeTitle">New Password: </label>
+                          <input tabindex="1" [(ngModel)]="changePasswordModel.newPassword" name="firstName"
+                            type="password" class="form-control input-sm" placeholder="New Password">
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                          <label class="dg-lable" for="noticeTitle">Confirm Password: </label>
+                          <input tabindex="1" [(ngModel)]="changePasswordModel.confirmPassword" name="lastName"
+                            type="password" class="form-control input-sm" placeholder="Confirm Password">
+                        </div>
+                      </div>
+                      <button type="submit" class="btn green" style="margin-top: 10px; float: right;"
+                        (click)="onChangePasswordSubmit()">Update</button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

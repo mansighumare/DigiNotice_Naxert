@@ -1,0 +1,69 @@
+<!-- Top navigation -->
+<topnavbar></topnavbar>
+
+<!-- BEGIN HEADER & CONTENT DIVIDER -->
+<div class="clearfix"> </div>
+<!-- END HEADER & CONTENT DIVIDER -->
+
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+
+  <!-- Top navigation -->
+  <navigation></navigation>
+
+  <!-- Main view/routes wrapper-->
+  <!-- BEGIN CONTENT -->
+  <div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content" style="min-height: 567px;">
+      <!-- BEGIN PAGE BAR -->
+      <div class="page-bar" style="padding: 5px;">
+        <!-- <img src="assets/layouts/layout/img/top-add-banner.jpg" width="100%" alt="Top Bar Add Banner" /> -->
+            <div id="container">
+              <div class="overlay-left"></div>
+              <div class="overlay-right"></div>
+              <div id="grid" class="image-cropper">              
+                 <img  *ngFor="let url of imageUrls" class="pointer"                      
+                    (@move.done)="onFinish($event)" 
+                    (@move.start)="onStart($event)"                          
+                    [src]="url['imagePath']"
+                    alt="" width="100%" height="150px" (click)="openImageUrl(url['adUrl'])"/>
+              </div>
+              <div>
+                <a id="slider-buttons-left" (click)="moveLeft()">&#10094;</a>
+                <a id="slider-buttons-right" (click)="moveRight()">&#10095;</a>
+              </div>
+            </div>      
+      </div>
+      <!-- END PAGE BAR -->
+      <div class="row">
+        <div class="col-md-12 col-sm-12">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+      <!-- <div class="row" style="margin-top: 20px;">
+        <div class="col-md-10 col-sm-10">
+          <router-outlet></router-outlet>
+        </div>
+        <div class="col-md-2 col-sm-2">
+          <div class="right-add-banner">
+            <img src="assets/layouts/layout/img/right-add-banner.png" width="100%" alt="Right Add Banner" />
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+  <!-- END CONTENT BODY -->
+  <!-- END CONTENT -->
+
+</div>
+<!-- END CONTAINER -->
+
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+  <div class="page-footer-inner"> 2023 &copy; DIGINOTICE.</div>
+  <div class="scroll-to-top">
+    <i class="icon-arrow-up"></i>
+  </div>
+</div>
+<!-- END FOOTER -->

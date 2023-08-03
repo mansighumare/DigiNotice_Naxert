@@ -1,0 +1,138 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<div class="portlet light bordered" style="margin-top: 20px;">
+  <div class="portlet-title">
+    <div class="caption font-dark float-l">
+      <i class="fa fa-phone-square"></i>
+      <span class="caption-subject font-blue bold ">Contact us</span>
+    </div>
+  </div>
+  <div class="c-contact">
+    <div class="c-content-title-1">
+      <h3 class="uppercase">Write to us:</h3>
+      <div class="c-line-left bg-dark"></div>
+      <p class="c-font-lowercase">Please drop us a line below and we'll get in touch with you shortly!
+      </p>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+      <div class="row">
+        <div class="col-md-6">
+          <form role="form" [formGroup]="contactUsForm" (ngSubmit)="onSubmit()">
+            <div class="form-group"
+              [ngClass]="{'has-error': ((contactUsForm.get('name').touched || contactUsForm.get('name').dirty) && contactUsForm.get('name').errors)}">
+              <div class="col-md-12">
+                <label class="dg-lable">Name :</label>
+                <input formControlName="name" type="text" name="name" (keypress)="sharedModel.lettersOnly($event)"
+                  class="form-control input-sm" placeholder="Name">
+                <span class="help-block" *ngIf="((contactUsForm.get('name').touched ||
+                       contactUsForm.get('name').dirty) &&
+                       contactUsForm.get('name').errors)">
+                  <span *ngIf="contactUsForm.get('name').errors.required">
+                    Fisrt Name is required
+                  </span>
+                  <span *ngIf="contactUsForm.get('name').errors.minlength ||
+                       contactUsForm.get('name').errors.maxlength">
+                    First Name must be between 2 characters to 10 characters
+                  </span>
+                </span>
+              </div>
+
+            </div>
+            <div class="form-group">
+              <div class="col-md-12">
+                <label class="dg-lable">Contact me by :</label>
+                <div class="form-control input-sm dg-radio-list">
+                  <div class="dg-radio-item">
+                    <input value="email" type="radio" (click)="onContactClick('email')" id="email" checked="checked" formControlName="contactMeType">
+                    <label for="email">Email</label>
+                  </div>
+                  <div class="dg-radio-item">
+                    <input value="phone" type="radio" id="phone" (click)="onContactClick('phone')" formControlName="contactMeType">
+                    <label for="phone">Phone</label>
+               
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group"
+              [ngClass]="{'has-error': ((contactUsForm.get('email').touched || contactUsForm.get('email').dirty) && contactUsForm.get('email').hasError('required'))}">
+              <div class="col-md-12">
+                <label class="dg-lable">Email :</label>
+                <input formControlName="email" type="email" class="form-control input-sm" placeholder="Email">
+                <span class="help-block" *ngIf="((contactUsForm.get('email').touched ||
+                       contactUsForm.get('email').dirty) &&
+                       contactUsForm.get('email').hasError('required'))">
+                  <span class="help-block"
+                    *ngIf="contactUsForm.get('email').hasError('required') && contactUsForm.get('email').touched">
+                    Email is required
+                  </span>
+                </span>
+                <!-- <span class="help-block"
+              *ngIf="((contactUsForm.get('email').touched ||
+              contactUsForm.get('email').hasError('required')">
+         email is required
+        </span> -->
+              </div>
+            </div>
+            <div class="form-group"
+              [ngClass]="{'has-error': ((contactUsForm.get('phone').touched || contactUsForm.get('phone').dirty) && contactUsForm.get('phone').hasError('required'))}">
+              <div class="col-md-12">
+                <label class="dg-lable">Phone :</label>
+                <input formControlName="phone" minlength="10" required maxlength="10" type="phone"
+                  class="form-control input-sm" placeholder="Phone">
+                <span class="help-block" *ngIf="((contactUsForm.get('phone').touched ||
+                       contactUsForm.get('phone').dirty) &&
+                       contactUsForm.get('phone').hasError('required'))">
+                  <span class="help-block"
+                    *ngIf="contactUsForm.get('phone').hasError('required') && contactUsForm.get('phone').touched">
+                    Phone is required
+                  </span>
+                </span>
+              </div>
+
+            </div>
+            <!-- <div class="form-group"   [class.has-error]="contactMeType.invalid"> -->
+            
+            <div class="clearfix"> </div>
+            <div class="form-group"
+              [ngClass]="{'has-error': ((contactUsForm.get('subject').touched || contactUsForm.get('subject').dirty) && contactUsForm.get('subject').hasError('required'))}">
+              <div class="col-md-12">
+                <label class="dg-lable">Subject : </label>
+                <input formControlName="subject" type="text" class="form-control input-sm" placeholder="Subject">
+                <span class="help-block" *ngIf="((contactUsForm.get('subject').touched ||
+                       contactUsForm.get('subject').dirty) &&
+                       contactUsForm.get('subject').errors)">
+                  <span *ngIf="contactUsForm.get('subject').errors.required">
+                    Subject is required
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="form-group" style="margin-top: 15px;"
+              [ngClass]="{'has-error': ((contactUsForm.get('message').touched || contactUsForm.get('message').dirty) && contactUsForm.get('message').hasError('required'))}">
+              <div class="col-md-12">
+                <label class="dg-lable">Message : </label>
+                <textarea formControlName="message" class="form-control" rows="3"></textarea>
+                <span class="help-block" *ngIf="((contactUsForm.get('message').touched ||
+                       contactUsForm.get('message').dirty) &&
+                       contactUsForm.get('message').errors)">
+                  <span *ngIf="contactUsForm.get('message').errors.required">
+                    Message is required
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div style=" clear: both"></div>
+            <br>
+            <div class=" col-md-12 form-actions right">
+              <button [disabled]="isShowLoader ||!contactUsForm.valid" type="submit"
+                class="btn btn-success bt-c">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,123 @@
+<app-loader *ngIf="isShowLoader">
+</app-loader>
+
+
+<div id="backend-users" class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-users"></i>
+          <span class="caption-subject font-blue bold" style="font-size: 16px;">Deleted Assets</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="row">
+          <div class="col-sm-3">
+
+          </div>
+          <div class="col-sm-3">
+
+          </div>
+          <div class="col-sm-3">
+            <div *ngIf="this.loggedInUserRole=='Org Admin'">
+              <label class="dg-lable" for="userRole">Branches</label>
+              <select name="as-userRole" (change)='onOptionsSelectedBranches($event)' class="form-control input-sm"
+                name="userRole">
+                <option value="0" selected>All</option>
+                <option *ngFor="let branch of Branch" [value]="branch.branchId">{{branch.displayName}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm"  [formControl]="searchControl"
+                placeholder="Search" />
+              <div class="input-group-prepend">
+                <span class="input-group-text" (click)="Search()"><i class="fa fa-search"></i></span>
+              </div>&nbsp;&nbsp;&nbsp;
+              <span (click)="exportAsXLSX()" style="color:green!important;margin-top:2px;" tooltip="Export to Excel"
+                placement="top" show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+              <span (click)="Refresh()" style="color:green!important;cursor: pointer;padding-left: 15px;margin-top:2px;"
+                tooltip="Refresh" placement="top" show-delay="500"><i class="fa fa-refresh  fa-lg"></i></span>
+
+            </div>
+          </div>
+
+
+        </div>
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px">
+          <div class="row">
+            <div id="row-scrollable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Owner Name</th>
+                    <th>Locality</th>
+                    <th>Type</th>
+                    <th>Gat No.</th>
+                    <th>CTS No.</th>
+                    <th *ngIf="this.loggedInUserRole=='Org Admin'">Branch Name</th>
+                    <th>Created By</th>
+                    <th>Deleted By</th>
+                    <th>Deleted Date</th>
+                    <!-- <th>Other information</th> -->
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="!isShowLoader && tbldata.length === 0" class="no-records">
+                    <td colspan="10">No Records Found</td>
+                  </tr>
+                  <tr *ngFor="let property of tbldata">
+                    <td>{{ property.ownerFullName}}</td>
+                    <td>{{ property.landMark}}</td>
+                    <td>{{ property.landCategoryName}}</td>
+                    <td>{{ property.gatNumber}}</td>
+                    <td>{{ property.ctsnumber}}</td>
+                    <td *ngIf="this.loggedInUserRole=='Org Admin'">{{ property.branchName}}</td>
+                    <td>{{ property.name}}</td>
+                    <td>{{ property.deletedBy}}</td>
+                    <td>{{ property.modifiedDates}}</td>
+
+                    <!-- <td>{{ property.otherDetails}}</td> -->
+                    <td>
+                      <div id="div1"><span class="badge badge-success"
+                          style="background-color:#2f353a;">Deleted</span>
+                      </div>
+                      <!-- <div id="div2"><span class="badge badge-danger">InActive</span>
+                                            </div> -->
+                    </td>
+                    <td>
+                      <i (click)="onViewProperty(property)" class="fa fa-eye" aria-hidden="true"
+                        data-text="View"></i>&nbsp;
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="paginator-container">
+                <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                 Total items: {{this.tbldataLength}}
+                </span>
+                <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                  Items per page: 25
+                </span>
+                <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1"
+                               (page)="onChangePage($event)"
+                               aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+              
+               
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-view-org-asset [editOrgPropertyModel]="viewProperty"></app-view-org-asset>

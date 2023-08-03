@@ -1,0 +1,413 @@
+<app-loader *ngIf="isShowLoader || reportService.isShowDownloadLoader"></app-loader>
+
+<!-- Infinite Scroll Loader -->
+<app-loader *ngIf="isLoading"></app-loader>
+
+<div id="dashbaord-notice-container" class="portlet light bordered" style="margin-top: 20px;">
+  <div class="portlet-title">
+    <div class="caption font-dark float-l" (click)="onToggleSearchForm()">
+      <i class="fa fa-search"></i>
+      <span class="caption-subject font-blue bold ">Search Your Notice</span>
+    </div>
+
+  </div>
+  <div class="portlet-body">
+    <div class="tabbable-line">
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab_15_1">
+          <div id="dashboard-search-form" style="display: none;">
+            <ul class=" nav nav-tabs">
+              <li tabindex="1" (click)="onTabChange('universal-search')" [ngClass]="{'active': this.tabName == 'universal-search'}">
+                <a>Universal search</a>
+              </li>
+              <li tabindex="2" (click)="onTabChange('basic-search')" [ngClass]="{'active': this.tabName == 'basic-search'}">
+                <a> Basic Search </a>
+              </li>
+              <li tabindex="3" (click)="onTabChange('advance-search')" [ngClass]="{'active': this.tabName == 'advance-search'}">
+                <a> Advance Search </a>
+              </li>
+             
+            </ul>
+            <!-- BEGIN SEARCH FORM-->
+            <div class=" form-horizontal">
+              <div class="form-body">
+                <div class="form-group">
+                  <!-- <div class="col-md-3">
+                    <label class="dg-lable" for="noticeTitle">Notice Title:</label>
+                    <select [(ngModel)]="searchModel.noticeTypeId" name="noticeTitle" class="form-control input-sm">
+                      <option value="0">Select All</option>
+                      <option *ngFor="let noticetype of NoticeType" [value]="noticetype.id">
+                        {{noticetype.name}}</option>
+                    </select>
+                  </div> -->
+                  <div class="col-md-3" *ngIf="tabName =='basic-search' || tabName == 'advance-search'">
+                    <!-- <label class="dg-lable" for="InterestedCities">Notice Type:</label>
+                    <div class="dropdown">
+                      <button class="dropbtn">
+                        Notice Type
+                        <i class="fa fa-caret-down"></i>
+                      </button>
+                      <div class="dropdown-content">
+                        <ng-container *ngFor="let noticetype of NoticeType">
+                          <div class="dg-checkbox-item">
+                            <span (click)="onInterestedCityChage(noticetype)" class="dg-checkbox"
+                              [ngClass]="{'checked' : noticetype.isSelected}">{{noticetype.name}}</span>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div> -->
+                    <mat-form-field>
+                      <label class="dg-lable" style="margin-bottom:10px;">Notice Type</label>
+                      <mat-select tabindex="4" class="form-control input-sm" multiple [(ngModel)]="noticeTypeArray">
+                        <!-- <mat-option 
+                        (click)="getSelectedValue1(noticeTypeArray)"
+                        value="0">All</mat-option> -->
+                        <mat-option (click)="toggleSelectAll()" [value]="selectAllValue">
+                          {{selectAllLabel}}
+                        </mat-option>
+
+                        <mat-option *ngFor="let noticetype of NoticeType" (click)="getSelectedValue1(noticeTypeArray)"
+                          [value]="noticetype.id">{{noticetype.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3" *ngIf="tabName =='basic-search' || tabName == 'advance-search'">
+                    <label class="dg-lable" for="landCategoryId">Land Category:</label>
+                    <select tabindex="5" [(ngModel)]="searchModel.landCategoryId" name="as-landCategoryId"
+                      class="form-control input-sm">
+                      <!-- <option *ngIf="searchModel.landCategoryId == ''" value="">Select Category</option> -->
+                      <option value="0">All Categories</option>
+                      <option *ngFor="let land of lookupService.landCategoryList" [value]="land.id">{{land.displayName}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3" *ngIf="tabName =='basic-search' || tabName == 'advance-search'">
+                    <label class="dg-lable" for="paperId">Newspaper:</label>
+                    <select tabindex="6" [(ngModel)]="searchModel.paperId" name="as-paperId" class="form-control input-sm">
+                      <!-- <option *ngIf="searchModel.paperId == ''" value="">Select Newspaper</option> -->
+                      <option value="">All Newspapers</option>
+                      <option *ngFor="let news of lookupService.newsPapers" [value]="news.id">{{news.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3" *ngIf="tabName == 'universal-search' ">
+                    <label class="dg-lable" for="daterange">Search:</label>
+                    <input tabindex="7" [(ngModel)]="searchModel.searchString" (ngModelChange)="searchModel.searchString= $event.toUpperCase()" name="searchString" type="text"
+                      class="form-control input-sm" placeholder="Please Enter Your Search Text">
+                  </div>
+                  <div class="col-md-3"
+                    *ngIf="tabName =='basic-search' || tabName == 'advance-search' || tabName == 'universal-search' ">
+                    <label class="dg-lable" for="daterange">Date Range:</label>
+                    <input tabindex="8" id="txtSearchDateRange" class="form-control input-sm col-md-6" name="daterange"
+                      placeholder="Select Date Range" type="text" />
+                  </div>
+                </div>
+                <div class="form-group" *ngIf="tabName =='basic-search' || tabName == 'advance-search'">
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="stateId">State:</label>
+                    <select tabindex="9" disabled [(ngModel)]="searchModel.stateId" (change)="onStateChange($event)"
+                      name="as-stateId" class="form-control input-sm">
+                      <option *ngFor="let state of lookupService.stateList" [value]="state.id">{{state.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="cityId">District:</label>
+                    <select  tabindex="10" [(ngModel)]="searchModel.cityId" (change)="onDistrictChange($event)" name="as-cityId"
+                      class="form-control input-sm">
+                      <option value=0>All Districts</option>
+                      <option *ngFor="let district of lookupService.cityList" [value]="district.id">{{district.name}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="talukaId">Taluka:</label>
+                    <select tabindex="11" [(ngModel)]="searchModel.talukaId" (change)="onTalukaChange($event)" name="as-talukaId"
+                      class="form-control input-sm">
+                      <option value=0>All Talukas</option>
+                      <option *ngFor="let taluka of lookupService.talukaList" [value]="taluka.id">{{taluka.name}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="villageId">Village:</label>
+                    <select tabindex="12" [(ngModel)]="searchModel.villageId" name="as-villageId" class="form-control input-sm">
+                      <option value=0>All Villages</option>
+                      <option *ngFor="let village of lookupService.villageList" [value]="village.id">{{village.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <!-- <div *ngIf="searchModel.tabName == 'advance-search'" class="form-group">
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="surveyNumber">Survey Number:</label>
+                    <input [(ngModel)]="searchModel.surveyNumber" type="text" class="form-control input-sm"
+                      placeholder="Survey No">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="gatNumber">Gat Number:</label>
+                    <input [(ngModel)]="searchModel.gatNumber" type="text" class="form-control input-sm"
+                      placeholder="Gat No">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="plotNumber">Plot Number:</label>
+                    <input [(ngModel)]="searchModel.plotNumber" type="text" class="form-control input-sm"
+                      placeholder="Plot No">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="ctsNumber">CTS Number:</label>
+                    <input [(ngModel)]="searchModel.ctsNumber" type="text" class="form-control input-sm"
+                      placeholder="CTS No">
+                  </div>
+                </div> -->
+
+                <div class="form-group mt-30" *ngIf="this.tabName == 'advance-search'">
+                  <div class="col-md-11">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <input tabindex="13" [(ngModel)]="searchModel.sectorNo" name="sectorno" type="text"
+                          class="form-control input-sm" placeholder="Sector No">
+                      </div>
+                      <div class="col-md-3">
+                        <input tabindex="14" [(ngModel)]="searchModel.projectName" (ngModelChange)="searchModel.projectName= $event.toUpperCase()" name="projectname" type="text"
+                          class="form-control input-sm" placeholder="Project Name">
+                      </div>
+                      <div class="col-md-3">
+                        <input tabindex="15" list="browsers" tabindex="3" [(ngModel)]="searchModel.ownerFullName" name="ownerFullName"
+                          type="text" class="form-control input-sm" placeholder="Owner Full Name" autocomplete="off">
+                      </div>
+                      <div class="col-md-3">
+                        <input tabindex="16" list="browsers" tabindex="3" [(ngModel)]="searchModel.advocateName" name="advocateName"
+                          type="text" class="form-control input-sm" placeholder="Advocate Name" autocomplete="off">
+                      </div>
+
+
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                      <div class="col-md-2">
+                        <input tabindex="17" [(ngModel)]="searchModel.surveyNumber" (ngModelChange)="searchModel.surveyNumber= $event.toUpperCase()" name="surveyNumber" type="text"
+                          class="form-control input-sm" placeholder="Survey/Khasra No">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="18" [(ngModel)]="searchModel.gatNumber" (ngModelChange)="searchModel.gatNumber= $event.toUpperCase()"  name="gatNumber" type="text"
+                          class="form-control input-sm" placeholder="Gat No">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="19" [(ngModel)]="searchModel.plotNumber" (ngModelChange)="searchModel.plotNumber= $event.toUpperCase()" name="plotNumber" type="text"
+                          class="form-control input-sm" placeholder="Plot No">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="20" [(ngModel)]="searchModel.ctsNumber" (ngModelChange)="searchModel.ctsNumber= $event.toUpperCase()"  name="ctsNumber" type="text"
+                          class="form-control input-sm" placeholder="CTS No">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="21" [(ngModel)]="searchModel.propertyArea" (ngModelChange)="searchModel.propertyArea= $event.toUpperCase()" name="PropertyArea" type="text"
+                          class="form-control input-sm" placeholder="Property Area">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="22" [(ngModel)]="searchModel.buildingName" name="buildingName" type="text"
+                          class="form-control input-sm" placeholder="Building Name">
+                      </div>
+
+                    </div>
+                    <div class="row" *ngIf="this.is_add_other_details">
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="23" [(ngModel)]="searchModel.flatNo" (ngModelChange)="searchModel.flatNo= $event.toUpperCase()" name="flatNo" type="text"
+                          class="form-control input-sm" placeholder="Flat No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="24" [(ngModel)]="searchModel.floorNo" (ngModelChange)="searchModel.floorNo= $event.toUpperCase()" name="floorNo" type="text"
+                          class="form-control input-sm" placeholder="Floor No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="25" [(ngModel)]="searchModel.constructedPropertyArea" (ngModelChange)="searchModel.constructedPropertyArea= $event.toUpperCase()" name="note" type="text"
+                          class="form-control input-sm" placeholder="Constructed Property Area">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="26" [(ngModel)]="searchModel.finalPlotNo" (ngModelChange)="searchModel.finalPlotNo= $event.toUpperCase()" name="finalplotno" type="text"
+                          class="form-control input-sm" placeholder="Final Plot No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="27" [(ngModel)]="searchModel.subPlotNo" (ngModelChange)="searchModel.subPlotNo= $event.toUpperCase()" name="subplotno" type="text"
+                          class="form-control input-sm" placeholder="Sub Plot No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="28" [(ngModel)]="searchModel.privatePlotNo" (ngModelChange)="searchModel.privatePlotNo= $event.toUpperCase()" name="privateplotno" type="text"
+                          class="form-control input-sm" placeholder="Private Plot No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="29" [(ngModel)]="searchModel.catestrialSurveyNo" (ngModelChange)="searchModel.catestrialSurveyNo= $event.toUpperCase()" name="catestrialsurveyno"
+                          type="text" class="form-control input-sm" placeholder="Cadastral Survey No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="30" [(ngModel)]="searchModel.houseNo" (ngModelChange)="searchModel.houseNo= $event.toUpperCase()" name="houseno" type="text"
+                          class="form-control input-sm" placeholder="House No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="31" [(ngModel)]="searchModel.tenementNo" (ngModelChange)="searchModel.tenementNo= $event.toUpperCase()" name="tenanatno" type="text"
+                          class="form-control input-sm" placeholder="Tenament No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="32" [(ngModel)]="searchModel.factoryShedNo" (ngModelChange)="searchModel.factoryShedNo= $event.toUpperCase()" name="factoryshedno" type="text"
+                          class="form-control input-sm" placeholder="Factory Shed No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="33" [(ngModel)]="searchModel.industrialBuilding" (ngModelChange)="searchModel.industrialBuilding= $event.toUpperCase()" name="industrialbuilding"
+                          type="text" class="form-control input-sm" placeholder="Industrial Building">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="34" [(ngModel)]="searchModel.grampanchayatNo" (ngModelChange)="searchModel.grampanchayatNo= $event.toUpperCase()" name="grampanchayatNo"
+                          type="text" class="form-control input-sm" placeholder="Grampanchayat Milkat No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="35" [(ngModel)]="searchModel.nagarPanchyatMilkatNo" (ngModelChange)="searchModel.nagarPanchyatMilkatNo= $event.toUpperCase()" name="nagarPanchyatMilkatNo"
+                          type="text" class="form-control input-sm" placeholder="Nagar Panchayat Milkat No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="36" [(ngModel)]="searchModel.glrNo" (ngModelChange)="searchModel.glrNo= $event.toUpperCase()" name="glrNo"
+                          type="text" class="form-control input-sm" placeholder="GLR No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="37" [(ngModel)]="searchModel.malmattaNo" (ngModelChange)="searchModel.malmattaNo= $event.toUpperCase()" name="malmattaNo" type="text"
+                          class="form-control input-sm" placeholder="Malmatta No/Milkat No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="38" [(ngModel)]="searchModel.corporationRegistrationNo" (ngModelChange)="searchModel.corporationRegistrationNo= $event.toUpperCase()"
+                          name="corporationRegistrationNo" type="text" class="form-control input-sm"
+                          placeholder="Corporation Registration No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="39" [(ngModel)]="searchModel.propertyCardNo" (ngModelChange)="searchModel.propertyCardNo= $event.toUpperCase()" name="propertyCardNo" type="text"
+                          class="form-control input-sm" placeholder="Property Card No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="40" [(ngModel)]="searchModel.phaseNo" (ngModelChange)="searchModel.phaseNo= $event.toUpperCase()"  name="phaseNo" type="text"
+                          class="form-control input-sm" placeholder="Phase No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="41" [(ngModel)]="searchModel.buildingNo" (ngModelChange)="searchModel.buildingNo= $event.toUpperCase()" name="buildingNo" type="text"
+                          class="form-control input-sm" placeholder="Building No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="42" [(ngModel)]="searchModel.flatShopNo" (ngModelChange)="searchModel.flatShopNo= $event.toUpperCase()" name="flatShopNo" type="text"
+                          class="form-control input-sm" placeholder="Flat Shop No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="43" [(ngModel)]="searchModel.commencementCertificateNo" (ngModelChange)="searchModel.commencementCertificateNo= $event.toUpperCase()"
+                          name="commencementCertificateNo" type="text" class="form-control input-sm"
+                          placeholder="Commencement Certificate No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="44" [(ngModel)]="searchModel.completionCertificateNo" (ngModelChange)="searchModel.completionCertificateNo= $event.toUpperCase()"
+                          name="completionCertificateNo" type="text" class="form-control input-sm"
+                          placeholder="Completion Certificate No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="45" [(ngModel)]="searchModel.shareCertificateNo" (ngModelChange)="searchModel.shareCertificateNo= $event.toUpperCase()" name="shareCertificateNo"
+                          type="text" class="form-control input-sm" placeholder="Share Certificate No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="46" [(ngModel)]="searchModel.propertyNo" (ngModelChange)="searchModel.propertyNo= $event.toUpperCase()" name="propertyNo" type="text"
+                          class="form-control input-sm" placeholder="Property No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="47" [(ngModel)]="searchModel.complaintNoReportNo" (ngModelChange)="searchModel.complaintNoReportNo= $event.toUpperCase()" name="complaintNoReportNo" type="text"
+                          class="form-control input-sm" placeholder="Complaint No/Report No ">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <a tabindex="48" (click)="this.is_add_other_details=!this.is_add_other_details"
+                      class="btn btn-success bt-c" style="margin-top: 10px;">
+                      Other
+                    </a>
+                  </div>
+                </div>
+
+                <!-- <div class="form-group" *ngIf="this.tabName == 'universal-search'">
+
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="daterange">Search</label>
+                    <input tabindex="78" [(ngModel)]="searchModel.searchString" name="searchString" type="text"
+                      class="form-control input-sm" placeholder="Search">
+                  </div>
+
+                </div> -->
+                <div class="form-group text-center">
+                  <div class="col-md-12">
+                    <button tabindex="49" [disabled]="isShowLoader" (click)="onSearchNotice(true)" type="button"
+                      class="btn btn-default search-cs">
+                      <i class="fa fa-search"></i> Search Notice
+                    </button>&nbsp;
+                    <button tabindex="50" [disabled]="isShowLoader" (click)="getRecentNoticesBtn()" type="button"
+                      class="btn btn-default search-cs">
+                      <i class="fa fa-search"></i> Recent Notices
+                    </button>&nbsp;
+                    <ng-container *ngIf="loggedInUserRole == 'SuperAdmin'">
+                      <button [disabled]="noticeInfoList.length == 0" (click)="onDownload()" type="button"
+                        class="btn btn-default search-cs">
+                        <i class="fa fa-download"></i> Download
+                      </button>
+                    </ng-container>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!-- END SEARCH FORM-->
+          </div>
+
+
+          <div *ngIf="isDashboard" class="mt-element-card mt-card-round heade-side">
+            <div class="row">
+              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                Date : {{noticeBanner.todayDate | date:"mediumDate"}}
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <label for="InterestedCities">Interested Districts :</label>
+                <div class="dropdown">
+                  <button class="dropbtn">
+                    {{noticeBanner.interestedCities}}
+                    <i class="fa fa-caret-down"></i>
+                  </button>
+                  <div class="dropdown-content">
+                    <ng-container >
+                      <div class="dg-checkbox-item">
+                        <span (click)="onInterestedCityChage(city)" class="dg-checkbox">All</span>
+                      </div>
+                    </ng-container>
+                  </div>
+                  <div class="dropdown-content">
+                    <ng-container *ngFor="let city of lookupService.cityList">
+                      <div class="dg-checkbox-item">
+                        <span (click)="onInterestedCityChage(city)" class="dg-checkbox"
+                          [ngClass]="{'checked' : city.isSelected}">{{city.name}}</span>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                {{noticeBanner.numberOfNotices}}
+              </div>
+            </div>
+          </div>
+
+          <div (scroll)="onInfiniteScroll($event)" id="row-scrollable" class="mt-element-card mt-card-round"
+            style="margin-top: 40px;">
+
+            <div class="row" style="display:flex; flex-wrap:wrap;">
+              <ng-container *ngFor="let noticeInfo of noticeInfoList">
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                  <app-notice-card [noticeInfo]="noticeInfo" [isShowBookmark]="true"></app-notice-card>
+                </div>
+              </ng-container>
+
+              <div *ngIf="noticeInfoList.length == 0" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                No Notices Found
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

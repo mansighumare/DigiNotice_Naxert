@@ -1,0 +1,73 @@
+<!-- BEGIN SIDEBAR -->
+<div class="page-sidebar-wrapper">
+  <!-- BEGIN SIDEBAR -->
+  <div class="page-sidebar navbar-collapse">
+    <!-- BEGIN SIDEBAR MENU -->
+    <!-- <ul class="page-sidebar-menu page-header-fixed" data-keep-expanded="false" data-auto-scroll="true"
+      data-slide-speed="200" style="padding-top: 0px"> -->
+    <ul class="page-sidebar-menu page-header-fixed row-scrollable" data-keep-expanded="false" data-auto-scroll="true"
+      data-slide-speed="200" style="padding-top: 0px; overflow-y: scroll; max-height: 90%;">
+
+      <li class="sidebar-toggler-wrapper hide">
+        <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+        <div class="sidebar-toggler"> </div>
+        <!-- END SIDEBAR TOGGLER BUTTON -->
+      </li>
+
+      <li class="sidebar-search-wrapper">
+        <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+
+
+        <div class="user-panel">
+          <div class="image" style="text-align: center">
+            <span class="user-initials-md"> <img class="user-initials-md"
+                src="{{accountService.profileImageUrl}}"></span>
+          </div>
+          <div class="info">
+            <p>{{authService.fullName}}</p>
+            <a>{{authService.loggedInUser.email}}</a>
+          </div>
+        </div>
+        <!-- END RESPONSIVE QUICK SEARCH FORM -->
+      </li>
+
+      <li class="heading">
+        <h3 class="uppercase">--- PROFESSIONAL</h3>
+      </li>
+      <ng-container *ngFor="let menu of sideMenuPersonalList">
+        <li class="nav-item start" (click)="onRouterLinkClick(menu.path)"
+          [ngClass]="{'active open': activeRoute(menu.route)}">
+          <a class="nav-link nav-toggle">
+            <i class="{{menu.icon}}"></i>
+            <span class="title">{{menu.title}}</span>
+            <span [ngClass]="{'selected': activeRoute(menu.route)}"></span>
+            <i *ngIf="sharedModelService.matchedNoticeCount > 0 && menu.rightIcon" class="{{menu.rightIcon}}"></i>
+          </a>
+        </li>
+      </ng-container>
+      <li class="heading">
+        <h3 class="uppercase">--- PERSONAL</h3>
+      </li>
+      <ng-container *ngFor="let menu of sideMenuProfessionalList">
+        <li class="nav-item start" (click)="onRouterLinkClick(menu.path)"
+          [ngClass]="{'active open': activeRoute(menu.route)}">
+          <a class="nav-link nav-toggle">
+            <i class="{{menu.icon}}"></i>
+            <span class="title">{{menu.title}}</span>
+            <span [ngClass]="{'selected': activeRoute(menu.route)}"></span>
+          </a>
+        </li>
+      </ng-container>
+      <li class="nav-item" (click)="onSignOut()">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="icon-login"></i>
+          <span class="title">Sign Out</span>
+        </a>
+      </li>
+    </ul>
+    <!-- END SIDEBAR MENU -->
+    <!-- END SIDEBAR MENU -->
+  </div>
+  <!-- END SIDEBAR -->
+</div>
+<!-- END SIDEBAR -->

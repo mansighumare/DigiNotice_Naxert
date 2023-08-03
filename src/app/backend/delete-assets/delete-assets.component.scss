@@ -1,0 +1,54 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 500px;
+    min-width: 300px;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+  
+  .mat-column-select {
+    overflow: visible;
+  }
+  
+  .mat-elevation-z8{
+    box-shadow: none!important;
+  }
+
+  .mat-header-cell {
+    color:black!important;
+    font-size: 14px!important;
+    font-weight:600!important;
+}
+
+.mat-table{
+    font-family: outfit,Sans-serif!important;
+}
+.input-group-append .input-group-prepend {
+  display: flex;
+}
+
+.form-control {
+  height: 31px !important;
+}
+
+.input-group {
+ top: 10px !important;
+ display: flex;
+ // width: 195px;
+}
+
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{
+  background-color: #1abc9c!important;
+}
+::ng-deep .mat-checkbox:not(.mat-checkbox-disabled).mat-accent .mat-checkbox-ripple .mat-ripple-element{
+  background-color: #1abc9c!important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background{
+  background-color: #1abc9c!important;
+}

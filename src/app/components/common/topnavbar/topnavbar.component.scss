@@ -1,0 +1,83 @@
+
+
+
+
+.contact-info {
+  .contact-number {
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //cursor: pointer;
+  }
+}
+
+
+.toggler {
+  font-size: 200%;
+  font-weight: 400;
+  color: #fff;
+  margin-left: 286px;
+  
+}
+
+
+.toggler i{
+padding: 10px;
+animation: moveInX 0.5s ease; /* You can adjust the duration and easing function */
+}
+.nav > li > a:focus,
+.nav > li > a:hover {
+  text-decoration: none;
+  background-color: unset;
+}
+.nav > li > a:focus,
+.nav > li > a:hover {
+  text-decoration: none;
+  background-color: unset;
+}
+
+@media only screen and (max-width: 600px) {
+  .page-header {
+    .navbar-nav {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (min-width: 760px) {
+  .page-sidebar {
+    position: fixed;
+    top: 50px;
+  }
+  .user-initials-md {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+}
+
+// .badge-top {
+//   position: absolute;
+//   top: 5px; /* Adjust this value to position the badge correctly */
+//   right:-3px;
+// }
+
+
+@media (min-width: 992px){
+.page-header.navbar .page-logo1 {
+    float: left;
+    display: flex;
+    width: auto;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 0;
+}
+}
+.page-header.navbar .page-logo1 .logo-default1 {
+  margin: 8px 0 0 0;
+}
+
+.page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle:last-child {
+  padding-right: 18px;
+  }

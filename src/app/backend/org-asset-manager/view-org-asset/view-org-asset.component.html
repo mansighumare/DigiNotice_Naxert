@@ -1,0 +1,327 @@
+<div class="modal fade" id="view-property-popup" tabindex="-1" role="view" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" (click)="closeViewPropertyPopup()"></button>
+        <h4 class="modal-title modal-title-c">Property Info</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-light table-c">
+          <tbody>
+            <tr *ngIf="editOrgPropertyModel.ownerFullName !=='' && editOrgPropertyModel.ownerFullName !== null">
+              <td>Owner Name</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.ownerFullName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.branchName !=='' && editOrgPropertyModel.branchName !== null">
+              <td>Branch Name</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.branchName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.name !=='' && editOrgPropertyModel.name !== null">
+              <td>Created By</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.name}}</strong>
+              </td>
+            </tr>
+            <tr> 
+              <td>State</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.stateName}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>District</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.cityName}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>Taluka</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.talukaName}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>Village</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.villageName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.landMark !=='' && editOrgPropertyModel.landMark !== null">
+              <td>Locality</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.landMark}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.sectorNo !=='' && editOrgPropertyModel.sectorNo !== null">
+              <td>Sector No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.sectorNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.projectName !=='' && editOrgPropertyModel.projectName !== null">
+              <td>Project Name</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.projectName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.landCategoryName !=='' && editOrgPropertyModel.landCategoryName !== null">
+              <td>Type</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.landCategoryName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.surveyNumber !=='' && editOrgPropertyModel.surveyNumber !== null">
+              <td>Survey/Khasra No.</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.surveyNumber}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.plotNumber !=='' && editOrgPropertyModel.plotNumber !== null">
+              <td>Plot Number</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.plotNumber}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.catestrialSurveyNo !=='' && editOrgPropertyModel.catestrialSurveyNo !== null">
+              <td>Cadastral Survey No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.catestrialSurveyNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.gatNumber !=='' && editOrgPropertyModel.gatNumber !== null">
+              <td>Gat No.</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.gatNumber}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.ctsnumber !=='' && editOrgPropertyModel.ctsnumber !== null">
+              <td>CTS No.</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.ctsnumber}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.propertyCardNo !=='' && editOrgPropertyModel.propertyCardNo !== null">
+              <td>Property Card No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.propertyCardNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.buildingName !=='' && editOrgPropertyModel.buildingName !== null">
+              <td>Building Name</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.buildingName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.floorNo !=='' && editOrgPropertyModel.floorNo !== null">
+              <td>Floor No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.floorNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.flatNo !=='' && editOrgPropertyModel.flatNo !== null">
+              <td>Flat No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.flatNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.phaseNo !=='' && editOrgPropertyModel.phaseNo !== null">
+              <td>Phase No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.phaseNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.constructedPropertyArea !=='' && editOrgPropertyModel.constructedPropertyArea !== null"> 
+              <td>Constructed Property Area</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.constructedPropertyArea}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.houseNo !=='' && editOrgPropertyModel.houseNo !== null">
+              <td>House No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.houseNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.tenementNo !=='' && editOrgPropertyModel.tenementNo !== null">
+              <td>Tenament No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.tenementNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.factoryShedNo !=='' && editOrgPropertyModel.factoryShedNo !== null">
+              <td>Factory Shed No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.factoryShedNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.industrialBuilding !=='' && editOrgPropertyModel.industrialBuilding !== null">
+              <td>Industrial Building</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.industrialBuilding}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.flatShopNo !=='' && editOrgPropertyModel.flatShopNo !== null">
+              <td>Flat Shop No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.flatShopNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.buildingNo !=='' && editOrgPropertyModel.buildingNo !== null">
+              <td>Building No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.buildingNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.privatePlotNo !=='' && editOrgPropertyModel.privatePlotNo !== null">
+              <td>Private Plot No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.privatePlotNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.finalPlotNo !=='' && editOrgPropertyModel.finalPlotNo !== null">
+              <td>Final Plot No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.finalPlotNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.subPlotNo !=='' && editOrgPropertyModel.subPlotNo !== null">
+              <td>Sub Plot No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.subPlotNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.glrNo !=='' && editOrgPropertyModel.glrNo !== null">
+              <td>GLR No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.glrNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.malmattaNo !=='' && editOrgPropertyModel.malmattaNo !== null">
+              <td>Malmatta No/Milkat No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.malmattaNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.nagarPanchyatMilkatNo !=='' && editOrgPropertyModel.nagarPanchyatMilkatNo !== null">
+              <td>Nagar Panchyat Milkat No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.nagarPanchyatMilkatNo}}</strong>
+              </td>
+            </tr>
+
+            <tr *ngIf="editOrgPropertyModel.grampanchayatNo !=='' && editOrgPropertyModel.grampanchayatNo !== null">
+              <td>Grampanchayat Milkat No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.grampanchayatNo}}</strong>
+              </td>
+            </tr>
+           
+            <tr *ngIf="editOrgPropertyModel.corporationRegistrationNo !=='' && editOrgPropertyModel.corporationRegistrationNo !== null">
+              <td>Corporation Registration No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.corporationRegistrationNo}}</strong>
+              </td>
+            </tr>
+           
+           
+            
+            
+            <tr *ngIf="editOrgPropertyModel.commencementCertificateNo !=='' && editOrgPropertyModel.commencementCertificateNo !== null">
+              <td>Commencement Certificate No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.commencementCertificateNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.completionCertificateNo !=='' && editOrgPropertyModel.completionCertificateNo !== null">
+              <td>Completion Certificate No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.completionCertificateNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.shareCertificateNo !=='' && editOrgPropertyModel.shareCertificateNo !== null">
+              <td>Share Certificate No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.shareCertificateNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editOrgPropertyModel.propertyNo !=='' && editOrgPropertyModel.propertyNo !== null">
+              <td>Property No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.propertyNo}}</strong>
+              </td>
+            </tr>    
+            <tr *ngIf="editOrgPropertyModel.complaintNoReportNo !=='' && editOrgPropertyModel.complaintNoReportNo !== null">
+              <td>Complaint/Report No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.complaintNoReportNo}}</strong>
+              </td>
+            </tr>        
+            <tr *ngIf="editOrgPropertyModel.otherDetails !=='' && editOrgPropertyModel.otherDetails !== null">
+              <td>Other information</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editOrgPropertyModel.otherDetails}}</strong>
+              </td>
+            </tr>
+            
+            <tr>
+              <td colspan="3">
+                <div class="col-md-3 col-sm-6" *ngFor="let img of editOrgPropertyModel.assetImages">
+                  <img class="img-preview dg-asset-img" [src]="img.name" alt="Property Image">
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" (click)="closeViewPropertyPopup()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

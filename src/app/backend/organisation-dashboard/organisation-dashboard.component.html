@@ -1,0 +1,359 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<!-- END PAGE HEADER-->
+<div class="row">
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+    *ngIf="this.loggedInUserRoleGuid !='64B4686D-6086-4AD8-AE9C-D4FB4F409588'">
+    <div class="dashboard-stat blue">
+      <div class="visual">
+        <i class="fa fa-user"></i>
+      </div>
+      <div class="details">
+        <div class="number">
+          <span data-counter="counterup">{{ dashboardInfo.totalUser }}</span>
+        </div>
+        <div class="desc">Total Users</div>
+        <!-- <span class="bg-white ai-box" (click)="ActiveOrg(true)">Active {{dashboardInfo.activeUser}}</span> &nbsp; &nbsp;
+        <span class="bg-red-haze bg-font-red-haze ai-box" (click)="ActiveOrg(true)">Inactive {{dashboardInfo.inactiveUser}}</span> -->
+
+        <button style="border: none" class="bg-white ai-box" (click)="ActiveUsers(true)">
+          Active {{ dashboardInfo.activeUser }}</button>&nbsp; &nbsp;
+        <button style="border: none" class="bg-red-haze bg-font-red-haze ai-box" (click)="ActiveUsers(false)">
+          Inactive {{ dashboardInfo.inactiveUser }}
+        </button>
+      </div>
+      <a class="more" href="javascript:;" (click)="ActiveUsers(true)">
+        View more
+        <i class="m-icon-swapright m-icon-white"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat grey">
+      <div class="visual">
+        <i class="fa fa-map-o"></i>
+      </div>
+      <div class="details">
+        <div class="number">
+          <span data-counter="counterup">{{dashboardInfo.totalPreciseMatchNotices}}</span>
+        </div>
+        <div class="desc"> Total Matched Notices </div>
+        <button style="border:none;" class="bg-white ai-box" (click)="viewNotice(true)">Active
+          {{dashboardInfo.activeMatchedNotice}}</button>&nbsp; &nbsp;
+        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box" (click)="viewNotice(false)">Inactive
+          {{dashboardInfo.inActiveMatchedNotice}}</button>
+      </div>
+      <a class="more" (click)="viewNotice(true)"> View more
+        <i class="m-icon-swapright m-icon-white"></i>
+      </a>
+    </div>
+  </div> -->
+
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat purple">
+      <div class="visual">
+        <i class="fa fa-users"></i>
+      </div>
+      <div class="details">
+        <div class="number">
+          <span data-counter="counterup">{{dashboardInfo.totalAssets}}</span>
+        </div>
+        <div class="desc"> Total Asset</div>
+        <span class="bg-white ai-box" (click)="activeAsset(true)">Active {{dashboardInfo.activeAssets}}</span> &nbsp;
+        &nbsp;
+        <span class="bg-red-haze bg-font-red-haze ai-box" (click)="activeAsset(false)">Inactive
+          {{dashboardInfo.inActiveAssets}}</span>
+      </div>
+      <a class="more" href="javascript:;"> View more
+        <i class="m-icon-swapright m-icon-white"></i>
+      </a>
+    </div>
+  </div>
+
+
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12"
+    *ngIf="this.loggedInUserRoleGuid !='64B4686D-6086-4AD8-AE9C-D4FB4F409588' && this.loggedInUserRoleGuid !='52068551-9841-4EBA-BB87-96D0DCBF1595'">
+    <div class="dashboard-stat yellow">
+      <div class="visual">
+        <i class="fa fa-building-o"></i>
+      </div>
+      <div class="details">
+        <div class="number">
+          <span data-counter="counterup">{{dashboardInfo.totalBranchCount}}</span>
+        </div>
+        <div class="desc"> Total Branches </div>
+        <button style="border:none;" class="bg-white ai-box" (click)="ActiveBranches(true)">Active
+          {{dashboardInfo.activeBranchCount}}</button>&nbsp; &nbsp;
+        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box"
+          (click)="ActiveBranches(false)">Inactive
+          {{dashboardInfo.inActiveBranchCount}}</button>
+      </div>
+      <a class="more" (click)=activeBranch(true)> View more
+        <i class="m-icon-swapright m-icon-white"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="dashboard-stat red">
+      <div class="visual">
+        <i class="fa fa-building-o"></i>
+      </div>
+      <div class="details">
+        <div class="number">
+          <span data-counter="counterup">{{dashboardInfo.totalMatchedNoticesCount}}</span>
+        </div>
+        <div class="desc"> Total Matched Notices</div>
+        <button style="border:none;" class="bg-white ai-box" (click)="PartialMatch(true)">Precise Match
+          {{dashboardInfo.totalPreciseMatchNotices}}</button>&nbsp; &nbsp;
+        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box" (click)="PartialMatch(false)">Partial
+          Match
+          {{dashboardInfo.totalPartialMatchedNotices}}</button>
+      </div>
+      <a class="more" (click)=PartialMatch(true)> View more
+        <i class="m-icon-swapright m-icon-white"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- Pop Ups -->
+<div class="modal fade" id="add-mode-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <ng-container *ngIf="this.tablename=='Users'">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title col-lg-6"><b>Organization Users</b></h4>
+
+          <button type="button" class="close pull-right col-lg-6" aria-label="Close" (click)="Close()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class="sticky-header">
+                        <tr>
+                          <th>
+                            First Name
+                          </th>
+                          <th>
+                            Last Name
+                          </th>
+                          <th>
+                            Phone
+                          </th>
+                          <th>
+                            Email
+                          </th>
+                          <th>
+                            Organizations
+                          </th>
+                          <th>
+                            Branch
+                          </th>
+                          <th>
+                            Role
+                          </th>
+                          <th>
+                            Status
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="!isShowLoader && tbldata==null" class="no-records">
+                          <td colspan="10">No Records Found</td>
+                        </tr>
+                        <tr *ngFor="let item of this.tbldata">
+                          <td>{{ item.firstName }}</td>
+                          <td>{{ item.lastName }}</td>
+                          <td>{{ item.phone }}</td>
+                          <td>{{ item.email }}</td>
+                          <td>{{ item.organisationName }}</td>
+                          <td>{{ item.branchName }}</td>
+                          <td>{{ item.role }}</td>
+                          <td>
+                            <div id="div1" *ngIf="item.isActive == true">
+                              <span class="badge badge-success">Active</span>
+                            </div>
+                            <div id="div2" *ngIf="item.isActive == false">
+                              <span class="badge badge-danger">InActive</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="paginator-container">
+                      <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                        Total items: {{this.tbldataLength}}
+                      </span>
+                      <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                        Items per page: 25
+                      </span>
+                      <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1" (page)="onChangePage($event)"
+                        aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+
+
+
+
+    <ng-container *ngIf="this.tablename=='Branches'">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title col-lg-6"><b>Branches</b></h4>
+
+          <button type="button" class="close pull-right col-lg-6" aria-label="Close" (click)="Close()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class="sticky-header">
+                        <tr>
+                          <th>Branch Id </th>
+                          <th>Name</th>
+                          <th>Display Name</th>
+                          <th>Organization Name</th>
+                          <th>Address</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="!isShowLoader && tbldata==null" class="no-records">
+                          <td colspan="10">No Records Found</td>
+                        </tr>
+                        <tr *ngFor="let item of this.tbldata">
+                          <td>{{ item.branchId }}</td>
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.displayName }}</td>
+                          <td>{{ item.orgName }}</td>
+                          <td>{{ item.address }}</td>
+                          <td>
+                            <div id="div1" *ngIf="item.isActive == true">
+                              <span class="badge badge-success">Active</span>
+                            </div>
+                            <div id="div2" *ngIf="item.isActive == false">
+                              <span class="badge badge-danger">InActive</span>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                   </table>
+                   <div class="paginator-container">
+                    <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                      Total items: {{this.tbldataLength}}
+                    </span>
+                    <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                      Items per page: 25
+                    </span>
+                    <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1" (page)="onBranchChangePage($event)"
+                      aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+
+
+
+<!-- Pie Chart and line Chart -->
+<div class="animated fadeIn">
+
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <div style="display: block">
+            <div class="col-sm-5">
+              <h4 style="white-space: nowrap;" class="card-title mb-0">Last 15 days Assets
+                <span>
+                  <ng-template #last30daysresponderTemplate>
+                    <div style="font-style:italic;">
+                      The Assets in last 15 days.
+                    </div>
+                  </ng-template>
+                  <sup style="position:unset!important; vertical-align: super!important;">
+                    <!-- <button type="button" class="fa fa-info-circle graph" placement="bottom" html="true"
+                      triggers="focus" [popover]="last30daysresponderTemplate"
+                      style="background: transparent!important;border: 0px!important;"
+                      popoverTitle="Last 15 days Notices">
+                    </button> -->
+                    <button type="button" class="fa fa-info-circle graph" placement="top" html="true" 
+                      style="background: transparent!important;border: 0px!important;"
+                      title="Last 15 days Assets">
+                    </button>
+
+                  </sup>
+                </span>
+              </h4>
+            </div>
+            <div class="chart-wrapper" style="height:386px;margin-top:40px;">
+              <!-- <canvas baseChart class="chart" [datasets]="mainChartData" [labels]="mainChartLabels"
+                [options]="mainChartOptions" [colors]="mainChartColours" [legend]="mainChartLegend"
+                [chartType]="mainChartType"></canvas> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <div style="display: block">
+                <div class="col-sm-5">
+                  <h4 style="white-space: nowrap;" class="card-title mb-0">Last 12 Month Assets
+                    <span>
+                      <ng-template #last30daysempanalysisTemplate>
+                        <div style="font-style:italic;">
+                          Last 12 Month Assets
+                        </div>
+                      </ng-template>
+                      <sup style="position:unset!important; vertical-align: super!important;">
+                        <button type="button" class="fa fa-info-circle graph" placement="top" html="true"
+                          style="background: transparent!important;border: 0px!important;"
+                          title="Last 12 Month Assets">
+                        </button>
+                      </sup>
+                    </span>
+                  </h4>
+                </div>
+                <div class="chart-wrapper" style="height:400px;margin-top:40px;">
+                  <!-- <canvas #myCanvas id="canvas" baseChart class="chart" [datasets]="mainChartDataEMPAnalaysis"
+                    [labels]="mainChartLabelsEMPAnalaysis" [options]="mainChartOptionsEMPAnalaysis"
+                    [colors]="mainChartColoursEMPAnalaysis" [legend]="true" chartType="bar">
+                  </canvas> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

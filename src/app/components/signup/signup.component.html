@@ -1,0 +1,193 @@
+<a *ngIf="isShowDownloadLink" href="https://diginoticeapp.page.link/Zi7X" target="blank" class="mobileappFloat"
+  style="font-size: 12px;">
+  <b>Download Mobile App</b>
+</a>
+
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<!-- BEGIN LOGIN -->
+<div [ngClass]="{'loader' : isShowLoader}" id="signup-container" class="signup-box">
+  <div class="sign-up-box">
+
+    <h3 style="padding-bottom: 20px;">Sign Up on DigiNotice</h3>
+
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="login-f">
+      <div class="row">
+        <div class="col-md-6 col-sm-6">
+
+          <div class="form-group"
+            [ngClass]="{'has-error': ((registrationForm.get('firstName').touched || registrationForm.get('firstName').dirty) && registrationForm.get('firstName').errors)}">
+            <label class="control-label visible-ie8 visible-ie9">First Name</label>
+            <div class="input-icon">
+              <i class="fa fa-user"></i>
+              <input formControlName="firstName" name="firstName" (keypress)="sharedModel.lettersOnly($event)"
+                class="form-control placeholder-no-fix input-s" type="text" autocomplete="off"
+                placeholder="Enter First Name">
+              <span class="help-block" *ngIf="((registrationForm.get('firstName').touched ||
+                         registrationForm.get('firstName').dirty) &&
+                         registrationForm.get('firstName').errors)">
+                <span *ngIf="registrationForm.get('firstName').errors['required']">
+                  First Name is Required
+                </span>
+                <span *ngIf="registrationForm.get('firstName').errors['minlength'] ||
+                         registrationForm.get('firstName').errors['maxlength']">
+                  First Name must be between 2 characters to 10 characters
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-group"
+            [ngClass]="{'has-error': ((registrationForm.get('lastName').touched || registrationForm.get('lastName').dirty) && registrationForm.get('lastName').errors)}">
+            <label class="control-label visible-ie8 visible-ie9">Last Name</label>
+            <div class="input-icon">
+              <i class="fa fa-user"></i>
+              <input formControlName="lastName" name="lastName" (keypress)="sharedModel.lettersOnly($event)"
+                class="form-control placeholder-no-fix input-s" type="text" autocomplete="off"
+                placeholder="Enter Last Name">
+              <span class="help-block" *ngIf="((registrationForm.get('lastName').touched ||
+                         registrationForm.get('lastName').dirty) &&
+                         registrationForm.get('lastName').errors)">
+                <span *ngIf="registrationForm.get('lastName').errors['required']">
+                  Last Name is Required
+                </span>
+                <span *ngIf="registrationForm.get('lastName').errors['minlength'] ||
+                         registrationForm.get('lastName').errors['maxlength']">
+                  Last Name must be between 2 characters to 10 characters
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-group" [ngClass]="{'has-error': ((registrationForm.get('email').touched || registrationForm.get('email').dirty) && registrationForm.get('email').errors)}">
+            <label class="control-label visible-ie8 visible-ie9">Email</label>
+            <div class="input-icon">
+              <i class="fa fa-envelope-o"></i>
+              <input formControlName="email" name="email" class="form-control placeholder-no-fix input-s" type="email"
+                autocomplete="off" placeholder="Enter Email ">
+              <span class="help-block" *ngIf="((registrationForm.get('email').touched ||
+                         registrationForm.get('email').dirty) &&
+                         registrationForm.get('email').errors)">
+                <span *ngIf="registrationForm.get('email').errors['required']">
+                  Email is Required
+                </span>
+                <span *ngIf="registrationForm.get('email').errors['email']">
+                  Email is Invalid
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-group" [ngClass]="{'has-error': ((registrationForm.get('phone').touched || registrationForm.get('phone').dirty) && registrationForm.get('phone').errors)}">
+            <label class="control-label visible-ie8 visible-ie9">Phone</label>
+            <div class="input-icon">
+              <i class="fa fa-phone"></i>
+              <input id="TxtPhoneNumber" minlength="10" maxlength="10" formControlName="phone" name="phone"
+                class="form-control placeholder-no-fix input-s" type="text" autocomplete="off"
+                placeholder="Enter Phone">
+              <span class="help-block" *ngIf="((registrationForm.get('phone').touched ||
+                         registrationForm.get('phone').dirty) &&
+                         registrationForm.get('phone').errors)">
+                <span *ngIf="registrationForm.get('phone').errors['required']">
+                  Phone is Required
+                </span>
+                <span *ngIf="registrationForm.get('phone').hasError('pattern') ">
+                  Phone is Invalid
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-group" [ngClass]="{'has-error': ((registrationForm.get('password').touched || registrationForm.get('password').dirty) && registrationForm.get('password').errors)}">
+            <label class="control-label visible-ie8 visible-ie9">Password</label>
+            <div class="input-icon">
+              <i class="fa fa-lock"></i>
+              <input formControlName="password" name="password" class="form-control placeholder-no-fix input-s"
+                type="password" autocomplete="off" placeholder="Enter Password">
+              <span class="help-block" *ngIf="((registrationForm.get('password').touched ||
+                         registrationForm.get('password').dirty) &&
+                         registrationForm.get('password').errors)">
+                <span *ngIf="registrationForm.get('password').errors['required']">
+                  Password is Required
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <div class="form-group"
+            [ngClass]="{'has-error': ((registrationForm.get('confirmPassword').touched || registrationForm.get('confirmPassword').dirty) && registrationForm.get('confirmPassword').errors)}">
+            <label class="control-label visible-ie8 visible-ie9">Confirm Password</label>
+            <div class="input-icon">
+              <i class="fa fa-lock"></i>
+              <input formControlName="confirmPassword" name="confirmPassword"
+                class="form-control placeholder-no-fix input-s" type="password" autocomplete="off"
+                placeholder="Confirm Password">
+              <span class="help-block" *ngIf="((registrationForm.get('confirmPassword').touched ||
+                         registrationForm.get('confirmPassword').dirty) &&
+                         registrationForm.get('confirmPassword').errors)">
+                <span *ngIf="registrationForm.get('confirmPassword').errors['required']">
+                  Confirm Password is Required
+                </span>
+                <div *ngIf="registrationForm.get('confirmPassword').errors['mustMatch']">Password Must Match</div>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12">
+          <div class="form-group">
+            <div class="dg-checkbox-item">
+              <span (click)="onAgreedToTerms()" class="dg-checkbox" [ngClass]="{'checked' : isAgreedToTerms}"
+                for="isAgreedToTerms">Agree to Diginotice's <span></span>&nbsp;
+                <a (click)="showTermsPopup($event)"> Privacy and Terms</a>.
+              </span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-12  col-sm-12">
+          <div class="form-actions form-actions-c">
+            <button
+              [disabled]="!isAgreedToTerms|| !registrationForm.valid||registrationForm.controls['firstName' ||'lastName'||'email'||'phone'||'confirmPassword' || 'password'].invalid"
+              type="submit" class="btn red btn-block uppercase sgin-btn">
+              SIGN UP
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+
+    </form>
+  </div>
+  <div class="welcome-box">
+    <!-- <div class="logo-sign-w">
+      <img src="assets/layouts/layout/img/logo.png" alt="logo" />
+    </div> -->
+    <div class="text-center">
+      <a href="https://diginotice.in/">
+        <img src="assets/layouts/layout/img/DNlogo1.png" alt="logo" />
+      </a>
+    </div>
+    <!-- <img src="assets/layouts/layout/img/logo.png" alt="logo" /> -->
+    <h3 class="text-center hello">Welcome Back!</h3>
+    <p class="message-lable">To keep connected with us please sign in</p>
+    <div class="form-actions form-actions-c">
+      <button (click)="goToLogin()" type="button" class="btn default btn-outline sign-up-btn">
+        SIGN IN
+      </button>
+    </div>
+
+  </div>
+  <div class="clear"></div>
+</div>
+<!-- END LOGIN -->
+
+<!-- <app-dgnotice-terms></app-dgnotice-terms> -->

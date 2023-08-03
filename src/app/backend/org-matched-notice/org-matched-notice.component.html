@@ -1,0 +1,130 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<!-- Existing Matched Notices -->
+<div class="portlet light bordered" style="margin-top: 20px;">
+  <div class="portlet-title">
+    <div class="caption font-dark float-l">
+      <i class="fa fa-files-o"></i>
+      <span class="caption-subject font-blue bold ">Matched Notice</span>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#home" aria-controls="precise" role="tab" data-toggle="tab"
+          (click)="getRedMatchedNotices()">
+          Precise Match</a></li>
+
+      <li role="presentation"><a href="#messages" aria-controls="partial" role="tab" data-toggle="tab"
+          (click)="getYellowMatchedNotices()">
+          Partial Match</a></li>
+      <li role="presentation"><a href="#nameMatch" aria-controls="nameMatched" role="tab" data-toggle="tab"
+          (click)="NameMatchedNotices()">
+          Name Match</a></li>
+
+    </ul>
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="precise">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+          <div class="row">
+            <ng-container *ngFor="let nt of notices;let propertyIndex = index;">
+              <div class="row" style="padding:15px">
+                <div class="col-lg-3">
+                  <app-property-card (onView)="onViewProperty($any($event))" [editPropertyModel]="nt.asset"
+                    [propertyIndex]="propertyIndex" [isDropdownMenu]="false">
+                  </app-property-card>
+                </div>
+                <div class="col-lg-9">
+                  <div class="row" style="display:flex; flex-wrap:wrap;">
+                    <div *ngIf="nt.notices.length==null" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      No Precise Matched Notices Found
+                    </div>
+                    <ng-container *ngFor="let noticeInfo of nt.notices">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <app-notice-card [noticeInfo]="noticeInfo"></app-notice-card>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                </div>
+              </div>
+              <hr><br>
+            </ng-container>
+            <div style="text-align: center;" *ngIf="notices.length==0">
+              No Precise Matched Notices Found
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="partial">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+          <div class="row">
+            <ng-container *ngFor="let nt of notices;let propertyIndex = index;">
+              <div class="row" style="padding:15px">
+                <div class="col-lg-3">
+                  <app-property-card (onView)="onViewProperty($any($event))" [editPropertyModel]="nt.asset"
+                    [propertyIndex]="propertyIndex" [isDropdownMenu]="false">
+                  </app-property-card>
+
+                </div>
+                <div class="col-lg-9">
+                  <div class="row" style="display:flex; flex-wrap:wrap;">
+                    <div *ngIf="nt.notices.length == 0 && nt.notices.length ==null"
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      No Partial Matched Notices Found
+                    </div>
+                    <ng-container *ngFor="let noticeInfo of nt.notices">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <app-notice-card [noticeInfo]="noticeInfo"></app-notice-card>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <hr><br>
+            </ng-container>
+            <div style="text-align: center;" *ngIf="notices.length==0">
+              No Partial Matched Notices Found
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="nameMatched">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+          <div class="row">
+            <ng-container *ngFor="let nt of notices;let propertyIndex = index;">
+              <div class="row" style="padding:15px">
+                <div class="col-lg-3">
+                  <app-property-card (onView)="onViewProperty($any($event))" [editPropertyModel]="nt.asset"
+                    [propertyIndex]="propertyIndex" [isDropdownMenu]="false">
+                  </app-property-card>
+
+                </div>
+                <div class="col-lg-9">
+                  <div class="row" style="display:flex; flex-wrap:wrap;">
+                    <div *ngIf="nt.notices.length == 0 && nt.notices.length ==null"
+                      class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      No Name Matched Notices Found
+                    </div>
+                    <ng-container *ngFor="let noticeInfo of nt.notices">
+                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <app-notice-card [noticeInfo]="noticeInfo"></app-notice-card>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <hr><br>
+            </ng-container>
+            <div style="text-align: center;" *ngIf="notices.length==0">
+              No Partial Matched Notices Found
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <app-view-org-asset [editOrgPropertyModel]="viewProperty"></app-view-org-asset> -->
+<app-view-property [editPropertyModel]="viewProperty"></app-view-property>

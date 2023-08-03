@@ -1,0 +1,61 @@
+.modal-dialog{
+    width: 90%;
+}
+
+.list-unstyled{
+    overflow-y: scroll;
+    height: 190px;
+}
+
+.modal-content{
+    padding: 20px;
+}
+
+.remove-image {
+    float: right;
+    background-color: #000;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover{
+        color: red;
+    }
+}
+
+
+
+@media only screen and (max-width : 480px) {
+
+
+    .modal-content{
+        padding: 10px;
+    }
+}
+
+
+
+.mt-30{
+    margin-top: 30px;
+    margin-bottom: 5px;
+    .keyword-buttons{
+        position: absolute;
+        top: -22px;
+        button.k-b{
+            background: #1abc9c;
+            border: #fff;
+            color: #fff;
+            outline: none;
+            border-radius: 5px;
+            font-size: 10px;
+            margin-bottom: 2px;
+            margin-left: 2px;
+        }
+    }
+}
+
+

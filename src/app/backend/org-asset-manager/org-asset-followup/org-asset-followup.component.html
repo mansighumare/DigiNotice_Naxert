@@ -1,0 +1,59 @@
+<div class="modal fade" id="view-property-followup" tabindex="-1" role="view" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" (click)="closeViewPropertyPopup()"></button>
+        <h4 class="modal-title modal-title-c">Asset FollowUp</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center">
+          <div Class="col-md-12 col-xs-12">
+            <div class="animated fadeIn">
+              <div class="card card-accent-primary">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="row">
+                        <div class="form-group col-md-12">
+                          <label>Comments: </label>
+                          <textarea type="text" class="form-control" placeholder="Add a Comments"
+                            [(ngModel)]="this.comments" rows="7"></textarea>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label>Attachments: &nbsp;</label>
+                          <input type="file" #myInputfile accept="*" style="overflow: hidden;" multiple
+                            class="custom-file-input-new"
+                            (change)="onMultipleFileChange($event); myInputfile.value = null;" id="comment_file"
+                            placeholder="Upload files here" autocomplete="off">
+                          <br><br>
+                          <div *ngFor="let itm of filesarray; let i = index;">
+                            {{itm.fileName}}&nbsp;&nbsp;
+                            <span (click)="Download_doc(itm.originalFileName)" tooltip="Download File"
+                              style="color:#065336!important;" placement="top" show-delay="500">
+                              <i class="fa fa-download"></i>
+                            </span>&nbsp;&nbsp;&nbsp;
+                            <span (click)="deletefilefromfilearray(i)" tooltip="Delete" style="color:#ee0e21!important;"
+                              placement="top" show-delay="500">
+                              <i class="fa fa-trash"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn green" (click)="SaveDocList()">Save</button>
+        <button type="button" class="btn dark btn-outline" (click)="closeViewPropertyPopup()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

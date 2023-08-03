@@ -1,0 +1,91 @@
+<app-loader *ngIf="isShowLoader">
+</app-loader>
+    <!-- <div class="actions action-c1" style="text-align: end;">
+      <a id="btn-add-property" (click)="NotificationAlerts()">
+        Get Notification
+      </a>
+    </div>
+<br> -->
+<div style="text-align: center;" *ngIf="notification.length==0">No Notification Found</div>
+<div class="container-fluid" style="margin-top: 5px;" *ngFor="let element of notification">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-lg-5" style="padding-left:30px;padding-top:13px;width:44.166665%;">
+                <h3 class="h4">Asset&nbsp;&nbsp;<i style="cursor:pointer;" (click)="onViewProperty(element.assetId)"
+                    class="fa fa-eye" aria-hidden="true" data-text="View"></i></h3>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <p *ngIf="this.loggedInUserRoleGuid=='5A684E94-A768-45B7-8A2E-1F3BF22FC8B4'">Branch:
+                      {{element.branchName}}</p>
+                    <p>Owner Name: {{element.assetOwnerFullName}}</p>
+                  </div>
+                  <div class="col-sm-6">
+                    <p>Survey No: {{element.assetSurveyNumber}}</p>
+                    <p>Gat No: {{element.assetGatNumber}}</p>
+                  </div>
+                </div>
+              </div>
+              <div  class="col-lg-5"
+                style="padding:11px 26px 11px 11px;width:44.166665%;">
+                <div >
+                  <div class="card1" [ngClass]="{'red-card': element.type === 'Precise', 'yellow-card': element.type !== 'Precise'}" style="padding-left: 10px;">
+                    <h3 class="h4">Notice &nbsp;&nbsp;<i style="cursor:pointer;"
+                        (click)="onViewNotice(element.notice_id)" class="fa fa-eye" aria-hidden="true"
+                        data-text="View"></i></h3>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <p>Notice Title: {{element.noticeTitle}}</p>
+                        <p>Seller Name: {{element.noticeOwnerFullName}}</p>
+
+                      </div>
+                      <div class="col-sm-6">
+                        <p>Survey No: {{element.noticeSurveyNumber}}</p>
+                        <p>Gat No: {{element.noticeGatNumber}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- <div *ngIf="element.type=='Partial'" class="col-lg-5"
+                style="padding:11px 26px 11px 11px;width:44.166665%;">
+                <div *ngFor="let nd of element.noticeDetail">
+                  <div class="card1" style="padding-left: 10px;background-color:#fefcc9;">
+                    <h3 class="h4">Notice &nbsp;&nbsp;<i style="cursor:pointer;"
+                        (click)="onViewNotice(element.notice_id)" class="fa fa-eye" aria-hidden="true"
+                        data-text="View"></i></h3>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <p>Notice Title: {{element.noticeTitle}}</p>
+                        <p>Seller Name: {{element.noticeOwnerFullName}}</p>
+
+                      </div>
+                      <div class="col-sm-6">
+                        <p>Survey No: {{element.noticeSurveyNumber}}</p>
+                        <p>Gat No: {{element.noticeGatNumber}}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              <div class="col-lg-2" style="width:11.66667%;">
+                <div class="actions action-c">
+                  <a id="btn-add-property" (click)="Acknowledge(element.id)">
+                    Acknowledge
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<app-view-org-asset [editOrgPropertyModel]="viewProperty"></app-view-org-asset>
+<app-view-notice [noticeInfo]="noticeInfo"></app-view-notice>

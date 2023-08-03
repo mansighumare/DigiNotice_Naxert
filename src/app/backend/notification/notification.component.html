@@ -1,0 +1,87 @@
+<div class="portlet light bordered">
+  <div class="portlet-title">
+    <div class="caption font-dark float-l">
+      <i class="fa fa-bell"></i>
+      <span class="caption-subject font-blue bold ">Search Your Notice</span>
+    </div>
+  </div>
+  <div style="width: 100%;">
+
+    <div class="row">
+      <div class="col-md-3">
+        <label class="dg-lable" for="notificationtext">Add Notification</label>
+        <!-- <input tabindex="1" [(ngModel)]="NotificationModel.notificationtext" name="notificationtext" type="text"
+      class="form-control input-sm" placeholder="Notice Title"> -->
+
+        <textarea tabindex="1" [(ngModel)]="notificationModel.notificationtext" name="notificationtext" type="text"
+          class="form-control input-sm" placeholder="Add Notification" required> </textarea>
+      </div>
+    </div>
+    &nbsp;&nbsp;
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-12">
+          &nbsp;
+          <!-- <div class="btnsubmitNotification" >    <a tabindex="71" (click)="onAddNotification()" class="btn green">Submit</a> </div> &nbsp;
+          <div class="btnGetNotification" >  <a tabindex="71" (click)="getNotification()" class="btn blue">Notification Logs</a></div>  &nbsp;  
+          <div class="col-md-3" >  <a tabindex="71" (click)="getNotification()" class="btn blue">Send Today's Notification </a></div>  &nbsp;     -->
+
+          <button [disabled]="isShowLoader" (click)="onAddNotification()" type="button"
+            class="btn notification-cs btn green">
+            Submit
+          </button>
+          <button [disabled]="isShowLoader" (click)="getNotification()" type="button"
+            class="btn notification-cs btn green">
+           View Notification Logs
+          </button>
+          <button [disabled]="isShowLoader" (click)="sendActiveNotification()" type="button"
+          class="btn notification-cs btn green">
+          Send Active Notification
+        </button>
+          <button [disabled]="isShowLoader" (click)="SendNotificationForTodaysMatchedNotices()" type="button"
+            class="btn notification-cs btn green">
+            Send Notification For MatchedNotices
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-container *ngIf="isShowNotificationLogPopup">
+  <div class="modal fade" id="log-Notification-popup" tabindex="-1" role="view" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" style="text-align: center">
+          <strong> Notification Logs</strong>
+          <button type="button" class="close" data-dismiss="modal">X</button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <td><strong> Notification</strong></td>
+                <td><strong>Date</strong></td>
+                <td><strong>Status</strong></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let notification of notificationList;">
+                <td>{{notification.notificationtext}}</td>
+                <td>{{notification.CreatedDate | date: 'dd/MM/yyyy'}}</td>
+                <td>
+                  <span (click)="onActiveInActiveNotification(notification)"
+                    [ngClass]="{'checked': notification.isActive}" class="dg-checkbox" for="user"></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

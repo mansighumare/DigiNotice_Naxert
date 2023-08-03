@@ -1,0 +1,285 @@
+<!-- BEGIN modal-dialog -->
+<div class="modal fade bs-modal-lg" id="edit-property-popup" tabindex="-1" role="basic" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title modal-title-c">Edit Property</h4>
+      </div>
+      <div [ngClass]="{'dg-disabled' : isSaving}" class="modal-body modal-body-c">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <div class="col-md-6">
+              <label class="dg-lable" for="landCategoryId">Property Type:</label>
+              <div class="form-control input-sm dg-radio-list">
+                <div class="dg-radio-item">
+                  <input tabindex="1" [(ngModel)]="editPropertyModel.landCategoryId" value="1" type="radio"
+                    id="constructedProperty" name="property-type" [ngModelOptions]="{ standalone: true }">
+                  <label for="constructedProperty">Constructed Property</label>
+                </div>
+                <div class="dg-radio-item">
+                  <input tabindex="1" [(ngModel)]="editPropertyModel.landCategoryId" value="3" type="radio" id="Plot"
+                    name="property-type" [ngModelOptions]="{ standalone: true }">
+                  <label for="Plot">Plot</label>
+                </div>
+                <div class="dg-radio-item">
+                  <input tabindex="1" [(ngModel)]="editPropertyModel.landCategoryId" value="2" type="radio"
+                    id="agriculturalLand" name="property-type" [ngModelOptions]="{ standalone: true }">
+                  <label for="agriculturalLand">Land</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="dg-label" for="ownerFullName">Full Name:</label>
+              <input tabindex="2" [(ngModel)]="editPropertyModel.ownerFullName" name="ownerFullName" type="text"
+                class="form-control input-sm" placeholder="Full Name">
+            </div>
+          </div>
+          
+
+          <div class="form-group">
+            <div class="col-md-4">
+              <label class="dg-lable" for="stateId">State:</label>
+              <select tabindex="3" disabled [(ngModel)]="editPropertyModel.stateId" (change)="onStateChange($event)"
+                name="as-stateId" class="form-control input-sm">
+                <option *ngFor="let state of lookupService.stateList" [value]="state.id">{{state.name}}</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="dg-lable" for="cityId">District:</label>
+              <select tabindex="4" [(ngModel)]="editPropertyModel.cityId" (change)="onDistrictChange($any($event.target).value)"
+                name="as-cityId" class="form-control input-sm">
+                <option *ngIf="editPropertyModel.cityId == ''" value="">Select District</option>
+                <option *ngFor="let district of lookupService.cityList" [value]="district.id">{{district.name}}</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="dg-lable" for="talukaId">Taluka:</label>
+              <select tabindex="5" [(ngModel)]="editPropertyModel.talukaId" (change)="onTalukaChange($any($event.target).value)"
+                name="as-talukaId" class="form-control input-sm">
+                <option *ngIf="editPropertyModel.talukaId == ''" value="">Select Taluka</option>
+                <option *ngFor="let taluka of lookupService.talukaList" [value]="taluka.id">{{taluka.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-3">
+              <label class="dg-lable" for="villageId">Village:</label>
+              <select tabindex="6" [(ngModel)]="editPropertyModel.villageId" name="as-villageId" class="form-control input-sm">
+                <option *ngIf="editPropertyModel.villageId == ''" value="">Village</option>
+                <option *ngFor="let city of lookupService.villageList" [value]="city.id">{{city.name}}</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="dg-lable" for="landMark">Locality:</label>
+              <input tabindex="7" [(ngModel)]="editPropertyModel.landMark" name="landMark" type="text" class="form-control input-sm"
+                placeholder="Locality" />
+            </div>
+            <div class="col-md-3">
+              <label class="dg-lable" for="sectorNo">Sector No:</label>
+              <input tabindex="8" [(ngModel)]="editPropertyModel.sectorNo"
+                (ngModelChange)="editPropertyModel.sectorNo= $event.toUpperCase()" name="sectorNo" type="text"
+                class="form-control input-sm" placeholder="Sector No" />
+            </div>
+            <div class="col-md-3">
+              <label class="dg-lable" for="projectName">Project Name:</label>
+              <input tabindex="9" [(ngModel)]="editPropertyModel.projectName" name="projectName" type="text"
+                class="form-control input-sm" placeholder="Project Name" />
+            </div>
+          </div>
+          <div class="form-group mt-30">
+            <div class="col-md-11">
+              <div class="row">
+                <div class="col-md-2" style="margin-top: 10px;">
+                  <div class="keyword-buttons">
+                    <button tabindex="-1" (click)="onInsertKeyword($event, 'PART', 'surveyNumber')"
+                      class="k-b">PART</button>
+                    <button tabindex="-1" (click)="onInsertKeyword($event, 'HISSA', 'surveyNumber')"
+                      class="k-b">HISSA</button>
+                    <button tabindex="-1" (click)="onInsertKeyword($event, 'TO', 'surveyNumber')"
+                      class="k-b">TO</button>
+                  </div>
+                  <input tabindex="10" [(ngModel)]="editPropertyModel.surveyNumber"
+                    (ngModelChange)="editPropertyModel.surveyNumber= $event.toUpperCase()" name="surveyNumber"
+                    type="text" class="form-control input-sm" placeholder="Survey/Khasra No">
+                </div>
+                <div class="col-md-2" style="margin-top: 10px;">
+                  <input tabindex="11" [(ngModel)]="editPropertyModel.plotNumber"
+                    (ngModelChange)="editPropertyModel.plotNumber= $event.toUpperCase()" name="plotNumber" type="text"
+                    class="form-control input-sm" placeholder="Plot No">
+                </div>
+                <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId != '1'">
+                  <input tabindex="12" [(ngModel)]="editPropertyModel.catestrialSurveyNo" (ngModelChange)="editPropertyModel.catestrialSurveyNo= $event.toUpperCase()" name="catestrialSurveyNo"
+                    type="text" class="form-control input-sm" placeholder="Cadastral Survey No">
+                </div>
+                <div class="col-md-2" style="margin-top: 10px;">
+                  <input tabindex="13" [(ngModel)]="editPropertyModel.gatNumber"
+                    (ngModelChange)="editPropertyModel.gatNumber= $event.toUpperCase()" name="gatNumber" type="text"
+                    class="form-control input-sm" placeholder="Gat No">
+                </div>
+                <div class="col-md-2" style="margin-top: 10px;">
+                  <input tabindex="14" [(ngModel)]="editPropertyModel.ctsnumber"
+                    (ngModelChange)="editPropertyModel.ctsnumber= $event.toUpperCase()" name="ctsnumber" type="text"
+                    class="form-control input-sm" placeholder="CTS No">
+                </div>
+                <div class="col-md-2" style="margin-top: 10px;">
+                  <input tabindex="15" [(ngModel)]="editPropertyModel.propertyCardNo" (ngModelChange)="editPropertyModel.propertyCardNo= $event.toUpperCase()" name="propertyCardNo" type="text"
+                    class="form-control input-sm" placeholder="Property Card No">
+                </div>
+                <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                  <input tabindex="16" [(ngModel)]="editPropertyModel.buildingName" name="buildingName" type="text"
+                    class="form-control input-sm" placeholder="Building Name">
+                </div>
+                <div *ngIf="this.is_add_other_details">
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="18" [(ngModel)]="editPropertyModel.floorNo" (ngModelChange)="editPropertyModel.floorNo= $event.toUpperCase()" name="floorNo" type="text"
+                      class="form-control input-sm" placeholder="Floor No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="19" [(ngModel)]="editPropertyModel.flatNo" (ngModelChange)="editPropertyModel.flatNo= $event.toUpperCase()" name="flatNo" type="text"
+                      class="form-control input-sm" placeholder="Flat No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="20" [(ngModel)]="editPropertyModel.phaseNo" (ngModelChange)="editPropertyModel.phaseNo= $event.toUpperCase()" name="phaseNo" type="text"
+                      class="form-control input-sm" placeholder="Phase No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="21" [(ngModel)]="editPropertyModel.constructedPropertyArea" (ngModelChange)="editPropertyModel.constructedPropertyArea= $event.toUpperCase()" name="note" type="text"
+                      class="form-control input-sm" placeholder="Constructed Property Area">
+                  </div>
+
+
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="22" [(ngModel)]="editPropertyModel.houseNo" (ngModelChange)="editPropertyModel.houseNo= $event.toUpperCase()" name="houseNo" type="text"
+                      class="form-control input-sm" placeholder="House No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="23" [(ngModel)]="editPropertyModel.tenementNo" (ngModelChange)="editPropertyModel.tenementNo= $event.toUpperCase()" name="tenementNo" type="text"
+                      class="form-control input-sm" placeholder="Tenament No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="24" [(ngModel)]="editPropertyModel.factoryShedNo" (ngModelChange)="editPropertyModel.factoryShedNo= $event.toUpperCase()"  name="factoryShedNo" type="text"
+                      class="form-control input-sm" placeholder="Factory Shed No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="25" [(ngModel)]="editPropertyModel.industrialBuilding" (ngModelChange)="editPropertyModel.industrialBuilding= $event.toUpperCase()" name="industrialBuilding"
+                      type="text" class="form-control input-sm" placeholder="Industrial Building">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="26" [(ngModel)]="editPropertyModel.flatShopNo" (ngModelChange)="editPropertyModel.flatShopNo= $event.toUpperCase()" name="flatShopNo" type="text"
+                      class="form-control input-sm" placeholder="Flat Shop No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;" *ngIf="editPropertyModel.landCategoryId == '1'">
+                    <input tabindex="27" [(ngModel)]="editPropertyModel.buildingNo" (ngModelChange)="editPropertyModel.buildingNo= $event.toUpperCase()" name="buildingNo" type="text"
+                      class="form-control input-sm" placeholder="Building No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="28" [(ngModel)]="editPropertyModel.privatePlotNo" (ngModelChange)="editPropertyModel.privatePlotNo= $event.toUpperCase()" name="privatePlotNo" type="text"
+                      class="form-control input-sm" placeholder="Private Plot No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="29" [(ngModel)]="editPropertyModel.finalPlotNo" (ngModelChange)="editPropertyModel.finalPlotNo= $event.toUpperCase()" name="finalPlotNo" type="text"
+                      class="form-control input-sm" placeholder="Final Plot No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="30" [(ngModel)]="editPropertyModel.subPlotNo" (ngModelChange)="editPropertyModel.subPlotNo= $event.toUpperCase()" name="subPlotNo" type="text"
+                      class="form-control input-sm" placeholder="Sub Plot No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="31" [(ngModel)]="editPropertyModel.glrNo" (ngModelChange)="editPropertyModel.glrNo= $event.toUpperCase()" name="glrNo" type="text"
+                      class="form-control input-sm" placeholder="GLR No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="32" [(ngModel)]="editPropertyModel.malmattaNo" (ngModelChange)="editPropertyModel.malmattaNo= $event.toUpperCase()" name="malmattaNo" type="text"
+                      class="form-control input-sm" placeholder="Malmatta No/Milkat No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="33" [(ngModel)]="editPropertyModel.nagarPanchyatMilkatNo" (ngModelChange)="editPropertyModel.nagarPanchyatMilkatNo= $event.toUpperCase()"
+                      name="nagarPanchyatMilkatNo" type="text" class="form-control input-sm"
+                      placeholder="Nagar Panchayat Milkat No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="34" [(ngModel)]="editPropertyModel.grampanchayatNo" (ngModelChange)="editPropertyModel.grampanchayatNo= $event.toUpperCase()" name="grampanchayatNo"
+                      type="text" class="form-control input-sm" placeholder="Grampanchayat Milkat No">
+                  </div>
+
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="35" [(ngModel)]="editPropertyModel.corporationRegistrationNo" (ngModelChange)="editPropertyModel.corporationRegistrationNo= $event.toUpperCase()" 
+                      name="corporationRegistrationNo" type="text" class="form-control input-sm"
+                      placeholder="Corporation Registration No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="36" [(ngModel)]="editPropertyModel.commencementCertificateNo" (ngModelChange)="editPropertyModel.commencementCertificateNo= $event.toUpperCase()" 
+                      name="commencementCertificateNo" type="text" class="form-control input-sm"
+                      placeholder="Commencement Certificate No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="37" [(ngModel)]="editPropertyModel.completionCertificateNo" (ngModelChange)="editPropertyModel.completionCertificateNo= $event.toUpperCase()" 
+                      name="completionCertificateNo" type="text" class="form-control input-sm" 
+                      placeholder="Completion Certificate No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="38" [(ngModel)]="editPropertyModel.shareCertificateNo" (ngModelChange)="editPropertyModel.shareCertificateNo= $event.toUpperCase()"  name="shareCertificateNo"
+                      type="text" class="form-control input-sm" placeholder="Share Certificate No">
+                  </div>
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="39" [(ngModel)]="editPropertyModel.propertyNo" (ngModelChange)="editPropertyModel.propertyNo=$event.toUpperCase()" name="propertyNo" type="text"
+                      class="form-control input-sm" placeholder="Property No">
+                  </div>
+
+                  <div class="col-md-2" style="margin-top: 10px;">
+                    <input tabindex="40" [(ngModel)]="editPropertyModel.complaintNoReportNo" (ngModelChange)="editPropertyModel.complaintNoReportNo=$event.toUpperCase()" name="complaintNoReportNo"
+                      type="text" class="form-control input-sm" placeholder="Complaint No/Report No">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <a tabindex="17" (click)="this.is_add_other_details=!this.is_add_other_details"
+                class="btn btn-success bt-c" style="margin-top: 10px;">
+                Other
+              </a>
+            </div>
+          </div>
+          <div class="form-group">
+            <ng-container *ngFor="let assetImage of editPropertyModel.assetImages;let index = index;">
+              <div *ngIf="!assetImage.isDeleted" class="col-md-2 col-sm-6 img-wrap">
+                <span (click)="onRemoveImage(assetImage, index)" class="remove-image" title="Delete">&times;</span>
+                <img class="img-preview dg-asset-img" [src]="assetImage.name" alt="Property Image">
+              </div>
+            </ng-container>
+          </div>
+          <div class="form-group">
+            <div id="asset-image-container" class="wrapper row">
+              <div class="col-md-2 col-sm-6">
+                <div class="box">
+                  <div class="js--image-preview">
+                  </div>
+                  <div class="upload-options">
+                    <label>
+                      <input type="file" class="image-upload" accept="image/*" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-6">
+              <label class="dg-lable" for="otherDetails">Other Details:</label>
+              <input tabindex="41" [(ngModel)]="editPropertyModel.otherDetails" name="otherDetails" type="text"
+                class="form-control input-sm" placeholder="Other Details">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer modal-footer-c">
+        <!--<button (click)="onResetFields()" type="button" class="btn btn-default">Reset Fields</button>-->
+        <button tabindex="42" [disabled]="isSaving" (click)="onUpdateProperty()" type="button" class="btn btn-success bt-c">Update
+          Property</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+</div>
+<!-- END modal-dialog -->

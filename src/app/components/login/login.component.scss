@@ -1,0 +1,82 @@
+.checker-c{
+    cursor: pointer;
+    user-select: none;
+}
+
+.loader{
+    pointer-events: none;
+}
+
+.sgin-btn{
+    cursor: pointer;
+}
+
+.mat-tab-label{
+    color:rgb(34, 33, 33);
+    min-width: 25px !important;
+    padding: 5px;
+       background-color:transparent;
+        color:rgb(27, 18, 18);
+        font-weight: 700;
+  }
+
+  :host ::ng-deep.mat-tab-label{
+    min-width: 25px !important;
+    padding: 5px;
+       background-color:transparent;
+        color:#135578;
+        font-weight: 700;
+}
+
+.md-tab.ng-scope.ng-isolate-scope.md-ink-ripple.md-active{
+      background-color:transparent;
+      color:#135578;
+      font-weight: 700;
+  }
+
+.md-tab.ng-scope.ng-isolate-scope.md-ink-ripple{
+    background-color:transparent;
+    color:green;
+    font-weight: 700;
+}
+
+
+
+.mat-tab-label:active{
+    min-width: 25px !important;
+    padding: 5px;
+       background-color:transparent;
+        color:green;
+        font-weight: 700;
+}
+
+.mat-tab-label:selected{
+    min-width: 25px !important;
+    padding: 5px;
+       background-color:transparent;
+        color:olive;
+        font-weight: 700;
+}
+
+
+.example-stretched-tabs {
+    max-width: 800px;
+  }
+
+  .message-lable{
+    padding: 0px 20px; 
+    text-align: center;
+    font-size: 12px; 
+    color: #fff;
+}
+
+.ng-star-inserted{
+    font-size: 11px;
+}
+.btn.default.btn-outline.sgin-btn-w{
+    color: #FFFFFF;
+}
+
+.btn.default.btn-outline.sgin-btn-w:hover{
+    color: #000000;
+}

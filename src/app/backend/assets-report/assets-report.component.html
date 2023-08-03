@@ -1,0 +1,190 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+
+<div id="backend-users" class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-file"></i>
+          <span class="caption-subject font-blue bold" style="font-size: 16px;">Assets Report</span>
+        </div>
+      </div><br>
+      <div class="row">
+
+        <div class="col-sm-3 text-left" style="width:26%;"
+          *ngIf="this.loggedInUserRoleGuid=='6fa5ce77-1e42-4487-b880-229180e0e9a1'">
+          <label class="dg-lable" for="orgId">Organization:</label>
+          <select [(ngModel)]="searchAssetReportModel.selectedOrgId" (click)="onSelectOrganization()" name="as-orgId"
+            class="form-control input-sm">
+            <option value="0">All Organization</option>
+            <option *ngFor="let org of Organizations" [value]="org.orgId">{{org.name}}</option>
+          </select>
+        </div>
+        <div class="col-sm-3 text-left" style="width:26%;">
+          <label class="dg-lable" for="branchId">Branches:</label>
+          <select [(ngModel)]="searchAssetReportModel.branchId" name="as-branchId" class="form-control input-sm">
+            <option value="0">All Branches</option>
+            <option *ngFor="let branch of Branches" [value]="branch.branchId">{{branch.name}}</option>
+          </select>
+        </div>
+        <div class="col-sm-3 text-left" style="width:26%;">
+          <label class="dg-lable" for="daterange">Date Range:</label>
+          <input id="txtSearchDateRange" class="form-control input-sm col-md-6" name="daterange"
+            placeholder="Select Date Range" type="text" />
+        </div>
+        <div class="col-sm-3 text-right" style="width:22%;">
+          <div class="actions action-c">
+            <a id="btn-add-property" (click)="reset()" (click)="get_Assets_Report()">
+              <i class="fa fa-search" style="font-size:14px;color: white;">&nbsp;</i>View Report
+            </a>&nbsp;&nbsp;&nbsp;
+            <span (click)="exportExcel()" style="color:green!important;" tooltip="Export to Excel" placement="top"
+              show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+            <span (click)="Refresh()" style="color:green!important;cursor: pointer;padding-left: 15px;"
+              tooltip="Refresh" placement="top" show-delay="500"><i
+                class="fa fa-refresh  fa-lg"></i></span>&nbsp;&nbsp;&nbsp;
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="portlet-body">
+        <div class="mt-element-card mt-card-round">
+          <div class="row">
+            <div id="row-scrollable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th *ngIf="this.loggedInUserRoleGuid=='6fa5ce77-1e42-4487-b880-229180e0e9a1'">Organization Name</th>
+                    <th>Branch Name</th>
+                    <th>Active Asset</th>
+                    <th>InActive Asset</th>
+                    <th>Precise Match Count</th>
+                    <th>Partial Match Count</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="!isShowLoader && tbldata.length==0" class="no-records">
+                    <td colspan="10">No Records Found</td>
+                  </tr>
+                  <tr *ngFor="let assets of tbldata">
+                    <td *ngIf="this.loggedInUserRoleGuid=='6fa5ce77-1e42-4487-b880-229180e0e9a1'">{{ assets.orgName }}
+                    </td>
+                    <td>{{ assets.branchName }}</td>
+                    <td (click)="onViewAssets(assets,true)"><a>{{ assets.activeAssetCount }}</a></td>
+                    <td (click)="onViewAssets(assets,false)"><a>{{ assets.inactiveAssetCount }}</a></td>
+                    <td>{{ assets.preciseCount}}</td>
+                    <td>{{ assets.partialCount}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="paginator-container">
+                <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                  Total items: {{this.tbldataLength}}
+                </span>
+                <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                  Items per page: 25
+                </span>
+                <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1" (page)="onChangePage($event)"
+                  aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- pop up  -->
+<div class="modal fade" id="view-asset-popup" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <!-- Pop Up -->
+    <ng-container>
+      <div class="modal-content">
+        <div class="modal-header modal-header-c">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+          <h4 class="modal-title modal-title-c">Assets</h4>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-9 text-right" style="padding-right: 0px; top: 5px;">
+                <span (click)="exportAsExcel()" style="color:green!important;" tooltip="Export to Excel" placement="top"
+                  show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+                <span (click)="RefreshAssetPage()" style="color:green!important;cursor: pointer;padding-left: 15px;"
+                  tooltip="Refresh" placement="top" show-delay="500"><i
+                    class="fa fa-refresh  fa-lg"></i></span>&nbsp;&nbsp;&nbsp;
+              </div>
+              <div class="col-sm-3 text-right" style="padding-left: 0px;">
+                <div class="input-group">
+                  <input type="text" class="form-control input-sm" [formControl]="searchControl" placeholder="Search" />
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" (click)="Search()"><i class="fa fa-search"></i></span>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="">
+                  <div class="table-responsive">
+                    <table class="table table-striped table-hover table-responsive">
+                      <thead>
+                        <tr>
+                          <th>Owner Name</th>
+                          <th>District </th>
+                          <th>Taluka</th>
+                          <th>Village</th>
+                          <th>Type</th>
+                          <th>View</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngIf="!isShowLoader && assets.length==0" class="no-records">
+                          <td colspan="10">No Records Found</td>
+                        </tr>
+                        <tr *ngFor="let assets of assets">
+                          <td scope="col">{{assets.ownerFullName}}</td>
+                          <td scope="col">{{assets.cityName}}</td>
+                          <td scope="col">{{assets.talukaName}}</td>
+                          <td scope="col">{{assets.villageName}}</td>
+                          <td scope="col">{{assets.landCategoryName}}</td>
+                          <td scope="col"><i (click)="onViewProperty(assets)" class="fa fa-eye" aria-hidden="true"
+                              data-text="View"></i>&nbsp;</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="paginator-container">
+                      <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;"
+                        class="paginator-message">
+                        Total items: {{this.assetlength}}
+                      </span>
+                      <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;"
+                        class="paginator-message">
+                        Items per page: 25
+                      </span>
+                      <mat-paginator [pageIndex]="assetpage" [length]="assetlength" [pageSize]="1"
+                        (page)="onChangePageAsset($event)"
+                        aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
+
+<app-view-org-asset [editOrgPropertyModel]="viewProperty"></app-view-org-asset>

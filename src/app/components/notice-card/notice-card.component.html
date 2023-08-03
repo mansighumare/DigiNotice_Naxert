@@ -1,0 +1,152 @@
+<div [attr.id]="noticeInfo.noticeId" [ngClass]="{'selected':noticeInfo.isSelected, 'inactive' : !noticeInfo.isActive}"
+  (click)="onCardSelect($event)" class="notice-card mt-card-item" style="height: 97%;">
+
+  <div class="mt-card-content">
+    <h3>&nbsp;&nbsp;&nbsp;&nbsp;{{noticeInfo.noticeTitle}}</h3>
+    <div class="tools-c">
+      <!-- <a *ngIf="loggedInUserRole!='Org Admin' && loggedInUserRole!='Manager' && loggedInUserRole!='Employee' && loggedInUserRole!='User' && loggedInUserRole!='null'"> {{noticeInfo.userName ? noticeInfo.userName : 'N/A'}} </a> -->
+      <a *ngIf="loggedInUserRole=='SuperAdmin' || loggedInUserRole=='City Admin' || loggedInUserRole=='Operator'"> {{noticeInfo.userName ? noticeInfo.userName : 'N/A'}} </a>
+      <a *ngIf="authService.isLoggedIn && isShowBookmark">
+        <img (click)="onBookMarkNotice(noticeInfo)" [ngClass]="{'bookmarked': noticeInfo.isBookmakedNotice }"
+          class="star-img" src="assets/img/star.svg" alt="bookmark">
+      </a>
+
+      <!-- <span *ngIf="noticeInfo.type" [ngClass]="{'red-badge': noticeInfo.type === 'Red', 'yellow-badge': noticeInfo.type === 'Yellow'}">{{noticeInfo.type}}</span> -->
+      <a (click)="showViewNoticePopup()">
+        <i class="fa fa-eye"></i>
+      </a>
+      <a *ngIf="loggedInUserRole=='SuperAdmin' || loggedInUserRole=='City Admin' || loggedInUserRole=='Operator'">
+        <i class="fa fa-angle-down" data-toggle="dropdown" aria-expanded="false"></i>
+        <ul class="dropdown-menu pull-right" style="min-width: 90px;">
+          <li>
+            <a (click)="onEditNotice(noticeInfo)" href="javascript:;" style="width: 100%;">
+              <i class="fa fa-edit"></i> Edit </a>
+          </li>
+          <li>
+            <a (click)="onDeleteNotice(noticeInfo)" href="javascript:;" style="width: 100%;">
+              <i class="fa fa-close"></i>Delete </a>
+          </li>
+        </ul>
+      </a>
+    </div>
+    <div class="mt-card-head">
+      <span> <i class="fa fa-calendar"></i>{{noticeInfo.publishedDate | date : 'mediumDate'}} </span>
+      <span> <i class="fa fa-map-marker"></i>{{noticeInfo.cityName}} </span>
+      <span> <i class="fa fa-newspaper-o"></i>{{noticeInfo.paperName}} </span>
+    </div>
+    <div class="mt-body">
+      <table class="tbl-notice-info table table-responsive table-light table-c">
+        <tbody>
+          <tr *ngIf="noticeInfo.isPublisher==false">
+            <td>Seller Name</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.ownerFullName }"></ng-container>
+            </td>
+          </tr>
+
+          <tr *ngIf="noticeInfo.isPublisher==true">
+            <td>Published by</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.ownerFullName }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.advocateName !=='' && noticeInfo.advocateName !== null">
+            <td> With Advocate</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.advocateName }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.landCategory !=='' && noticeInfo.landCategory !== null">
+            <td> Type</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.landCategory }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.landMark !=='' && noticeInfo.landMark !== null">
+            <td> Locality</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.landMark }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.surveyNumber !=='' && noticeInfo.surveyNumber !== null">
+            <td>Survey/Khasra No.</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.surveyNumber }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.gatNumber !=='' && noticeInfo.gatNumber !== null">
+            <td> Gat No.</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.gatNumber }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.plotNumber !=='' && noticeInfo.plotNumber !== null">
+            <td>Plot No.</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.plotNumber }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.ctsNumber !=='' && noticeInfo.ctsNumber !== null">
+            <td> CTS No.</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.ctsNumber }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.propertyArea !=='' && noticeInfo.propertyArea !== null">
+            <td>Property Area</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.propertyArea }"></ng-container>
+            </td>
+          </tr>
+          <!-- <tr> -->
+          <tr *ngIf="noticeInfo.otherDetails !=='' && noticeInfo.otherDetails !== null">
+            <td> Other Info</td>
+            <td class="td-colon">:</td>
+            <td>
+              <ng-container *ngTemplateOutlet="TextTemplate;context:{text: noticeInfo.otherDetails }"></ng-container>
+            </td>
+          </tr>
+          <tr *ngIf="noticeInfo.googleMapLink !=='' && noticeInfo.googleMapLink !== null">
+            <td>GoogleMap Location </td>
+            <td class="td-colon">:</td>
+            <td>
+              <a [href]="noticeInfo.googleMapLink" target="_blank"><ng-container>click here</ng-container></a>
+            </td>
+         
+          </tr>
+          <tr>
+            <td class="image-td" style="text-align:center;" colspan="3">
+              <img (click)="showViewNoticePopup()" height="150" width="auto"
+                [ngClass]="{'img-preview':noticeInfo.enablePreview}" alt="Paper Add"
+                [attr.src]="noticeInfo.noticeImage[0].name">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="noticeInfo.type" class="ribbon ribbon-top-left"
+    [ngClass]="{'red-ribbon': noticeInfo.type === 'Precise', 'yellow-ribbon': noticeInfo.type === 'Partial'}">
+    <span>{{noticeInfo.type}}</span>
+  </div>
+</div>
+
+<ng-container *ngIf="isShowViewNoticePopup">
+  <app-view-notice (onClose)="onViewNoticePopupClose()" [noticeInfo]="noticeInfo"></app-view-notice>
+</ng-container>
+
+<ng-template #TextTemplate let-text="text">
+  <span *ngIf="(!text || text =='')" class="td-textMedia"></span>
+  <span *ngIf="!(!text || text =='')" class="td-textMedia">{{text}}</span>
+</ng-template>

@@ -1,0 +1,552 @@
+<app-loader *ngIf="isShowLoader">
+</app-loader>
+
+
+<div id="backend-users" class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-dark float-l">
+                    <i class="fa fa-users"></i>
+                    <span class="caption-subject font-blue bold" style="font-size: 16px;">Assets</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="row">
+                    <!-- <div class="col-sm-3">
+                        <label class="toggle-switch">
+                            <input type="checkbox" (click)="onShowActiveOnly()"
+                                [ngClass]="{ checked: isShowActiveOnly }" checked>
+                            <span class="slider"></span>
+                        </label>&nbsp;
+                        <span style="font-size: 15px;">Show Active Only</span>
+                    </div> -->
+
+                    <div class="col-sm-3" style="width:23%">
+                        <div *ngIf="this.loggedInUserRole=='Org Admin'">
+                            <label class="dg-lable" for="userRole">Branch:</label>
+                            <select name="as-userRole" (change)='onOptionsSelectedBranches($event)'
+                                class="form-control input-sm" name="userRole">
+                                <option value="0" selected>All</option>
+                                <option *ngFor="let branch of Branch" [value]="branch.branchId">{{branch.branchName}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3" style="width:23%">
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" [formControl]="searchControl"
+                                placeholder="Search" />
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" (click)="Search()"><i
+                                        class="fa fa-search"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-sm-2" style="width:17.66667%">
+                        <div class="actions action-c">
+                            <a id="btn-add-property" (click)="NotificationAlerts()">
+                                Check For Match Notices
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" style="width:17.66667%">
+                        <div class="actions action-c">
+                            <a id="btn-add-property" (click)="AddMultipleAssets()">
+                                <i class="fa fa-plus-circle"></i> Add Multiple Assets
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-sm-2" style="width:17.66667%">
+                        <div class="actions action-c">
+                            <span (click)="exportAsXLSX()" style="color:green!important;" tooltip="Export to Excel"
+                                placement="top" show-delay="500"><i class="fa fa-file-excel-o fa-lg"
+                                    data-text="Export"></i></span>
+                            <span (click)="Refresh()" style="color:green!important;cursor: pointer;padding-left: 15px;"
+                                tooltip="Refresh" placement="top" show-delay="500"><i class="fa fa-refresh  fa-lg"
+                                    data-text="Refresh"></i></span>&nbsp;&nbsp;&nbsp;
+                            <a id="btn-add-property" (click)="AddProperty()">
+                                <i class="fa fa-plus-circle"></i> Add Asset
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-element-card mt-card-round" style="margin-top: 20px">
+                    <div class="row">
+                        <div id="row-scrollable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Owner Name</th>
+                                        <th>Locality</th>
+                                        <th>Type</th>
+                                        <th>Gat No.</th>
+                                        <th>CTS No.</th>
+                                        <th *ngIf="this.loggedInUserRole=='Org Admin'">Branch Name</th>
+                                        <th>Created By</th>
+                                        <!-- <th>Other information</th> -->
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngIf="!isShowLoader && tbldata.length === 0" class="no-records">
+                                        <td colspan="10">No Records Found</td>
+                                    </tr>
+                                    <tr *ngFor="let property of tbldata">
+                                        <td>{{ property.ownerFullName}}</td>
+                                        <td>{{ property.landMark}}</td>
+                                        <td>{{ property.landCategoryName}}</td>
+                                        <td>{{ property.gatNumber}}</td>
+                                        <td>{{ property.ctsnumber}}</td>
+                                        <td *ngIf="this.loggedInUserRole=='Org Admin'">{{ property.branchName}}</td>
+                                        <td>{{ property.name}}</td>
+
+                                        <!-- <td>{{ property.otherDetails}}</td> -->
+                                        <td>
+                                            <div id="div1" *ngIf="property.isPendingDeletion ===0"><span
+                                                    class="badge badge-success"
+                                                    style="background-color:green;">Active</span>
+                                            </div>
+                                            <div id="div1" *ngIf="property.isPendingDeletion ===1"><span
+                                                    class="badge badge-success"
+                                                    style="background-color:rgb(226, 226, 22);">Pending</span>
+                                            </div>
+                                            <!-- <div id="div2"><span class="badge badge-danger">InActive</span>
+                                            </div> -->
+                                        </td>
+                                        <td>
+                                            <i *ngIf="property.isPendingDeletion ===0"
+                                                (click)="onEditProperty(property)" class="fa fa-pencil"
+                                                data-text="Edit"></i>&nbsp;
+                                            <i (click)="onViewProperty(property)" class="fa fa-eye" aria-hidden="true"
+                                                data-text="View"></i>&nbsp;
+                                            <i *ngIf="property.isPendingDeletion ===0" class="fa fa-comment"
+                                                (click)="onViewPropertyFollowUp(property)" aria-hidden="true"
+                                                data-text="Follw Up"></i>&nbsp;
+                                            <i class="fa fa-history" (click)="onPropertyHistory(property)"
+                                                aria-hidden="true" data-text="History"></i>&nbsp;
+                                            <i *ngIf="property.isPendingDeletion ===0" class="fa fa-trash"
+                                                (click)="onDeleteProperty(property)" aria-hidden="true"
+                                                data-text="Delete"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="paginator-container">
+                                <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;"
+                                    class="paginator-message">
+                                    Total items: {{this.tbldataLength}}
+                                </span>
+                                <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;"
+                                    class="paginator-message">
+                                    Items per page: 25
+                                </span>
+                                <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1"
+                                    (page)="onChangePage($event)"
+                                    aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- BEGIN modal-dialog -->
+<div class="modal fade bs-modal-lg" id="add-property-modal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header modal-header-c">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title modal-title-c">{{this.heading}}</h4>
+            </div>
+            <div [ngClass]="{'dg-disabled' : isSaving}" class="modal-body modal-body-c">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group" *ngIf="this.loggedInUserRoleGuid == '5A684E94-A768-45B7-8A2E-1F3BF22FC8B4'">
+                        <div class="col-md-12">
+                            <div>
+                                <label class="dg-lable" for="userRole">Branch:</label>
+                                <select tabindex="1" name="as-userRole" [(ngModel)]="addOrgPropertyModel.branchId"
+                                    (change)='onSelectedBranches($event)' class="form-control input-sm" name="userRole">
+                                    <option value="0" selected>Select Branch</option>
+                                    <option *ngFor="let branch of Branch" [value]="branch.branchId">
+                                        {{branch.displayName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="dg-lable" for="landCategoryId">Property Type:</label>
+                            <div class="form-control input-sm dg-radio-list">
+
+                                <div class="dg-radio-item">
+                                    <input tabindex="2" [(ngModel)]="addOrgPropertyModel.landCategoryId" value="1"
+                                        type="radio" id="constructedProperty" name="property-type">
+                                    <label for="constructedProperty">Constructed Property</label>
+                                </div>
+                                <div class="dg-radio-item">
+                                    <input tabindex="2" [(ngModel)]="addOrgPropertyModel.landCategoryId" value="3"
+                                        type="radio" id="Plot" name="property-type">
+                                    <label for="Plot">Plot</label>
+                                </div>
+                                <div class="dg-radio-item">
+                                    <input tabindex="2" [(ngModel)]="addOrgPropertyModel.landCategoryId" value="2"
+                                        type="radio" id="agriculturalLand" name="property-type">
+                                    <label for="agriculturalLand">Land</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="dg-lable" for="ownerFullName">Full Name:</label>
+                            <input tabindex="3" [(ngModel)]="addOrgPropertyModel.ownerFullName" name="ownerFullName"
+                                type="text" class="form-control input-sm" placeholder="Full Name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+
+                        <div class="col-md-4">
+                            <label class="dg-lable" for="stateId">State:</label>
+                            <select tabindex="4" disabled [(ngModel)]="addOrgPropertyModel.stateId"
+                                (change)="onStateChange($event)" name="as-stateId" class="form-control input-sm">
+                                <option *ngFor="let state of lookupService.stateList" [value]="state.id">
+                                    {{state.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="dg-lable" for="cityId">District:</label>
+                            <select tabindex="5" [(ngModel)]="addOrgPropertyModel.cityId"
+                                (change)="onDistrictChange(($any)($event.target).value)" name="as-cityId"
+                                class="form-control input-sm">
+                                <option value=0>Select District</option>
+                                <option *ngFor="let district of lookupService.cityList" [value]="district.id">
+                                    {{district.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="dg-lable" for="talukaId">Taluka:</label>
+                            <select tabindex="6" [(ngModel)]="addOrgPropertyModel.talukaId"
+                                (change)="onTalukaChange(($any)($event.target).value)" name="as-talukaId"
+                                class="form-control input-sm">
+                                <option value=0>Select Taluka</option>
+                                <option *ngFor="let taluka of lookupService.talukaList" [value]="taluka.id">
+                                    {{taluka.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <label class="dg-lable" for="villageId">Village:</label>
+                            <select tabindex="7" [(ngModel)]="addOrgPropertyModel.villageId" name="as-villageId"
+                                class="form-control input-sm">
+                                <option value=0>Village</option>
+                                <option *ngFor="let city of lookupService.villageList" [value]="city.id">
+                                    {{city.name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="dg-lable" for="landMark">Locality:</label>
+                            <input tabindex="8" [(ngModel)]="addOrgPropertyModel.landMark" name="landMark" type="text"
+                                class="form-control input-sm" placeholder="Locality" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="dg-lable" for="sectorNo">Sector No:</label>
+                            <input tabindex="9" [(ngModel)]="addOrgPropertyModel.sectorNo"
+                                (ngModelChange)="addOrgPropertyModel.sectorNo= $event.toUpperCase()" name="sectorNo"
+                                type="text" class="form-control input-sm" placeholder="Sector No" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="dg-lable" for="projectName">Project Name:</label>
+                            <input tabindex="10" [(ngModel)]="addOrgPropertyModel.projectName" name="projectName"
+                                type="text" class="form-control input-sm" placeholder="Project Name" />
+                        </div>
+                    </div>
+                    <div class="form-group mt-30">
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="col-md-2" style="margin-top: 10px;">
+                                    <div class="keyword-buttons">
+                                        <button tabindex="-1" (click)="onInsertKeyword($event, 'PART', 'surveyNumber')"
+                                            class="k-b">PART</button>
+                                        <button tabindex="-1" (click)="onInsertKeyword($event, 'HISSA', 'surveyNumber')"
+                                            class="k-b">HISSA</button>
+                                        <button tabindex="-1" (click)="onInsertKeyword($event, 'TO', 'surveyNumber')"
+                                            class="k-b">TO</button>
+                                    </div>
+                                    <input tabindex="11" [(ngModel)]="addOrgPropertyModel.surveyNumber"
+                                        (ngModelChange)="addOrgPropertyModel.surveyNumber= $event.toUpperCase()"
+                                        name="surveyNumber" type="text" class="form-control input-sm"
+                                        placeholder="Survey/Khasra No">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 10px;">
+                                    <input tabindex="12" [(ngModel)]="addOrgPropertyModel.plotNumber"
+                                        (ngModelChange)="addOrgPropertyModel.plotNumber= $event.toUpperCase()"
+                                        name="plotNumber" type="text" class="form-control input-sm"
+                                        placeholder="Plot No">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 10px;"
+                                    *ngIf="addOrgPropertyModel.landCategoryId != '1'">
+                                    <input tabindex="13" [(ngModel)]="addOrgPropertyModel.catestrialSurveyNo"
+                                        (ngModelChange)="addOrgPropertyModel.catestrialSurveyNo= $event.toUpperCase()"
+                                        name="catestrialSurveyNo" type="text" class="form-control input-sm"
+                                        placeholder="Cadastral Survey No">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 10px;">
+                                    <input tabindex="14" [(ngModel)]="addOrgPropertyModel.gatNumber"
+                                        (ngModelChange)="addOrgPropertyModel.gatNumber= $event.toUpperCase()"
+                                        name="gatNumber" type="text" class="form-control input-sm" placeholder="Gat No">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 10px;">
+                                    <div class="keyword-buttons">
+                                        <button tabindex="-1" (click)="onInsertKeyword($event, 'PART', 'surveyNumber')"
+                                            class="k-b">PART</button>
+                                        <button tabindex="-1" (click)="onInsertKeyword($event, 'HISSA', 'surveyNumber')"
+                                            class="k-b">HISSA</button>
+                                        <button tabindex="-1" (click)="onInsertKeyword($event, 'TO', 'surveyNumber')"
+                                            class="k-b">TO</button>
+                                    </div>
+                                    <input tabindex="15" [(ngModel)]="addOrgPropertyModel.ctsnumber"
+                                        (ngModelChange)="addOrgPropertyModel.ctsnumber= $event.toUpperCase()"
+                                        name="ctsnumber" type="text" class="form-control input-sm" placeholder="CTS No">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 10px;">
+                                    <input tabindex="16" [(ngModel)]="addOrgPropertyModel.propertyCardNo"
+                                        (ngModelChange)="addOrgPropertyModel.propertyCardNo= $event.toUpperCase()"
+                                        name="propertyCardNo" type="text" class="form-control input-sm"
+                                        placeholder="Property Card No">
+                                </div>
+                                <div class="col-md-2" style="margin-top: 10px;"
+                                    *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                    <input tabindex="17" [(ngModel)]="addOrgPropertyModel.buildingName"
+                                        name="buildingName" type="text" class="form-control input-sm"
+                                        placeholder="Building Name">
+                                </div>
+                                <div *ngIf="this.is_add_other_details">
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="19" [(ngModel)]="addOrgPropertyModel.floorNo"
+                                            (ngModelChange)="addOrgPropertyModel.floorNo= $event.toUpperCase()"
+                                            name="floorNo" type="text" class="form-control input-sm"
+                                            placeholder="Floor No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="20" [(ngModel)]="addOrgPropertyModel.flatNo"
+                                            (ngModelChange)="addOrgPropertyModel.flatNo= $event.toUpperCase()"
+                                            name="flatNo" type="text" class="form-control input-sm"
+                                            placeholder="Flat No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="21" [(ngModel)]="addOrgPropertyModel.phaseNo"
+                                            (ngModelChange)="addOrgPropertyModel.phaseNo= $event.toUpperCase()"
+                                            name="phaseNo" type="text" class="form-control input-sm"
+                                            placeholder="Phase No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="22" [(ngModel)]="addOrgPropertyModel.constructedPropertyArea"
+                                            (ngModelChange)="addOrgPropertyModel.constructedPropertyArea= $event.toUpperCase()"
+                                            name="note" type="text" class="form-control input-sm"
+                                            placeholder="Constructed Property Area">
+                                    </div>
+
+
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="23" [(ngModel)]="addOrgPropertyModel.houseNo"
+                                            (ngModelChange)="addOrgPropertyModel.houseNo= $event.toUpperCase()"
+                                            name="houseNo" type="text" class="form-control input-sm"
+                                            placeholder="House No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="24" [(ngModel)]="addOrgPropertyModel.tenementNo"
+                                            (ngModelChange)="addOrgPropertyModel.tenementNo= $event.toUpperCase()"
+                                            name="tenementNo" type="text" class="form-control input-sm"
+                                            placeholder="Tenament No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="25" [(ngModel)]="addOrgPropertyModel.factoryShedNo"
+                                            (ngModelChange)="addOrgPropertyModel.factoryShedNo= $event.toUpperCase()"
+                                            name="factoryShedNo" type="text" class="form-control input-sm"
+                                            placeholder="Factory Shed No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="26" [(ngModel)]="addOrgPropertyModel.industrialBuilding"
+                                            (ngModelChange)="addOrgPropertyModel.industrialBuilding= $event.toUpperCase()"
+                                            name="industrialBuilding" type="text" class="form-control input-sm"
+                                            placeholder="Industrial Building">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="27" [(ngModel)]="addOrgPropertyModel.flatShopNo"
+                                            (ngModelChange)="addOrgPropertyModel.flatShopNo= $event.toUpperCase()"
+                                            name="flatShopNo" type="text" class="form-control input-sm"
+                                            placeholder="Flat Shop No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;"
+                                        *ngIf="addOrgPropertyModel.landCategoryId == '1'">
+                                        <input tabindex="28" [(ngModel)]="addOrgPropertyModel.buildingNo"
+                                            (ngModelChange)="addOrgPropertyModel.buildingNo= $event.toUpperCase()"
+                                            name="buildingNo" type="text" class="form-control input-sm"
+                                            placeholder="Building No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="29" [(ngModel)]="addOrgPropertyModel.privatePlotNo"
+                                            (ngModelChange)="addOrgPropertyModel.privatePlotNo= $event.toUpperCase()"
+                                            name="privatePlotNo" type="text" class="form-control input-sm"
+                                            placeholder="Private Plot No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="30" [(ngModel)]="addOrgPropertyModel.finalPlotNo"
+                                            (ngModelChange)="addOrgPropertyModel.finalPlotNo= $event.toUpperCase()"
+                                            name="finalPlotNo" type="text" class="form-control input-sm"
+                                            placeholder="Final Plot No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="31" [(ngModel)]="addOrgPropertyModel.subPlotNo"
+                                            (ngModelChange)="addOrgPropertyModel.subPlotNo= $event.toUpperCase()"
+                                            name="subPlotNo" type="text" class="form-control input-sm"
+                                            placeholder="Sub Plot No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="32" [(ngModel)]="addOrgPropertyModel.glrNo"
+                                            (ngModelChange)="addOrgPropertyModel.glrNo= $event.toUpperCase()"
+                                            name="glrNo" type="text" class="form-control input-sm" placeholder="GLR No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="33" [(ngModel)]="addOrgPropertyModel.malmattaNo"
+                                            (ngModelChange)="addOrgPropertyModel.malmattaNo= $event.toUpperCase()"
+                                            name="malmattaNo" type="text" class="form-control input-sm"
+                                            placeholder="Malmatta No/Milkat No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="34" [(ngModel)]="addOrgPropertyModel.nagarPanchyatMilkatNo"
+                                            (ngModelChange)="addOrgPropertyModel.nagarPanchyatMilkatNo= $event.toUpperCase()"
+                                            name="nagarPanchyatMilkatNo" type="text" class="form-control input-sm"
+                                            placeholder="Nagar Panchayat Milkat No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="35" [(ngModel)]="addOrgPropertyModel.grampanchayatNo"
+                                            (ngModelChange)="addOrgPropertyModel.grampanchayatNo= $event.toUpperCase()"
+                                            name="grampanchayatNo" type="text" class="form-control input-sm"
+                                            placeholder="Grampanchayat Milkat No">
+                                    </div>
+
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="36" [(ngModel)]="addOrgPropertyModel.corporationRegistrationNo"
+                                            (ngModelChange)="addOrgPropertyModel.corporationRegistrationNo= $event.toUpperCase()"
+                                            name="corporationRegistrationNo" type="text" class="form-control input-sm"
+                                            placeholder="Corporation Registration No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="37" [(ngModel)]="addOrgPropertyModel.commencementCertificateNo"
+                                            (ngModelChange)="addOrgPropertyModel.commencementCertificateNo= $event.toUpperCase()"
+                                            name="commencementCertificateNo" type="text" class="form-control input-sm"
+                                            placeholder="Commencement Certificate No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="38" [(ngModel)]="addOrgPropertyModel.completionCertificateNo"
+                                            (ngModelChange)="addOrgPropertyModel.completionCertificateNo= $event.toUpperCase()"
+                                            name="completionCertificateNo" type="text" class="form-control input-sm"
+                                            placeholder="Completion Certificate No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="39" [(ngModel)]="addOrgPropertyModel.shareCertificateNo"
+                                            (ngModelChange)="addOrgPropertyModel.shareCertificateNo= $event.toUpperCase()"
+                                            name="shareCertificateNo" type="text" class="form-control input-sm"
+                                            placeholder="Share Certificate No">
+                                    </div>
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="40" [(ngModel)]="addOrgPropertyModel.propertyNo"
+                                            (ngModelChange)="addOrgPropertyModel.propertyNo= $event.toUpperCase()"
+                                            name="propertyNo" type="text" class="form-control input-sm"
+                                            placeholder="Property No">
+                                    </div>
+
+                                    <div class="col-md-2" style="margin-top: 10px;">
+                                        <input tabindex="41" [(ngModel)]="addOrgPropertyModel.complaintNoReportNo"
+                                            (ngModelChange)="addOrgPropertyModel.complaintNoReportNo= $event.toUpperCase()"
+                                            name="complaintNoReportNo" type="text" class="form-control input-sm"
+                                            placeholder="Complaint No/Report No">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <a tabindex="18" (click)="this.is_add_other_details=!this.is_add_other_details"
+                                (keypress)="onEnterKeyPressOther($any($event))" class="btn btn-success bt-c"
+                                style="margin-top: 10px;">
+                                Other
+                            </a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <ng-container *ngFor="let propertyImage of propertyImagelist;let index = index;">
+                            <div *ngIf="!propertyImage.isDeleted" class="col-md-2 col-sm-6 img-wrap">
+                                <span (click)="onRemoveImage(propertyImage, index)" class="remove-image"
+                                    title="Delete">&times;</span>
+                                <img class="img-preview dg-asset-img" [src]="propertyImage.fileName"
+                                    alt="Property Image">
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label>Select Property Image</label>
+                            <div class="input-group" style="top:0px!important;display: inline-table;">
+                                <span class="input-group-btn">
+                                    <span id="file-input-span" class="btn btn-default btn-file">
+                                        Browse…
+                                        <input tabindex="42" class="form-control" type="file" id="imgInp" multiple
+                                            (change)="getFileDetails($event)">
+                                    </span>
+                                </span>
+                                <input id="txt-selected-filename" type="text" class="form-control" readonly>
+                            </div>
+                            <div id='previewImg' class="col-md-12"></div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6">
+                            <label class="dg-lable" for="otherDetails">Other Details:</label>
+                            <input tabindex="43" [(ngModel)]="addOrgPropertyModel.otherDetails" name="otherDetails"
+                                type="text" class="form-control input-sm" placeholder="Other Details">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer modal-footer-c">
+                <button (click)="onResetFields()" tabindex="44" type="button" class="btn btn-default">Reset
+                    Fields</button>
+                <button [disabled]="isSaving" tabindex="45" (click)="onAddProperty()" type="button"
+                    class="btn btn-success bt-c">{{saveLabel}}</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+</div>
+<!-- END modal-dialog -->
+
+
+<app-view-org-asset [editOrgPropertyModel]="viewProperty"></app-view-org-asset>
+<app-org-asset-followup [AssetId]="this.AssetId" [viewpropertyfollowup]="viewpropertyfollowup"></app-org-asset-followup>
+
+
+<app-org-asset-history [comments]="this.comments"></app-org-asset-history>
+<app-add-multiple-assets></app-add-multiple-assets>

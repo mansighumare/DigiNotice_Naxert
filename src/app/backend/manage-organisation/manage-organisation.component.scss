@@ -1,0 +1,69 @@
+
+.action-c{
+    top: 23px!important;
+}
+.input-group{
+top: 18px!important;
+}
+// .dg-checkbox{
+//     top: 21px!important;
+// }
+.no-records{
+    td{
+        text-align: center;
+    }
+}
+
+
+
+table#tbl-users-list{
+    td,th{
+        font-size: 14px;
+        width: 100px !important;
+    }
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+
+
+
+
+  .input-group {
+    display: flex;
+    align-items: center;
+    width: 80%;
+ //   float: right;
+    margin-right: 19px;
+  }
+.dg-asset-img {
+    width: auto;
+    height: 19px;
+    /* margin-bottom: 10px; */
+}
+
+  #btn-add-property{
+    background: #1abc9c;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff
+}
+

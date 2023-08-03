@@ -1,0 +1,716 @@
+<a  *ngIf="isShowDownloadLink"  href="https://diginoticeapp.page.link/Zi7X" target="blank" class="mobileappFloat" style="font-size: 12px;">
+    <b>Download Mobile App</b>
+</a>
+
+<!-- <div id="preloader"></div> -->
+<app-loader *ngIf="isShowLoader"></app-loader>
+<!-- <app-loader *ngIf="isLoading"></app-loader> -->
+
+<header class="navbar navbar-inverse navbar-fixed-top " role="banner">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand">
+                <h1>
+                    <img src="assets/images/logo.png" alt="Logo">
+                </h1>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#main-slider">Home</a>
+                </li>
+                <li>
+                    <a href="#how-it-works">How It Works</a>
+                </li>
+                <li>
+                    <a href="#todays-notice">Today's Notice</a>
+                </li>
+                <li>
+                    <a href="#about-digi-notice">About us</a>
+                </li>
+                <li>
+                    <a href="#contact">Contact us</a>
+                </li>
+                <li>
+                    <a (click)="goToLogin()">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<!--/header-->
+
+<section id="main-slider" class="no-margin">
+    <div class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="item active">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="carousel-content center centered">
+                                <h2 class="boxed animation animated-item-1 fade-down">
+                                    <strong>Digi Notice -</strong>
+                                    Get Instant Notification</h2>
+                                <p class="boxed animation animated-item-2 fade-up text-size">Legal Paper Notices of
+                                    properties published in Newspapers</p>
+                                <br>
+                                <a (click)="goToLogin()" class="btn btn-md animation bounce-in">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/.item-->
+        </div>
+        <!--/.carousel-inner-->
+    </div>
+    <!--/.carousel-->
+</section>
+<!--/#main-slider-->
+<div id="get-notified-on-mobile">
+
+</div>
+
+<div id="content-wrapper home-page">
+    <section id="get-notified" class="blue-color">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>GET NOTIFIED ON MOBILE</h3>
+                    <p>Get instant legal paper notice push notifications for your
+                        <strong> LANDS</strong> and
+                        <strong>PROPERTIES</strong> including
+                        <strong>FLATS</strong>,
+                        <strong>SHOPS</strong> and
+                        <strong>PLOTS</strong>.</p>
+                    <a class="btn btn-md animation dow-btn" href="#services">Download Now</a>
+                </div>
+                <div class="col-md-6" style="margin-bottom: 0px;">
+                    <img src="assets/images/get-notified.png" alt="get notififed">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="todays-notice" class="white">
+        <div class="container">
+            <div class="gap"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                        <h2 class="main-title">Today's
+                            <strong>Notice</strong>
+                        </h2>
+                        <p>Get your daily read of notices on our websites without login</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-element-card mt-card-round">
+                <div class="row">
+                    <ng-container *ngFor="let noticeInfo of noticeInfoList">
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                            <app-notice-card [noticeInfo]="noticeInfo"></app-notice-card>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class="gap"></div>
+            <div class="row" style="margin-bottom: 50px;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                    <a (click)="onSearchMore()" class="btn btn-md animation search-btn">
+                        Search More...
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="how-it-works" class="gray-color">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                        <h2 class="main-title">How It
+                            <strong>Works</strong>
+                        </h2>
+                        <p>Download the DIGI Notice and login</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <table>
+                        <tr>
+                            <td> <img src="assets/images/Daily Notice Update Logo.png" alt="DAILY NOTICE UPDATES"
+                                    style="width: 50px;margin-right: 15px;" class="res" /></td>
+
+                            <td>
+                                <h4> <img src="assets/images/Daily Notice Update Name.png"
+                                    style="width: 250px;margin-right: 15px;" class="res" /></h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>Get Daily paper notice updates from your city by just Tapping on your smart phone.</p>
+                    <p>
+                        You Don’t have to go through all the notices because all the important details are sorted out in
+                        a simplified format on the Diginotice app & website.
+                    </p>
+                    <!-- <a>READ MORE...</a> -->
+                </div>
+
+                <div class="col-md-6 text-center">
+                    <img src="assets/images/Daily Notice Update Screens.png" alt="DAILY NOTICE UPDATES"
+                        style="width: 400px;" class="res" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="search-notices" class="search-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                       
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="assets/images/Search Notice Screens.png" alt="Search Notice Screens" style="width: 400px;"
+                        class="res" />
+                </div>
+
+                <div class="col-md-6">
+                    <table>
+                        <tr>
+
+                            <td>
+                                <h4> <img src="assets/images/Search Notice Name.png"
+                                    style="width: 250px;margin-right: 15px;" class="res" /></h4>
+                            </td>
+                            <td> <img src="assets/images/Search Notice Logo.png" alt="Search Notice Logo"
+                                    style="width: 50px;margin-left: 15px;" class="res" /></td>
+                        </tr>
+                    </table>
+                    <p>
+                        With DIGI Notice You can search online previous paper notices published in newspapers.
+                    </p>
+                    <p>
+                        Just by filling basic details of the property you will be able to access previous paper notice.
+                    </p>
+                    <p>
+                        Our vast & up to date database includes notices from Nashik & Pune region, dated 01/01/2016
+                        onwards.
+                    </p>
+                    <!-- <a>READ MORE...</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="gray-color">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                       
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <table>
+                        <tr>
+                            <td> <img src="assets/images/Asset Manager Logo.png" alt="Asset Manager"
+                                    style="width: 50px;margin-right: 15px;" class="res" /></td>
+
+                            <td>
+                                <h4> <img src="assets/images/Asset Manager Name.png"
+                                    style="width: 250px;margin-right: 15px;" class="res" /></h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>Now you can save your property from any fraudulent transaction just by adding your property
+                        details on the Asset manager.</p>
+                    <p>
+                        You will get alerts through SMS/E-mail/Push Notifications about notice publishing for listed
+                        properties.
+                    </p>
+                    <p>
+                        The asset manager is important for the property owner to Track Title Verification Notices online.
+                         This will ensure that the user doesn’t miss any paper notices
+                         regarding the properties added in the Asset Manager. 
+
+                    </p>
+                    <!-- <a>READ MORE...</a> -->
+                </div>
+
+                <div class="col-md-6 text-center">
+                    <img src="assets/images/Asset Manager Screen.png" alt="Asset Manager Screen" style="width: 400px;"
+                        class="res" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="search-notices" class="search-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                       
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="assets/images/Matched Notice Screens.png" alt="Matched Notice" style="width: 400px;"
+                        class="res" />
+                </div>
+
+                <div class="col-md-6">
+                    <table>
+                        <tr>
+
+                            <td>
+                                <h4> <img src="assets/images/Matched Notice Name.png"
+                                    style="width: 250px;margin-right: 15px;" class="res" /></h4>
+                            </td>
+                            <td> <img src="assets/images/Matched Notice Logo.png" alt="Matched Notice Logo"
+                                    style="width: 50px;margin-left: 15px;" class="res" /></td>
+                        </tr>
+                    </table>
+                    <p>
+                        Matched notices provides you with instant notification by E-mail & SMS
+                        for Paper notices which are matching with property added in Asset Manager so 
+                        that you can avoid fraudulent transactions.
+                    </p>
+                    <p>
+                        The Traditional approach of manually matching the properties is tiresome as 
+                        the details of any property are complex and difficult to remember. 
+                        Diginotice finds out a solution for this time-consuming process by sending
+                         an instant notifications. 
+                    </p>                   
+                    <!-- <a>READ MORE...</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="gray-color">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                       
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <table>
+                        <tr>
+                            <td> <img src="assets/images/Bookmark Notice Logo.png" alt="Bookmark Notice"
+                                    style="width: 50px;margin-right: 15px;" class="res" /></td>
+
+                            <td>
+                                <h4> <img src="assets/images/Bookmark Notice Name.png"
+                                    style="width: 250px;margin-right: 15px;" class="res" /></h4>
+                            </td>
+                        </tr>
+                    </table>
+                    <p>This feature allows You to bookmark any papernotice for future reference reducing 
+                        the effort of going through all the notices again and again. You can conveniently
+                         see all the bookmarked notices in a separate folder.
+                    </p>                   
+                    <!-- <a>READ MORE...</a> -->
+                </div>
+
+                <div class="col-md-6 text-center">
+                    <img src="assets/images/Bookmark Notice Screen.png" alt="Bookmark Notice Screen" style="width: 400px;"
+                        class="res" />
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="search-notices" class="search-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                       
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <img src="assets/images/Google Map Location Screen.png" alt="Google Map Location" style="width: 400px;"
+                        class="res" />
+                </div>
+
+                <div class="col-md-6">
+                    <table>
+                        <tr>
+
+                            <td>
+                                <h4> <img src="assets/images/Google Map Location Name.png"
+                                    style="width: 250px;margin-right: 15px;" class="res" /></h4>
+                            </td>
+                            <td> <img src="assets/images/Google Map Location Logo.png" alt="Google Map Location Logo"
+                                    style="width: 50px;margin-left: 15px;" class="res" /></td>
+                        </tr>
+                    </table>
+                    <p>
+                        Diginotice is now changing the way property transactions are done.
+                        We are providing actual photographs of the property which will make 
+                        an owner easily understand own property without going through all of the notices.
+                        With pinned location on google maps location on each notice, it will be more easy
+                        to get the exact location of the property.
+
+                    </p>                                   
+                    <!-- <a>READ MORE...</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="track-your-property" class="gray-color">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="tile-progress tile-red bounce-in flow-box text-center">
+
+                        <div class="tile-progressbar">
+                            <span data-fill="65.5%" style="width: 100%;"></span>
+                        </div>
+                        <div class="tile-footer radius-50">
+                            <h4>
+                                <span class="pct-counter counter">1</span>
+                            </h4>
+                        </div>
+                        <div class="tile-header">
+                            <h3 class="text-center">Login</h3>
+                            <span class="text-center">Download and Login in to Digi Notice Application.</span>
+                        </div>
+                    </div>
+
+                    <div class="tile-progress tile-red bounce-in flow-box text-center">
+
+                        <div class="tile-progressbar">
+                            <span data-fill="65.5%" style="width: 100%;"></span>
+                        </div>
+                        <div class="tile-footer radius-50">
+                            <h4>
+                                <span class="pct-counter counter">2</span>
+                            </h4>
+                        </div>
+                        <div class="tile-header">
+                            <h3 class="text-center">Add Property</h3>
+                            <span class="text-center">Add your property (Plot / Agri Land / Flat or Shop) </span>
+                        </div>
+                    </div>
+
+                    <div class="tile-progress tile-red bounce-in flow-box text-center">
+
+                        <div class="tile-progressbar">
+                            <span data-fill="65.5%" style="width: 100%;"></span>
+                        </div>
+                        <div class="tile-footer radius-50">
+                            <h4>
+                                <span class="pct-counter counter">3</span>
+                            </h4>
+                        </div>
+                        <div class="tile-header">
+                            <h3 class="text-center">Get Notifications</h3>
+                            <span class="text-center">get notices for your matched paper notice at free of cost of
+                                course
+                            </span>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6 text-center">
+                    <h1>Track your property
+                        <br> notices
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="Watch-video" class="watch_video">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-md-8">
+                    <h1>Watch
+                        <strong>Video</strong> Presentation </h1>
+                    <p>It works faster with very user friendly UI</p>
+
+                </div>
+                <div class="col-md-2 text-center">
+                    <img src="assets/images/watch-video-icon.png" alt="Watch Video Presentation" class="res" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Start -->
+    <section id="about-digi-notice" class="white">
+        <div class="container">
+            <div class="gap"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="center gap fade-down section-heading">
+                        <h2 class="main-title">About
+                            <strong>Digi Notice</strong>
+                        </h2>
+                        <p>Happy to help</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+                    <h2 style="font-weight:100;">We offer
+                        <strong>Perfect Solution</strong>
+                    </h2>
+                    <p>At Diginotice, we come together to reduce current complexities involved in various stages of
+                        property
+                        dealing by making it more transparent for the community.
+                        <br> At times same land or properties are sold to multiple people. There are also cases of
+                        illegal possessions
+                        of properties.
+                        <br> The owners and agents are at times unaware of such proceedings.
+                        <br> Paper notice is primary step for any property. Through Diginotice, we intend to make people
+                        aware
+                        of these legal notices.
+                        <br> Such check from the first step of dealings will help eliminate future nuisance.
+                        <br> We at Diginotice work towards digitalization of these proceedings. We are committed towards
+                        providing
+                        better digital services in future for increasing transparency in property dealings.
+                    </p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-center">
+                    <img src="assets/images/about-digi.png" alt="About Digi" style="width: 80%;" class="res" />
+                </div>
+
+            </div>
+
+
+            <!--/.row-->
+            <div class="gap"></div>
+
+            <!--/.row-->
+        </div>
+
+
+
+
+    </section>
+
+    <!-- End -->
+
+
+
+
+
+
+
+    <section id="testimonial-about-us" class="divider-section">
+        <div class="gap"></div>
+        <div class="container">
+            <div class="row">
+                <div class="center gap fade-down section-heading">
+                    <h2 class="main-title">
+                        <strong>Testimonial</strong> About Us </h2>
+                    <hr>
+                    <p>People sharing there experience with us </p>
+                    <div class="gap"></div>
+                </div>
+                <div class='col-md-offset-2 col-md-8 fade-up'>
+                    <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+                        <!-- Bottom Carousel Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#quote-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#quote-carousel" data-slide-to="1"></li>
+                            <li data-target="#quote-carousel" data-slide-to="2"></li>
+                        </ol>
+                        <!-- Carousel Slides / Quotes -->
+                        <div class="carousel-inner">
+                            <!-- Quote 1 -->
+                            <div class="item active">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center">
+                                            <!-- <img class="img-responsive" src="assets/images/team/team01.jpg"
+                                                style="width: 100px;height:100px;"> -->
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>I own three properties in and around Nashik. Because of DigiNotice, it has become v
+                                                convenient for me to keep a tab on the paper notices regarding my properties.</p>
+                                            <small>Mr.Gaurav Jain</small>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <!-- Quote 2 -->
+                            <div class="item">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center">
+                                            <!-- <img class="img-responsive" src="assets/images/team/team02.jpg"
+                                                style="width: 100px;height:100px;"> -->
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>I used to check paper notices daily and it was very time consuming.
+                                                 Because of DigiNotice the process has become much easier.</p>
+                                            <small>Mrs. Saumitra Patil (Real estate Consultant)</small>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                            <!-- Quote 3 -->
+                            <div class="item">
+                                <blockquote>
+                                    <div class="row">
+                                        <div class="col-sm-3 text-center">
+                                            <!-- <img class="img-responsive" src="assets/images/team/team03.jpg"
+                                                style="width: 100px;height:100px;"> -->
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <p>As an advocate, I feel all the notices of my clients should reach maximum number of people and this has become possible because of DigiNotice.
+                                                 All the important details are readily available on a single tap.
+                                            </p>
+                                            <small>Adv. Sanjay R. Jagtap (Nashik)</small>
+                                        </div>
+                                    </div>
+                                </blockquote>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gap"></div>
+        </div>
+    </section>
+
+
+
+
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="gap"></div>
+            <div class="center gap fade-down section-heading">
+                <p>Stay in touch</p>
+                <h2 class="main-title">
+                    <strong>Contact us</strong>
+                </h2>
+            </div>
+            <div class="gap"></div>
+            <div class="row">
+                <div class="col-md-4 fade-up text-center">
+                    <i class="fa fa-mobile"></i>
+                    <br> Phone: +91 7720054444
+                </div>
+                <div class="col-md-4 fade-up text-center">
+                    <i class="fa fa-map-marker"></i>
+                    <br> 2, Nirav apartment , Canada corner,
+                    <br> nashik 422003
+
+
+                </div>
+                <div class="col-md-4 fade-up text-center">
+                    <i class="fa fa-envelope"></i>
+                    <br> info@diginotice.in
+                </div>
+            </div>
+            <div class="row">
+
+
+                <div class="col-md-12 fade-up">
+                    <h3>Drop Us A Message</h3>
+                    <br>
+                    <br>
+                    <div id="message"></div>
+                    <form role="form" [formGroup]="contactUsForm" (ngSubmit)="onSubmit()" id="contactform"
+                        class="form-inline contact-us">
+                        <div class="col-sm-6">
+                            <input formControlName="name" type="text" name="name" id="name" placeholder="Name" />
+                            <input formControlName="email" type="text" name="email" id="email" placeholder="Email" />
+                        </div>
+                        <div class="col-sm-6">
+                            <textarea formControlName="message" name="message" id="comments"
+                                placeholder="Comments"></textarea>
+                        </div>
+                        <input class="btn btn-outlined btn-primary btn-contact" type="submit" name="submit"
+                            value="Submit" />
+                    </form>
+                </div>
+                <!-- col -->
+            </div>
+            <!-- row -->
+            <div class="gap"></div>
+        </div>
+    </section>
+    <div id="">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.1206620824237!2d73.76716541474525!3d20.003449886562713!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb9f16f7cd93%3A0xef5084610e663289!2sDigi+Notice!5e0!3m2!1sen!2sin!4v1559153114656!5m2!1sen!2sin"
+            width="100%" height="500" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+</div>
+
+<div id="home-footer-wrapper">
+    <footer id="footer" class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 social text-center">
+                    <a>
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a>
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a>
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                    <a>
+                        <i class="fa fa-google"></i>
+                    </a>
+                </div>
+                <div class="col-sm-12 social text-center">
+                    &copy; 2019 Digi Notice. All Rights Reserved.
+                    <ul class="pull-right">
+                        <li>
+                            <a id="gototop" class="gototop">
+                                <i class="fa fa-chevron-up" (click)="topFunction()"></i>
+                            </a>
+                        </li>
+                        <!--#gototop-->
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+    <!--/#footer-->
+</div>
+<!-- <div class="backstretch">
+    <img src="assets/images/bg/body-bg.jpg" alt="img"/>
+</div> -->
+
+
+<div *ngIf="isShowSearchMore" class="modal fade" id="search-more-modal" tabindex="-1" role="view" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Search Notices</h4>
+            </div>
+            <!-- <div (scroll)="onInfiniteScroll($event)" id="scrollable-body" class="modal-body">
+                <app-dashboard></app-dashboard>
+            </div> -->
+            <div class="modal-body">
+                <app-dashboard></app-dashboard>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

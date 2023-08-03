@@ -1,0 +1,765 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<!-- END PAGE BAR -->
+<div class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-newspaper-o"></i>
+          <span class="caption-subject font-blue bold ">Add Notice</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="mt-element-card mt-card-round">
+          <div class="row">
+            <!-- BEGIN TITLE VERIFICATION-->
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <form class="form-horizontal" role="form">
+                <!-- <div class="form-group">
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="isPaidNotice">Notice Type:</label>
+                    <div class="form-control input-sm dg-radio-list">
+                      <div class="dg-radio-item">
+                        <input tabindex="1" [(ngModel)]="addNoticeModel.isPaid" value="false" type="radio" id="Free" name="is-paid" (click)="onSelectNoticeType(false)">
+                        <label for="Free">Free</label>
+                      </div>
+                      <div class="dg-radio-item">
+                        <input  tabindex="1" [(ngModel)]="addNoticeModel.isPaid" value="true" type="radio" id="Paid" name="is-paid" (click)="onSelectNoticeType(true)">
+                        <label for="Paid">Paid</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="isPublisher">Publisher:</label>
+                    <div class="form-control input-sm dg-radio-list">
+                      <div class="dg-radio-item">
+                        <input tabindex="2" [(ngModel)]="addNoticeModel.isPublisher" value="true" type="radio" id="Yes"
+                          name="is-publisher" (click)="onSelectPublisher(true)">
+                        <label for="Yes">Yes</label>
+                      </div>
+                      <div class="dg-radio-item">
+                        <input tabindex="2" [(ngModel)]="addNoticeModel.isPublisher" value="false" type="radio" id="No"
+                          name="is-publisher" (click)="onSelectPublisher(false)">
+                        <label for="No">No</label>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+                <div class="form-group mt-30">
+                  <!-- <div class="col-md-3">
+                    <label class="dg-lable" for="noticeTitle">Notice Title:</label>
+                    <input tabindex="1" [(ngModel)]="addNoticeModel.noticeTitle" name="noticeTitle" type="text"
+                      class="form-control input-sm" placeholder="Notice Title">
+                  </div> -->
+
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="noticeTitle">Notice Title:</label>
+                    <select tabindex="1" [(ngModel)]="addNoticeModel.noticeTypeId" (change)="onNoticeTypeChange($event)"
+                      name="noticeTitle" class="form-control input-sm">
+                      <!-- <option>Select Notice Title</option> -->
+                      <option *ngFor="let noticetype of NoticeType" [value]="noticetype.id">
+                        {{noticetype.name}}</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="isPaidNotice">Notice Type:</label>
+                    <div class="form-control input-sm dg-radio-list" id="flex">
+                      <div class="dg-radio-item">
+                        <input tabindex="2" [(ngModel)]="addNoticeModel.isPaid" value="false" type="radio" id="Free"
+                          name="is-paid" (click)="onSelectNoticeType(false)">
+                        <label for="Free">Free</label>
+                      </div>
+                      <div class="dg-radio-item">
+                        <input tabindex="2" [(ngModel)]="addNoticeModel.isPaid" value="true" type="radio" id="Paid"
+                          name="is-paid" (click)="onSelectNoticeType(true)">
+                        <label for="Paid">Paid</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="isPublisher">Publisher:</label>
+                    <div class="form-control input-sm dg-radio-list" id="flex">
+                      <div class="dg-radio-item">
+                        <input tabindex="3" [(ngModel)]="addNoticeModel.isPublisher" value="true" type="radio" id="Yes"
+                          name="is-publisher" (click)="onSelectPublisher(true)">
+                        <label for="Yes">Yes</label>
+                      </div>
+                      <div class="dg-radio-item">
+                        <input tabindex="3" [(ngModel)]="addNoticeModel.isPublisher" value="false" type="radio" id="No"
+                          name="is-publisher" (click)="onSelectPublisher(false) ">
+                        <label for="No">No</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="ownerFullName">Seller Name:</label>
+                    <input tabindex="4" [(ngModel)]="addNoticeModel.ownerFullName" name="ownerFullName" type="text"
+                      class="form-control input-sm" placeholder="Seller Name">
+                  </div>
+                  <div class="col-md-3">
+                    <div class="d-flex">
+                      <div class="p-2">
+                        <label class="dg-lable" for="advocateName">Advocate Name:</label>
+
+                      </div>
+                      <div class="p-2" style="margin-left: 76px;">
+                        <div class="keyword-buttons" style="top:0px;">
+                          <button tabindex="-1" (click)="onInsertKeyword($event, 'Adv.', 'advocateName')"
+                            class="k-b">Adv</button>
+                        </div>
+                      </div>
+                    </div>
+                    <input list="browsers" tabindex="5" [formControl]="searchControl" name="advocateName" type="text"
+                      class="form-control input-sm" placeholder="Advocate Name" autocomplete="off">
+                  </div>
+
+                  <div class="pList" id="pListId" *ngIf="flag">
+                    <div class="closeButton" (click)="flag = false">&times;</div>
+                    <div id="table-scroll">
+                      <table *ngFor="let person of personList">
+                        <tr>
+                          <td (click)="persondetail(person)">{{person.Fullname}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="dg-lable" for="advocateName">Advocate Address:</label>
+                    <input tabindex="6" [(ngModel)]="addNoticeModel.advocateAddress" name="advocateAddress"
+                      maxlength="1000" type="text" class="form-control input-sm" placeholder="Advocate Address">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="advocateName">Advocate Phone:</label>
+                    <input tabindex="7" type="phone" maxlength="21" minlength="10"
+                      [(ngModel)]="addNoticeModel.advocatePhone" name="advocatePhone" class="form-control input-sm"
+                      placeholder="Advocate Phone">
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="isActive">Notice Period:</label>
+                    <input (keypress)="onKeyPressValidateNumber($event)" (input)="onNoticePeriodInput($event)"
+                      tabindex="8" min=0 [(ngModel)]="addNoticeModel.noticePeriod" name="noticePeriod" type="number"
+                      class="form-control input-sm" placeholder="Notice Period">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="Paper">News Paper:</label>
+                    <select tabindex="9" [(ngModel)]="addNoticeModel.paperId" name="as-paperId"
+                      class="form-control input-sm">
+                      <option value="0">Select Paper</option>
+                      <option *ngFor="let newsPaper of lookupService.newsPapers" [value]="newsPaper.id">
+                        {{newsPaper.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="dg-lable" for="landCategoryId">Property Type:</label>
+                    <div class="form-control input-sm dg-radio-list" id="flex">
+                      <div class="dg-radio-item">
+                        <input tabindex="10" [(ngModel)]="addNoticeModel.landCategoryId" value="1" type="radio"
+                          id="constructedProperty" name="property-type">
+                        <label for="constructedProperty">Constructed Property</label>
+                      </div>
+                      <div class="dg-radio-item">
+                        <input tabindex="10" [(ngModel)]="addNoticeModel.landCategoryId" value="3" type="radio"
+                          id="Plot" name="property-type">
+                        <label for="Plot">Plot</label>
+                      </div>
+                      <div class="dg-radio-item">
+                        <input tabindex="10" [(ngModel)]="addNoticeModel.landCategoryId" value="2" type="radio"
+                          id="agriculturalLand" name="property-type">
+                        <label for="agriculturalLand">Land</label>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+                <div class="form-group">
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="publishedDate">Notice Date:</label>
+                    <input tabindex="11" id="txtNoticeDate" class="form-control input-sm" name="publishDate"
+                      placeholder="Select Notice Date" type="text" />
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="stateId">State:</label>
+                    <select tabindex="12" [(ngModel)]="addNoticeModel.stateId" name="as-stateId"
+                      class="form-control input-sm" (change)="onStateChange(($any)($event.target).value)">
+                      <option *ngIf="addNoticeModel.stateId ==0" value="0">Select State</option>
+                      <option *ngFor="let state of lookupService.stateList" [value]="state.id">{{state.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="cityId">District:</label>
+                    <select tabindex="13" [(ngModel)]="addNoticeModel.cityId"
+                      (change)="onDistrictChange(($any)($event.target).value)" name="as-cityId" class="form-control input-sm">
+                      <option value=0>Select District</option>
+                      <option *ngFor="let district of lookupService.cityList" [value]="district.id">{{district.name}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="talukaId">Taluka:</label>
+                    <select tabindex="14" [(ngModel)]="addNoticeModel.talukaId"
+                      (change)="onTalukaChange(($any)($event.target).value)" name="as-talukaId" class="form-control input-sm">
+                      <option value=0>Select Taluka</option>
+                      <option *ngFor="let taluka of lookupService.talukaList" [value]="taluka.id">{{taluka.name}}
+                      </option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="villageId">Village:</label>
+                    <select tabindex="15" [(ngModel)]="addNoticeModel.villageId" name="as-villageId"
+                      class="form-control input-sm">
+                      <option value=0>Select Village</option>
+                      <option *ngFor="let city of lookupService.villageList" [value]="city.id">{{city.name}}</option>
+                    </select>
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="landMark">Locality:</label>
+                    <input tabindex="16" [(ngModel)]="addNoticeModel.landMark" name="landMark" type="text"
+                      class="form-control input-sm" placeholder="Locality" />
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="sectorno">Sector No:</label>
+                    <input tabindex="17" [(ngModel)]="addNoticeModel.sectorNo"
+                      (ngModelChange)="addNoticeModel.sectorNo= $event.toUpperCase()" name="sectorno" type="text"
+                      class="form-control input-sm" placeholder="Sector No">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="projectname">Project Name:</label>
+                    <input tabindex="18" [(ngModel)]="addNoticeModel.projectName" name="projectname" type="text"
+                      class="form-control input-sm" placeholder="Project Name">
+                  </div>
+                </div>
+                <br>
+                <hr>
+                <!-- <div class="form-group">
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="sectorno">Sector No:</label>
+                    <input tabindex="17" [(ngModel)]="addNoticeModel.sectorNo" name="sectorno" type="text"
+                      class="form-control input-sm" placeholder="Sector No">
+                  </div>
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="projectname">Project Name:</label>
+                    <input tabindex="18" [(ngModel)]="addNoticeModel.projectName" name="projectname" type="text"
+                      class="form-control input-sm" placeholder="Project Name">
+                  </div>
+                </div> -->
+                <div class="form-group">
+                </div>
+                <ng-container *ngFor="let noticeDetail of addNoticeModel.noticeDetailList;let index = index;">
+                  <div class="form-group mt-30">
+                    <div class="form-group">
+                      <div class="col-md-11">
+                        <div class="row" style="margin-top: 10px;">
+                          <!-- <div class="col-md-2">
+                          <input tabindex="55" [(ngModel)]="noticeDetail.surveyNumber"
+                            (ngModelChange)="noticeDetail.surveyNumber= $event.toUpperCase()"
+                            name="surveyNumber-{{index}}" type="text" class="form-control input-sm"
+                            placeholder="Survey/Khasra No">
+                        </div> -->
+                          <div class="col-md-2">
+                            <div class="keyword-buttons">
+                              <button tabindex="-1" (click)="onInsertKeyword($event, 'PART', 'surveyNumber')"
+                                class="k-b">PART</button>
+                              <button tabindex="-1" (click)="onInsertKeyword($event, 'HISSA', 'surveyNumber')"
+                                class="k-b">HISSA</button>
+                              <button tabindex="-1" (click)="onInsertKeyword($event, 'TO', 'surveyNumber')"
+                                class="k-b">TO</button>
+                            </div>
+                            <input tabindex="55+{{count}}" [(ngModel)]="noticeDetail.surveyNumber"
+                              (ngModelChange)="noticeDetail.surveyNumber= $event.toUpperCase()"
+                              name="surveyNumber-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Survey/Khasra No">
+                          </div>
+                          <div class="col-md-2">
+                            <input tabindex="56+{{count}}" [(ngModel)]="noticeDetail.gatNumber"
+                              (ngModelChange)="noticeDetail.gatNumber= $event.toUpperCase()" name="gatNumber-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Gat No">
+                          </div>
+                          <div class="col-md-2">
+                            <input tabindex="57+{{count}}" [(ngModel)]="noticeDetail.plotNumber"
+                              (ngModelChange)="noticeDetail.plotNumber= $event.toUpperCase()"
+                              name="plotNumber-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Plot No">
+                          </div>
+                          <div class="col-md-3">
+                            <input tabindex="58+{{count}}" [(ngModel)]="noticeDetail.ctsNumber"
+                              (ngModelChange)="noticeDetail.ctsNumber= $event.toUpperCase()" name="ctsnumber-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="CTS No">
+                          </div>
+                          <div class="col-md-3">
+                            <input tabindex="59+{{count}}" [(ngModel)]="noticeDetail.propertyArea" name="PropertyArea-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Property Area">
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="addNoticeModel.landCategoryId == '1'">
+                          <div class="col-md-2" style="margin-top: 10px;" >
+                            <input tabindex="60+{{count}}" [(ngModel)]="noticeDetail.buildingName" name="buildingName-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Building Name">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="61+{{count}}" [(ngModel)]="noticeDetail.buildingNo"
+                              (ngModelChange)="noticeDetail.buildingNo= $event.toUpperCase()"
+                              name="buildingNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Building No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;" >
+                            <input tabindex="62+{{count}}" [(ngModel)]="noticeDetail.flatNo"
+                              (ngModelChange)="noticeDetail.flatNo= $event.toUpperCase()" name="flatNo-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Flat No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="63+{{count}}" [(ngModel)]="noticeDetail.flatShopNo"
+                              (ngModelChange)="noticeDetail.flatShopNo= $event.toUpperCase()"
+                              name="flatShopNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Flat Shop No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="64+{{count}}" [(ngModel)]="noticeDetail.houseNo"
+                              (ngModelChange)="noticeDetail.houseNo= $event.toUpperCase()" name="houseNo-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="House No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;" >
+                            <input tabindex="65+{{count}}" [(ngModel)]="noticeDetail.tenementNo"
+                              (ngModelChange)="noticeDetail.tenementNo= $event.toUpperCase()"
+                              name="tenementNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Tenament No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;" >
+                            <input tabindex="66+{{count}}" [(ngModel)]="noticeDetail.floorNo"
+                              (ngModelChange)="noticeDetail.floorNo= $event.toUpperCase()" name="floorNo-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Floor No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="67+{{count}}" [(ngModel)]="noticeDetail.constructedPropertyArea"
+                              (ngModelChange)="noticeDetail.constructedPropertyArea= $event.toUpperCase()"
+                              name="constructedPropertyArea-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Constructed Property Area">
+                          </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="68+{{count}}" [(ngModel)]="noticeDetail.catestrialSurveyNo"
+                              (ngModelChange)="noticeDetail.catestrialSurveyNo= $event.toUpperCase()"
+                              name="catestrialSurveyNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Cadastral Survey No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="69+{{count}}" [(ngModel)]="noticeDetail.finalPlotNo"
+                              (ngModelChange)="noticeDetail.finalPlotNo= $event.toUpperCase()"
+                              name="finalplotno-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Final Plot No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="70+{{count}}" [(ngModel)]="noticeDetail.subPlotNo"
+                              (ngModelChange)="noticeDetail.subPlotNo= $event.toUpperCase()" name="subPlotNo-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Sub Plot No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="71+{{count}}" [(ngModel)]="noticeDetail.privatePlotNo"
+                              (ngModelChange)="noticeDetail.privatePlotNo= $event.toUpperCase()"
+                              name="privateplotno-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Private Plot No">
+                          </div>
+                          <div class="col-md-2">
+                            <input tabindex="72+{{count}}" style="margin-top: 10px;" [(ngModel)]="noticeDetail.malmattaNo"
+                              (ngModelChange)="noticeDetail.malmattaNo= $event.toUpperCase()"
+                              name="malmattaNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Malmatta No/Milkat No">
+                          </div>
+
+                          <div class="col-md-2">
+                            <input tabindex="73+{{count}}" style="margin-top: 10px;"
+                              [(ngModel)]="noticeDetail.nagarPanchyatMilkatNo"
+                              (ngModelChange)="noticeDetail.nagarPanchyatMilkatNo= $event.toUpperCase()"
+                              name="nagarPanchyatMilkatNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Nagar Panchayat Milkat No">
+                          </div>
+                          <div class="col-md-2">
+                            <input tabindex="74+{{count}}" style="margin-top: 10px;" [(ngModel)]="noticeDetail.grampanchayatNo"
+                              (ngModelChange)="noticeDetail.grampanchayatNo= $event.toUpperCase()"
+                              name="grampanchayatNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Grampanchayat Milkat No">
+                          </div>
+                          <div class="col-md-2">
+                            <input tabindex="75+{{count}}" style="margin-top: 10px;" [(ngModel)]="noticeDetail.glrNo"
+                              (ngModelChange)="noticeDetail.glrNo= $event.toUpperCase()" name="glrNo-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="GLR No">
+                          </div>
+                          <div class="col-md-2">
+                            <input tabindex="76+{{count}}" style="margin-top: 10px;"
+                              [(ngModel)]="noticeDetail.corporationRegistrationNo"
+                              (ngModelChange)="noticeDetail.corporationRegistrationNo= $event.toUpperCase()"
+                              name="corporationRegistrationNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Corporation Registration No">
+                          </div>
+                          <div class="col-md-2">
+                            <input tabindex="77+{{count}}" style="margin-top: 10px;" [(ngModel)]="noticeDetail.propertyCardNo"
+                              (ngModelChange)="noticeDetail.propertyCardNo= $event.toUpperCase()"
+                              name="propertyCardNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Property Card No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="78+{{count}}" [(ngModel)]="noticeDetail.commencementCertificateNo"
+                              (ngModelChange)="noticeDetail.commencementCertificateNo= $event.toUpperCase()"
+                              name="commencementCertificateNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Commencement Certificate No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="79+{{count}}" [(ngModel)]="noticeDetail.completionCertificateNo"
+                              (ngModelChange)="noticeDetail.completionCertificateNo= $event.toUpperCase()"
+                              name="completionCertificateNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Completion Certificate No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="80+{{count}}" [(ngModel)]="noticeDetail.shareCertificateNo"
+                              (ngModelChange)="noticeDetail.shareCertificateNo= $event.toUpperCase()"
+                              name="shareCertificateNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Share Certificate No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;">
+                            <input tabindex="81+{{count}}" [(ngModel)]="noticeDetail.propertyNo"
+                              (ngModelChange)="noticeDetail.propertyNo= $event.toUpperCase()"
+                              name="propertyNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Property No">
+                          </div>
+
+                          <div class="col-md-2" style="margin-top: 10px;" *ngIf="addNoticeModel.landCategoryId == '1'">
+                            <input tabindex="82+{{count}}" [(ngModel)]="noticeDetail.factoryShedNo"
+                              (ngModelChange)="noticeDetail.factoryShedNo= $event.toUpperCase()"
+                              name="factoryshedno-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Factory Shed No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;" *ngIf="addNoticeModel.landCategoryId == '1'">
+                            <input tabindex="83+{{count}}" [(ngModel)]="noticeDetail.industrialBuilding"
+                              (ngModelChange)="noticeDetail.industrialBuilding= $event.toUpperCase()"
+                              name="industrialbuilding-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Industrial Building">
+                          </div>
+                          <div class="col-md-2">
+                            <input tabindex="84+{{count}}" style="margin-top: 10px;"
+                              [(ngModel)]="noticeDetail.complaintNoReportNo"
+                              (ngModelChange)="noticeDetail.complaintNoReportNo= $event.toUpperCase()"
+                              name="complaintNoReportNo-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Complaint No/Report No">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;" *ngIf="addNoticeModel.landCategoryId == '1'">
+                            <input tabindex="85+{{count}}" [(ngModel)]="noticeDetail.phaseNo"
+                              (ngModelChange)="noticeDetail.phaseNo= $event.toUpperCase()" name="phaseNo-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Phase No">
+                          </div>
+
+                          <div class="col-md-2" style="margin-top: 10px;" *ngIf="this.isBanking==true">
+                            <input tabindex="86+{{count}}" [(ngModel)]="noticeDetail.outstandingAmount"
+                              name="outstandingAmount-{{index}}" type="text" class="form-control input-sm"
+                              placeholder="Outstanding Amount">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;" *ngIf="this.isBanking==true">
+                            <input tabindex="87+{{count}}" [(ngModel)]="noticeDetail.reservePrice" name="reservePrice-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Reserve Price">
+                          </div>
+                          <div class="col-md-2" style="margin-top: 10px;" *ngIf="this.isBanking==true">
+                            <input tabindex="88+{{count}}" [(ngModel)]="noticeDetail.earnestMoney" name="earnestMoney-{{index}}"
+                              type="text" class="form-control input-sm" placeholder="Earnest Money">
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="col-md-1">
+                        <a tabindex="89+{{count}}" (click)="onRemoveNoticeDetail(index)"
+                          (keypress)="onEnterKeyPressRemove($event, index)"
+                          class="btn btn-circle btn-icon-only btn-default">
+                          <i class="fa fa-close"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                </ng-container>
+
+                <div class="form-group mt-30">
+                  <div class="col-md-11">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class="keyword-buttons">
+                          <button tabindex="-1" (click)="onInsertKeyword($event, 'PART', 'surveyNumber')"
+                            class="k-b">PART</button>
+                          <button tabindex="-1" (click)="onInsertKeyword($event, 'HISSA', 'surveyNumber')"
+                            class="k-b">HISSA</button>
+                          <button tabindex="-1" (click)="onInsertKeyword($event, 'TO', 'surveyNumber')"
+                            class="k-b">TO</button>
+                        </div>
+                        <input tabindex="19" [(ngModel)]="addNoticeDetail.surveyNumber"
+                          (ngModelChange)="addNoticeDetail.surveyNumber= $event.toUpperCase()" name="surveyNumber"
+                          type="text" class="form-control input-sm" placeholder="Survey/Khasra No">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="20" [(ngModel)]="addNoticeDetail.gatNumber"
+                          (ngModelChange)="addNoticeDetail.gatNumber= $event.toUpperCase()" name="gatNumber" type="text"
+                          class="form-control input-sm" placeholder="Gat No">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="21" [(ngModel)]="addNoticeDetail.plotNumber"
+                          (ngModelChange)="addNoticeDetail.plotNumber= $event.toUpperCase()" name="plotNumber"
+                          type="text" class="form-control input-sm" placeholder="Plot No">
+                      </div>
+                      <div class="col-md-3">
+                        <input tabindex="22" [(ngModel)]="addNoticeDetail.ctsNumber"
+                          (ngModelChange)="addNoticeDetail.ctsNumber= $event.toUpperCase()" name="ctsNumber" type="text"
+                          class="form-control input-sm" placeholder="CTS No">
+                      </div>
+                      <div class="col-md-3">
+                        <input tabindex="23" [(ngModel)]="addNoticeDetail.propertyArea"
+                          (ngModelChange)="addNoticeDetail.propertyArea= $event.toUpperCase()" name="PropertyArea"
+                          type="text" class="form-control input-sm" placeholder="Property Area">
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="addNoticeModel.landCategoryId ==1">
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="24" [(ngModel)]="addNoticeDetail.buildingName" name="buildingName" type="text"
+                          class="form-control input-sm" placeholder="Building Name">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="25" [(ngModel)]="addNoticeDetail.buildingNo"
+                          (ngModelChange)="addNoticeDetail.buildingNo= $event.toUpperCase()" name="buildingNo"
+                          type="text" class="form-control input-sm" placeholder="Building No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="26" [(ngModel)]="addNoticeDetail.flatNo"
+                          (ngModelChange)="addNoticeDetail.flatNo= $event.toUpperCase()" name="flatNo" type="text"
+                          class="form-control input-sm" placeholder="Flat No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="27" [(ngModel)]="addNoticeDetail.flatShopNo"
+                          (ngModelChange)="addNoticeDetail.flatShopNo= $event.toUpperCase()" name="flatShopNo"
+                          type="text" class="form-control input-sm" placeholder="Flat Shop No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="28" [(ngModel)]="addNoticeDetail.houseNo"
+                          (ngModelChange)="addNoticeDetail.houseNo= $event.toUpperCase()" name="houseno" type="text"
+                          class="form-control input-sm" placeholder="House No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="29" [(ngModel)]="addNoticeDetail.tenementNo"
+                          (ngModelChange)="addNoticeDetail.tenementNo= $event.toUpperCase()" name="tenanatno"
+                          type="text" class="form-control input-sm" placeholder="Tenament No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="30" [(ngModel)]="addNoticeDetail.floorNo"
+                          (ngModelChange)="addNoticeDetail.floorNo= $event.toUpperCase()" name="floorNo" type="text"
+                          class="form-control input-sm" placeholder="Floor No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="31" [(ngModel)]="addNoticeDetail.constructedPropertyArea"
+                          (ngModelChange)="addNoticeDetail.constructedPropertyArea= $event.toUpperCase()" name="note"
+                          type="text" class="form-control input-sm" placeholder="Constructed Property Area">
+                      </div>
+                    </div>
+                    <div class="row" *ngIf="this.is_add_other_details">
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="33" [(ngModel)]="addNoticeDetail.catestrialSurveyNo"
+                          (ngModelChange)="addNoticeDetail.catestrialSurveyNo= $event.toUpperCase()"
+                          name="catestrialsurveyno" type="text" class="form-control input-sm"
+                          placeholder="Cadastral Survey No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="34" [(ngModel)]="addNoticeDetail.finalPlotNo"
+                          (ngModelChange)="addNoticeDetail.finalPlotNo= $event.toUpperCase()" name="finalplotno"
+                          type="text" class="form-control input-sm" placeholder="Final Plot No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="35" [(ngModel)]="addNoticeDetail.subPlotNo"
+                          (ngModelChange)="addNoticeDetail.subPlotNo= $event.toUpperCase()" name="subplotno" type="text"
+                          class="form-control input-sm" placeholder="Sub Plot No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="36" [(ngModel)]="addNoticeDetail.privatePlotNo"
+                          (ngModelChange)="addNoticeDetail.privatePlotNo= $event.toUpperCase()" name="privateplotno"
+                          type="text" class="form-control input-sm" placeholder="Private Plot No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="37" [(ngModel)]="addNoticeDetail.malmattaNo"
+                          (ngModelChange)="addNoticeDetail.malmattaNo= $event.toUpperCase()" name="malmattaNo"
+                          type="text" class="form-control input-sm" placeholder="Malmatta No/Milkat No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="38" [(ngModel)]="addNoticeDetail.nagarPanchyatMilkatNo"
+                          (ngModelChange)="addNoticeDetail.nagarPanchyatMilkatNo= $event.toUpperCase()"
+                          name="nagarPanchyatMilkatNo" type="text" class="form-control input-sm"
+                          placeholder="Nagar Panchayat Milkat No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="39" [(ngModel)]="addNoticeDetail.grampanchayatNo"
+                          (ngModelChange)="addNoticeDetail.grampanchayatNo= $event.toUpperCase()" name="grampanchayatNo"
+                          type="text" class="form-control input-sm" placeholder="Grampanchayat Milkat No">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="40" style="margin-top: 10px;" [(ngModel)]="addNoticeDetail.glrNo"
+                          (ngModelChange)="addNoticeDetail.glrNo= $event.toUpperCase()" name="glrNo" type="text"
+                          class="form-control input-sm" placeholder="GLR No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="41" [(ngModel)]="addNoticeDetail.corporationRegistrationNo"
+                          (ngModelChange)="addNoticeDetail.corporationRegistrationNo= $event.toUpperCase()"
+                          name="corporationRegistrationNo" type="text" class="form-control input-sm"
+                          placeholder="Corporation Registration No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="42" [(ngModel)]="addNoticeDetail.propertyCardNo"
+                          (ngModelChange)="addNoticeDetail.propertyCardNo= $event.toUpperCase()" name="propertyCardNo"
+                          type="text" class="form-control input-sm" placeholder="Property Card No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="43" [(ngModel)]="addNoticeDetail.commencementCertificateNo"
+                          (ngModelChange)="addNoticeDetail.commencementCertificateNo= $event.toUpperCase()"
+                          name="commencementCertificateNo" type="text" class="form-control input-sm"
+                          placeholder="Commencement Certificate No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="44" [(ngModel)]="addNoticeDetail.completionCertificateNo"
+                          (ngModelChange)="addNoticeDetail.completionCertificateNo= $event.toUpperCase()"
+                          name="completionCertificateNo" type="text" class="form-control input-sm"
+                          placeholder="Completion Certificate No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="45" [(ngModel)]="addNoticeDetail.shareCertificateNo"
+                          (ngModelChange)="addNoticeDetail.shareCertificateNo= $event.toUpperCase()"
+                          name="shareCertificateNo" type="text" class="form-control input-sm"
+                          placeholder="Share Certificate No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;">
+                        <input tabindex="46" [(ngModel)]="addNoticeDetail.propertyNo"
+                          (ngModelChange)="addNoticeDetail.propertyNo= $event.toUpperCase()" name="propertyNo"
+                          type="text" class="form-control input-sm" placeholder="Property No">
+                      </div>
+
+
+                      <div class="col-md-2" style="margin-top: 10px;" *ngIf="addNoticeModel.landCategoryId == '1'">
+                        <input tabindex="47" [(ngModel)]="addNoticeDetail.factoryShedNo"
+                          (ngModelChange)="addNoticeDetail.factoryShedNo= $event.toUpperCase()" name="factoryshedno"
+                          type="text" class="form-control input-sm" placeholder="Factory Shed No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;" *ngIf="addNoticeModel.landCategoryId == '1'">
+                        <input tabindex="48" [(ngModel)]="addNoticeDetail.industrialBuilding"
+                          (ngModelChange)="addNoticeDetail.industrialBuilding= $event.toUpperCase()"
+                          name="industrialbuilding" type="text" class="form-control input-sm"
+                          placeholder="Industrial Building">
+                      </div>
+                      <div class="col-md-2">
+                        <input tabindex="49" style="margin-top: 10px;" [(ngModel)]="addNoticeDetail.complaintNoReportNo"
+                          (ngModelChange)="addNoticeDetail.complaintNoReportNo= $event.toUpperCase()"
+                          name="complaintNoReportNo" type="text" class="form-control input-sm"
+                          placeholder="Complaint No/Report No">
+                      </div>
+
+                      <div class="col-md-2" style="margin-top: 10px;" *ngIf="addNoticeModel.landCategoryId == '1'">
+                        <input tabindex="50" [(ngModel)]="addNoticeDetail.phaseNo"
+                          (ngModelChange)="addNoticeDetail.phaseNo= $event.toUpperCase()" name="phaseNo" type="text"
+                          class="form-control input-sm" placeholder="Phase No">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;" *ngIf="this.isBanking==true">
+                        <input tabindex="51" [(ngModel)]="addNoticeDetail.outstandingAmount" name="outstandingAmount"
+                          type="text" class="form-control input-sm" placeholder="Outstanding Amount">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;" *ngIf="this.isBanking==true">
+                        <input tabindex="52" [(ngModel)]="addNoticeDetail.reservePrice" name="reservePrice" type="text"
+                          class="form-control input-sm" placeholder="Reserve Price">
+                      </div>
+                      <div class="col-md-2" style="margin-top: 10px;" *ngIf="this.isBanking==true">
+                        <input tabindex="53" [(ngModel)]="addNoticeDetail.earnestMoney " name="earnestMoney" type="text"
+                          class="form-control input-sm" placeholder="Earnest Money">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-1">
+                    <a tabindex="54" (click)="onAddNoticeDetail()" (keypress)="onEnterKeyPressAdd($event)"
+                      class="btn btn-circle btn-icon-only btn-success bt-c">
+                      <i class="fa fa-plus"></i>
+                    </a>&nbsp;&nbsp;
+                    <a tabindex="32" (click)="this.is_add_other_details=!this.is_add_other_details"
+                      (keypress)="onEnterKeyPressOther($event)" class="btn btn-success bt-c" style="margin-top: 10px;">
+                      Other
+                    </a>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <ng-container *ngFor="let noticeImage of noticeImagelist;let index = index;">
+                    <div *ngIf="!noticeImage.isDeleted" class="col-md-2 col-sm-6 img-wrap">
+                      <span (click)="onRemoveImage(noticeImage, index)" class="remove-image"
+                        title="Delete">&times;</span>
+                      <img class="img-preview dg-asset-img" [src]="noticeImage.fileName" alt="Property Image">
+                    </div>
+                  </ng-container>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-4">
+                    <label>Select Notice Image</label>
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <span id="file-input-span" class="btn btn-default btn-file">
+                          Browse…
+                          <input tabindex="90+{{count}}" class="form-control" type="file" id="imgInp" multiple
+                            (change)="getFileDetails($event)">
+                        </span>
+                      </span>
+                      <input id="txt-selected-filename" type="text" class="form-control" readonly>
+                    </div>
+                    <div id='previewImg' class="col-md-12"></div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-4">
+                    <label class="dg-lable" for="otherDetails">Other Details:</label>
+                    <textarea tabindex="91+{{count}}" [(ngModel)]="addNoticeModel.otherDetails" name="otherDetails" type="text"
+                      class="form-control input-sm" placeholder="Other Details"></textarea>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="dg-lable" for="note">googleMap Location:</label>
+                    <input tabindex="92+{{count}}" [(ngModel)]="addNoticeModel.googleMapLink" name="googleMapLink" type="text"
+                      class="form-control input-sm" placeholder="googleMap Link">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-6">
+                    <label class="dg-lable" for="isActive">Notice Status:</label>
+                    <div class="notice-status">
+                      
+                      <mat-checkbox
+                    
+                      tabindex="93+{{count}}"
+                      (change)="onNoticeStatusChange(addNoticeModel)"
+                      (keydown.enter)="onEnterKeyPressChangeStatus($event, addNoticeModel)"
+                      [checked]="addNoticeModel.isActive"
+                      class="mat-checkbox"
+           
+                    >
+                      Active
+                    </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- END TITLE VERIFICATION-->
+          </div>
+          <div class="form-actions">
+            <div class="row">
+              <div class="col-md-5">
+                <a tabindex="94+{{count}}" (click)="onAddNotice()" (keypress)="onKeyPressAddNotice($event)"
+                  class="btn green">Submit</a> &nbsp;
+                <a tabindex="95+{{count}}" (click)="clearForm()" class="btn yellow">Reset</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loader *ngIf="isShowLoader"></app-loader>

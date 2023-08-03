@@ -1,0 +1,312 @@
+<div class="modal fade" id="view-property-popup" tabindex="-1" role="view" aria-hidden="true" style="padding-top:50px;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" (click)="closeViewPropertyPopup()"></button>
+        <h4 class="modal-title modal-title-c">Property Info</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-light table-c">
+          <tbody>
+            <tr *ngIf="editPropertyModel.ownerFullName !=='' && editPropertyModel.ownerFullName !== null">
+              <td>Owner Name</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.ownerFullName}}</strong>
+              </td>
+            </tr>
+            <tr> 
+              <td>State</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.stateName}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>District</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.cityName}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>Taluka</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.talukaName}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td>Village</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.villageName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.landMark !=='' && editPropertyModel.landMark !== null">
+              <td>Locality</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.landMark}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.landCategoryName !=='' && editPropertyModel.landCategoryName !== null">
+              <td>Type</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.landCategoryName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.sectorNo !=='' && editPropertyModel.sectorNo !== null">
+              <td>Sector No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.sectorNo}}</strong>
+              </td>
+            </tr>
+              
+            <tr *ngIf="editPropertyModel.projectName !=='' && editPropertyModel.projectName !== null">
+              <td>Project Name</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.projectName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.surveyNumber !=='' && editPropertyModel.surveyNumber !== null">
+              <td>Survey/Khasra No.</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.surveyNumber}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.plotNumber !=='' && editPropertyModel.plotNumber !== null">
+              <td>Plot Number</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.plotNumber}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.catestrialSurveyNo !=='' && editPropertyModel.catestrialSurveyNo !== null">
+              <td>Cadastral Survey No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.catestrialSurveyNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.gatNumber !=='' && editPropertyModel.gatNumber !== null">
+              <td>Gat No.</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.gatNumber}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.ctsnumber !=='' && editPropertyModel.ctsnumber !== null">
+              <td>CTS No.</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.ctsnumber}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.propertyCardNo !=='' && editPropertyModel.propertyCardNo !== null">
+              <td>Property Card No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.propertyCardNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.buildingName !=='' && editPropertyModel.buildingName !== null">
+              <td>Building Name</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.buildingName}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.floorNo !=='' && editPropertyModel.floorNo !== null">
+              <td>Floor No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.floorNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.flatNo !=='' && editPropertyModel.flatNo !== null">
+              <td>Flat No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.flatNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.phaseNo !=='' && editPropertyModel.phaseNo !== null">
+              <td>Phase No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.phaseNo}}</strong>
+              </td>
+            </tr>
+          
+            <tr *ngIf="editPropertyModel.constructedPropertyArea !=='' && editPropertyModel.constructedPropertyArea !== null"> 
+              <td>Constructed Property Area</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.constructedPropertyArea}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.houseNo !=='' && editPropertyModel.houseNo !== null">
+              <td>House No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.houseNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.tenementNo !=='' && editPropertyModel.tenementNo !== null">
+              <td>Tenament No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.tenementNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.factoryShedNo !=='' && editPropertyModel.factoryShedNo !== null">
+              <td>Factory Shed No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.factoryShedNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.industrialBuilding !=='' && editPropertyModel.industrialBuilding !== null">
+              <td>Industrial Building</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.industrialBuilding}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.flatShopNo !=='' && editPropertyModel.flatShopNo !== null">
+              <td>Flat Shop No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.flatShopNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.buildingNo !=='' && editPropertyModel.buildingNo !== null">
+              <td>Building No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.buildingNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.privatePlotNo !=='' && editPropertyModel.privatePlotNo !== null">
+              <td>Private Plot No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.privatePlotNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.finalPlotNo !=='' && editPropertyModel.finalPlotNo !== null">
+              <td>Final Plot No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.finalPlotNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.subPlotNo !=='' && editPropertyModel.subPlotNo !== null">
+              <td>Sub Plot No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.subPlotNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.glrNo !=='' && editPropertyModel.glrNo !== null">
+              <td>GLR No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.glrNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.malmattaNo !=='' && editPropertyModel.malmattaNo !== null">
+              <td>Malmatta No/Milkat No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.malmattaNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.nagarPanchyatMilkatNo !=='' && editPropertyModel.nagarPanchyatMilkatNo !== null">
+              <td>Nagar Panchayat Milkat No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.nagarPanchyatMilkatNo}}</strong>
+              </td>
+            </tr>
+           
+            <tr *ngIf="editPropertyModel.grampanchayatNo !=='' && editPropertyModel.grampanchayatNo !== null">
+              <td>Grampanchayat Milkat No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.grampanchayatNo}}</strong>
+              </td>
+            </tr>
+
+            <tr *ngIf="editPropertyModel.corporationRegistrationNo !=='' && editPropertyModel.corporationRegistrationNo !== null">
+              <td>Corporation Registration No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.corporationRegistrationNo}}</strong>
+              </td>
+            </tr>
+           
+            <tr *ngIf="editPropertyModel.commencementCertificateNo !=='' && editPropertyModel.commencementCertificateNo !== null">
+              <td>Commencement Certificate No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.commencementCertificateNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.completionCertificateNo !=='' && editPropertyModel.completionCertificateNo !== null">
+              <td>Completion Certificate No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.completionCertificateNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.shareCertificateNo !=='' && editPropertyModel.shareCertificateNo !== null">
+              <td>Share Certificate No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.shareCertificateNo}}</strong>
+              </td>
+            </tr>
+            <tr *ngIf="editPropertyModel.propertyNo !=='' && editPropertyModel.propertyNo !== null">
+              <td>Property No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.propertyNo}}</strong>
+              </td>
+            </tr>     
+            
+            <tr *ngIf="editPropertyModel.complaintNoReportNo !=='' && editPropertyModel.complaintNoReportNo !== null">
+              <td>Complaint No/Report No</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.complaintNoReportNo}}</strong>
+              </td>
+            </tr>   
+            <tr *ngIf="editPropertyModel.otherDetails !=='' && editPropertyModel.otherDetails !== null">
+              <td>Other information</td>
+              <td class="td-colon">:</td>
+              <td>
+                <strong>{{editPropertyModel.otherDetails}}</strong>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div class="col-md-3 col-sm-6" *ngFor="let img of editPropertyModel.assetImages">
+                  <img class="img-preview dg-asset-img" [src]="img.name" alt="Property Image">
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn dark btn-outline" (click)="closeViewPropertyPopup()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

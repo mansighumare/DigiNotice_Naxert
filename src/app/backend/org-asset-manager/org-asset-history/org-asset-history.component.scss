@@ -1,0 +1,106 @@
+
+
+.trim-info {
+  max-width: 70px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;  
+  line-height: 12px;
+  position: relative;
+}
+
+.panes-container{
+    width: 236px;
+    position: absolute;
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    bottom: 0;
+    left: 0;
+}
+
+.img-app{
+    width:100px;
+    height:100px;
+    border-radius: 15px;
+}
+
+.btn-hangup {
+    position: fixed;
+    right: 0px;
+    top: 14%;
+    background: linear-gradient(45deg,#141e30, #2c527d) !important;
+    box-shadow: -5px 2px 15px rgba(0, 0, 0, .2);
+    z-index: 99;
+    border-bottom: 0;
+    text-align: left;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    line-height: 29px;
+    height: 35px;
+    z-index: 10;
+  }
+  
+  .btn-hangup .btnct {
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 0px 8px;
+    border-radius: 3px;
+  }
+  
+  .btnct {
+    background: rgba(0, 0, 0, 0);
+    color: white;
+  }
+  
+  .btn-hangup .btnct span {
+    padding: 0px 15px 0;
+    display: none;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  
+  .btn-hangup .btnct i {
+    font-size: 31px;
+    vertical-align: middle;
+  }
+  .btn-hangup .chk-catlog {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 55px;
+    opacity: 0;
+  }
+  .btn-hangup .chk-catlog .m-l-5 {
+    margin-left: 5px;
+  }
+  .btn-hangup .chk-catlog:checked+i+span {
+    display: inline-block;
+  }
+  .card-body{
+    padding: 1.2rem!important;
+  }
+
+
+  .card-accent-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+  }
+  
+  .card-accent-warning {
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    color: #856404;
+  }
+  
+  .card-accent-dark {
+    background-color: #dcdcdc;
+    border-color: #a9a9a9;
+    color: #333333;
+  }
+  

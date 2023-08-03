@@ -1,0 +1,41 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<div class="portlet light bordered" style="margin-top: 20px;">
+    <div class="portlet-title">
+        <div class="caption font-dark float-l">
+            <i class="fa fa-home"></i>
+            <span class="caption-subject font-blue bold ">My Properties</span>
+        </div>
+       
+    </div>
+    <div class="actions action-c">
+        <a id="btn-add-property" data-toggle="modal" href="#add-property-modal">
+            <i class="fa fa-plus-circle"></i> Add Properties
+        </a>
+    </div>
+    <div class="portlet-body">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+            <div class="row" style="display:flex; flex-wrap:wrap;">
+                <!-- BEGIN TITLE VERIFICATION-->
+                <ng-container *ngFor="let property of propertyList;let propertyIndex = index;">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <app-property-card (onDelete)="onDeleteProperty($event)" (onEdit)="onEditProperty($event)"
+                            (onView)="onViewProperty($event)" [editPropertyModel]="property"
+                            [propertyIndex]="propertyIndex">
+                        </app-property-card>
+                    </div>
+                </ng-container>
+                <!-- END TITLE VERIFICATION-->
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<app-add-property (onPropertyCreated)="onPropertyCreated($event)"></app-add-property>
+
+<app-view-property [editPropertyModel]="viewProperty"></app-view-property>
+
+<ng-container *ngIf="isShowEditPropertyPopup">
+    <app-edit-property (onClose)="onEditPopupClose()" [editPropertyModel]="editProperty"></app-edit-property>
+</ng-container>

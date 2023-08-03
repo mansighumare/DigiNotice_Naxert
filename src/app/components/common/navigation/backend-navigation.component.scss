@@ -1,0 +1,33 @@
+.page-sidebar-menu-closed {
+  .nav-item {
+    i {
+      font-size: 2rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 760px) {
+  .page-sidebar {
+    position: fixed;
+    top: 50px;
+    height: 100vh!important;
+    width: 17%;
+  }
+}
+.sidebar-toggler-wrapper button{
+position: absolute;
+z-index: 66;
+margin-top: -15px;
+}
+
+
+.page-sidebar-menu::-webkit-scrollbar {
+  width: 0;
+}
+
+.arrow{
+  color: white;
+}
+.arrow-space {
+  margin-left: 10px; /* Adjust the value as per your preference */
+}

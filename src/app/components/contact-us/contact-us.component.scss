@@ -1,0 +1,28 @@
+strong{
+    font-size: 12px;
+    padding-left: 2px;
+    &.required{
+        color: black;
+        &::before {
+            content:"* "; 
+            color: red;
+        }
+    }
+}
+
+.contact-us-form{
+    border-radius: 5px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+    .bg-primary{
+        border-radius: 5px;
+    }
+}
+
+textarea{
+    resize: none;
+}
+
+
+.portlet.light .portlet-body {
+    padding-top: 0px!important;
+}

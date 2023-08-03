@@ -1,0 +1,1 @@
+export { LookupsComponent } from './lookups/lookups.component';

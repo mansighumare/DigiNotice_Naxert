@@ -1,0 +1,24 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<div class="portlet light bordered" style="margin-top: 20px;">
+  <div class="portlet-title">
+    <div class="caption font-dark float-l">
+      <i class="fa fa-bookmark"></i>
+      <span class="caption-subject font-blue bold ">Bookmarked Notice</span>
+  </div>
+  </div>
+  <div class="portlet-body">
+    <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+      <div class="row" style="display:flex; flex-wrap:wrap;">
+        <div *ngIf="noticeInfoList.length == 0" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+          No Bookmarked Notices Were Found.
+        </div>
+        <ng-container *ngFor="let noticeInfo of noticeInfoList">
+          <div *ngIf="noticeInfo.isBookmakedNotice" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <app-notice-card (onBookmark)="onBookmarkToggle(noticeInfo)" [isShowBookmark]="true" [noticeInfo]="noticeInfo"></app-notice-card>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

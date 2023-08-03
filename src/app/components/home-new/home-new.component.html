@@ -1,0 +1,14 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+<section id="todays-notice" class="white">
+    <div class="container">
+        <div class="mt-element-card mt-card-round">
+            <div class="row" style="display:flex;flex-wrap:wrap;">
+                <ng-container *ngFor="let noticeInfo of noticeInfoList">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        <app-notice-card [noticeInfo]="noticeInfo"></app-notice-card>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</section>

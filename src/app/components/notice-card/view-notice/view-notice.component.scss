@@ -1,0 +1,52 @@
+.tbl-notice-details{
+    width: 100%;
+    th{
+        border: 1px solid #ddd;
+        font-weight: bold;
+    }
+    td{
+        border: 1px solid #ddd;
+    }
+}
+
+.tbl-notice-details{
+ .othertablestyles{
+    th{
+        border: 0px!important;
+        font-weight: bold;
+        text-align: left!important;
+    }
+    td{
+        border: 0px!important;
+        text-align: left!important;
+    }
+ }
+}
+.modal-dialog{
+    width: 60%;
+    .modal-title{
+        text-align: center;
+        font-weight: bold;
+    }
+  
+    // table.table{
+    //     tr{
+    //         td{
+    //             &:first-child{
+    //                  width: 20%;
+    //             }
+    //             &.td-colon{
+    //                  width: 1%;
+    //             }
+    //             .btn-download{
+    //                 float: right;
+    //                 margin-bottom: 10px;
+    //             }
+    //         }
+    //     }
+    // }
+ }
+// #responsivetable {
+//     table-layout: fixed;
+//     word-wrap: break-word;
+//   }

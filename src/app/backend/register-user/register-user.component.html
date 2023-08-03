@@ -1,0 +1,148 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<!-- BEGIN PAGE BAR -->
+<div class="page-bar page-W">
+  <ul class="page-breadcrumb">
+    <li>
+      <i class="fa fa-home"></i>
+      <a>Home</a>
+      <i class="fa fa-angle-right"></i>
+    </li>
+    <li>
+      <i class="fa fa-newspaper-o"></i>
+      <span>Register User</span>
+    </li>
+  </ul>
+</div>
+<!-- END PAGE BAR -->
+<!-- BEGIN PAGE TITLE-->
+<h3 class="page-title"> Register User</h3>
+<!-- END PAGE TITLE-->
+<div class="row" style="margin-top: 20px;">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-newspaper-o"></i>
+          <span class="caption-subject font-blue bold ">Register User</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+
+
+          <!-- BEGIN LOGIN -->
+          <div>
+            <form class="login-f">
+              <div class="row">
+                <div class="col-md-6 col-sm-6">
+                  <div class="form-group ">
+                    <label class="dg-lable" for="userRole">User Role</label>
+                    <select name="as-userRole" (change)='onOptionsSelected($event)' [(ngModel)]="backendUserModel.roleIntID" class="form-control"
+                       name="userRole">
+                      <option value="">Please Select Role </option>
+                      <option *ngFor="let role of UserRoles" [value]="role.roleIntID">{{role.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                
+                <div class="col-md-6 col-sm-6">
+                  <div class="form-group ">
+                    <label class="dg-lable" for="cityId">District</label>
+                    <select name="as-cityId" placeholder="City"  [(ngModel)]="backendUserModel.cityId" class="form-control"
+                      name="city">
+                      <option value="">Please Select District</option>
+                      <option *ngFor="let city of City" [value]="city.id">{{city.name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+
+                <div class="col-md-6 col-sm-6">
+                  <div class="form-group ">
+                    <label class="dg-lable">First Name</label>
+                    <div class="input-icon">
+                      <i class="fa fa-user"></i>
+                      <input [(ngModel)]="backendUserModel.firstName" name="firstName"  type="text" class="form-control"
+                        autocomplete="off" placeholder="First Name">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label class="dg-lable">Last Name</label>
+                    <div class="input-icon">
+                      <i class="fa fa-user"></i>
+                      <input [(ngModel)]="backendUserModel.lastName" name="lastName"  type="text" class="form-control"
+                        autocomplete="off" placeholder="Last Name">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label class="dg-lable">Email</label>
+                    <div class="input-icon">
+                      <i class="fa fa-envelope-o"></i>
+                      <input [(ngModel)]="backendUserModel.email" name="email"  type="email" autocomplete="off" class="form-control"
+                        placeholder="Email">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label class="dg-lable">Phone</label>
+                    <div class="input-icon">
+                      <i class="fa fa-phone"></i>
+                      <input id="TxtPhoneNumber" maxlength="10" minlength="10" [(ngModel)]="backendUserModel.phone" name="phone" class="form-control"
+                        class="form-control" type="text" autocomplete="off" placeholder="Phone">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label class="dg-lable">Password</label>
+                    <div class="input-icon">
+                      <i class="fa fa-lock"></i>
+                      <input [(ngModel)]="backendUserModel.password" name="password"  type="password" class="form-control"
+                        autocomplete="off" placeholder="Password">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label class="dg-lable">Confirm Password</label>
+                    <div class="input-icon">
+                      <i class="fa fa-lock"></i>
+                      <input [(ngModel)]="backendUserModel.confirmPassword" name="confirmPassword" class="form-control"
+                        type="password" autocomplete="off" placeholder="Confirm Password">
+                    </div>
+                  </div>
+                </div>
+                <!-- <div class="col-md-6 col-sm-6">
+                  <div class="form-group">
+                    <label class="dg-lable">User Role</label>
+                    <label class="form-control placeholder-no-fix input-s">{{registerUserRole}}</label>
+                  </div>
+                </div> -->
+                
+                <div class="col-md-12  col-sm-12">
+                  <div class="form-actions form-actions-c">
+                    <button type="submit" class="btn red btn-block uppercase sgin-btn" (click)="registerUser()">
+                      registerUser
+                    </button>
+                   
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- END LOGIN -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

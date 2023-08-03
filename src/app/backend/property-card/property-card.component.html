@@ -1,0 +1,79 @@
+<div class="mt-card-item" style="height: 350px;">
+  <div class="mt-card-content">
+    <h3>Property {{propertyIndex + 1}}</h3>
+    <div class="tools-c">
+      <a (click)="onViewProperty(editPropertyModel)">
+        <i class="fa fa-eye"></i>
+      </a>
+      <ul class="dropdown-menu pull-right" style="min-width: 90px;">
+        <li>
+          <a (click)="onEditProperty(editPropertyModel)" style="width: 100%;">
+            <i class="fa fa-edit"></i> Edit </a>
+        </li>
+        <li>
+          <a (click)="onDeleteProperty(editPropertyModel, propertyIndex)" href="javascript:;" style="width: 100%;">
+            <i class="fa fa-close"></i>Delete </a>
+        </li>
+      </ul>
+      <a href="javascript:;" class="" data-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-angle-down"></i>
+      </a>
+    </div>
+    <hr>
+    <div class="mt-body">
+      <table class="table table-light table-c">
+        <tbody>
+          <tr>
+            <td>Owner Name</td>
+            <td class="td-colon">:</td>
+            <td>
+              <span class="td-textProperty">{{editPropertyModel.ownerFullName}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Locality</td>
+            <td class="td-colon">:</td>
+            <td>
+               <span class="td-textProperty">{{editPropertyModel.landMark}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>Type</td>
+            <td class="td-colon">:</td>
+            <td>
+               <span class="td-textProperty">{{editPropertyModel.landCategoryName}}</span>
+            </td>
+          </tr>
+          <tr *ngIf="editPropertyModel.landCategoryId == '3'">
+            <td>Survey/Khasra No.</td>
+            <td class="td-colon">:</td>
+            <td>
+               <span class="td-textProperty">{{editPropertyModel.surveyNumber}}</span>
+            </td>
+          </tr>
+          <tr *ngIf="editPropertyModel.landCategoryId == '1'">
+            <td>Gat No.</td>
+            <td class="td-colon">:</td>
+            <td>
+               <span class="td-textProperty">{{editPropertyModel.gatNumber}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>CTS No.</td>
+            <td class="td-colon">:</td>
+            <td>
+               <span class="td-textProperty">{{editPropertyModel.ctsnumber}}</span>
+            </td>
+          </tr>
+          <tr>
+            <td> Other information</td>
+            <td class="td-colon">:</td>
+            <td>
+               <span class="td-textProperty">{{editPropertyModel.otherDetails}}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

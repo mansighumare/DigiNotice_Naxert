@@ -1,0 +1,141 @@
+<app-loader *ngIf="isShowLoader">
+</app-loader>
+
+
+
+
+
+<div id="backend-users" class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-users"></i>
+          <span class="caption-subject font-blue bold" style="font-size: 16px;">Assets Delete Requests</span>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <div class="row">
+         <div class="col-sm-6"></div>
+          <div class="col-sm-3 text-right">
+            <div class="input-group">
+              <input type="text" class="form-control input-sm"  [formControl]="searchControl"
+                placeholder="Search" />
+              <div class="input-group-prepend">
+                <span class="input-group-text" (click)="Search()"><i class="fa fa-search"></i></span>
+              </div>&nbsp;&nbsp;&nbsp;
+            </div>
+          </div>
+          <div class="col-sm-3 text-right" style="margin-bottom: 40px;">
+            <div class="actions action-c">
+              <span (click)="exportAsXLSX()" style="color:green!important;" tooltip="Export to Excel" placement="top"
+                show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+              <span (click)="Refresh()" style="color:green!important;cursor: pointer;padding-left: 15px;"
+                tooltip="Refresh" placement="top" show-delay="500"><i
+                  class="fa fa-refresh  fa-lg"></i></span>&nbsp;&nbsp;&nbsp;
+              <a id="btn-add-property" (click)="removeSelectedRows()">
+                <i class="fa fa-trash" style="color: white;"></i> Delete Assets
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="example-container mat-elevation-z8">
+          <!-- <button mat-raised-button color="primary" (click)="removeSelectedRows()">
+                Remove Selected Rows
+              </button> -->
+          <mat-table #table [dataSource]="dataSource">
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="ownerFullName">
+              <mat-header-cell *matHeaderCellDef><b>Owner Name</b></mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.ownerFullName}} </mat-cell>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="landMark">
+              <mat-header-cell *matHeaderCellDef>Locality</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.landMark}} </mat-cell>
+            </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="landCategoryId">
+              <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.landCategoryName}} </mat-cell>
+            </ng-container>
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="gatNumber">
+              <mat-header-cell *matHeaderCellDef>Gat No</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.gatNumber}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="plotNumber">
+              <mat-header-cell *matHeaderCellDef>Plot Number</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.plotNumber}} </mat-cell>
+            </ng-container>
+            <!-- <ng-container matColumnDef="otherDetails">
+              <mat-header-cell *matHeaderCellDef>Other Information</mat-header-cell>
+              <mat-cell *matCellDef="let element"> {{element.otherDetails}} </mat-cell>
+            </ng-container> -->
+            <ng-container matColumnDef="createdby">
+              <mat-header-cell *matHeaderCellDef>Created By</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.name}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="branchname">
+              <mat-header-cell *matHeaderCellDef>Branch Name</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.branchName}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="deleteRequestDate">
+              <mat-header-cell *matHeaderCellDef>Request Date</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.modifiedDates}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="deleteRequestBy">
+              <mat-header-cell *matHeaderCellDef>Request By</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{element.deletedBy}} </mat-cell>
+            </ng-container>
+            <!-- <ng-container matColumnDef="view">
+              <mat-header-cell *matHeaderCellDef>View  </mat-header-cell>
+              <mat-cell *matCellDef="let element"><i (click)="onViewProperty(element)" class="fa fa-eye"
+                  aria-hidden="true" data-text="View"></i>&nbsp;</mat-cell>
+            </ng-container> -->
+            <ng-container matColumnDef="view">
+              <mat-header-cell *matHeaderCellDef>&nbsp;&nbsp;&nbsp;&nbsp;View</mat-header-cell>
+              <mat-cell *matCellDef="let element">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i style="cursor:pointer;" (click)="onViewProperty(element)" class="fa fa-eye" aria-hidden="true"
+                data-text="View"></i></mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+            </mat-row>
+
+          </mat-table>
+          <!-- <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="0"
+          (page)="onChangePage($event)"></mat-paginator> -->
+          <div class="paginator-container">
+            <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+             Total items: {{this.tbldataLength}}
+            </span>
+            <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+              Items per page: 24
+            </span>
+            <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1"
+                           (page)="onChangePage($event)"
+                           aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+          
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-view-org-asset [editOrgPropertyModel]="viewProperty"></app-view-org-asset>

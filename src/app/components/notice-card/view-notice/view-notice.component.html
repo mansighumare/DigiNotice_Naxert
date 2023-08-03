@@ -1,0 +1,436 @@
+<div class="modal fade ragini" id="view-notice-popup" tabindex="-1" role="view" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" data-dismiss="modal"></button>
+        <h4 class="modal-title modal-title-c">{{noticeInfo.noticeTitle}}</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="mt-card-head">
+          <span> <i class="fa fa-calendar"></i>{{noticeInfo.publishedDate | date : 'mediumDate'}} </span>
+          <span> <i class="fa fa-map-marker"></i>{{noticeInfo.cityName}} </span>
+          <span> <i class="fa fa-newspaper-o"></i>{{noticeInfo.paperName}} </span>
+        </div>
+        <div>
+          <table class="tbl-notice-info table table-responsive table-light table-viewNotice">
+            <tbody>
+              <tr *ngIf="noticeInfo.isPublisher==false">
+                <td>Seller Name</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.ownerFullName}}</strong>
+                </td>
+              </tr>
+              <tr *ngIf="noticeInfo.isPublisher==true">
+                <td>Published by</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.ownerFullName}}</strong>
+                </td>
+              </tr>
+
+              <tr *ngIf="noticeInfo.advocateName !=='' && noticeInfo.advocateName !== null">
+                <td>Advocate Name</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.advocateName}}</strong>
+                </td>
+              </tr>
+              <tr *ngIf="noticeInfo.advocatePhone !='' && noticeInfo.advocatePhone !== null">
+                <td>Advocate Phone</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.advocatePhone}}</strong>
+                </td>
+              </tr>
+              <tr *ngIf="noticeInfo.advocateAddress !=='' && noticeInfo.advocateAddress !== null">
+                <td>Advocate Address</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.advocateAddress}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Type</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.landCategory}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>State</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.stateName}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>District</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.cityName}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Taluka</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.talukaName}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>Village Name</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.villageName}}</strong>
+                </td>
+              </tr>
+              <tr *ngIf="noticeInfo.landMark !=='' && noticeInfo.landMark !== null">
+                <td>Locality</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.landMark}}</strong>
+                </td>
+              </tr>
+              <tr *ngIf="noticeInfo.sectorNo !=='' && noticeInfo.sectorNo !== null">
+                <td>Sector No</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.sectorNo}}</strong>
+                </td>
+              </tr>
+              <tr *ngIf="noticeInfo.projectName !=='' && noticeInfo.projectName !== null">
+                <td>Project Name</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong class="td-label">{{noticeInfo.projectName}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="3">
+                  <hr>
+                </td>
+              </tr>
+              <ng-container>
+                <ng-container *ngFor="let info of filteredData;let i=index;">
+                  <tr *ngIf="info.buildingName !==undefined">
+                    <td>Building Name</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong class="td-label">{{info.buildingName}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.flatNo !==undefined">
+                    <td>Flat No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong class="td-label">{{info.flatNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.floorNo !==undefined">
+                    <td>Floor No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong class="td-label">{{info.floorNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.constructedPropertyArea !==undefined">
+                    <td>Constructed Property Area</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong class="td-label">{{info.constructedPropertyArea}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.finalPlotNo !==undefined">
+                    <td>Final Plot No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.finalPlotNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.subPlotNo !==undefined">
+                    <td>Sub Plot No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.subPlotNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.privatePlotNo !==undefined">
+                    <td>Private Plot No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.privatePlotNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.catestrialSurveyNo !==undefined">
+                    <td>Cadastral Survey No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.catestrialSurveyNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.houseNo !==undefined">
+                    <td>House No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.houseNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.tenementNo !==undefined">
+                    <td>Tenament No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.tenementNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.factoryShedNo!=undefined">
+                    <td>Factory Shed No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.factoryShedNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.industrialBuilding !==undefined">
+                    <td>Industrial Building</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.industrialBuilding}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.grampanchayatNo !==undefined">
+                    <td>Grampanchayat Milkat No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.grampanchayatNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.nagarPanchyatMilkatNo !==undefined">
+                    <td>Nagar Panchayat Milkat No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.nagarPanchyatMilkatNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.glrNo !==undefined">
+                    <td>GLR No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.glrNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.malmattaNo !==undefined">
+                    <td>Malmatta No/Milkat No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.malmattaNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.corporationRegistrationNo !==undefined">
+                    <td style="white-space: nowrap;">Corporation Registration No&nbsp;</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.corporationRegistrationNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.propertyCardNo !==undefined">
+                    <td>Property Card No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.propertyCardNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.phaseNo !==undefined">
+                    <td>Phase No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.phaseNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.buildingNo !==undefined">
+                    <td>Building No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.buildingNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.flatShopNo !==undefined">
+                    <td>Flat Shop No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.flatShopNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.commencementCertificateNo !== undefined">
+                    <td style="white-space: nowrap;">Commencement Certificate No&nbsp;</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.commencementCertificateNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.completionCertificateNo !==undefined">
+                    <td>Completion Certificate No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.completionCertificateNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.shareCertificateNo !==undefined">
+                    <td>Share Certificate No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.shareCertificateNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.propertyNo !=undefined">
+                    <td>Property No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.propertyNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.complaintNoReportNo !=undefined">
+                    <td>Complaint No/Report No</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.complaintNoReportNo}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.outstandingAmount !=undefined">
+                    <td>Outstanding Amount</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.outstandingAmount}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.reservePrice !=undefined">
+                    <td>Reserve Price</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.reservePrice}}</strong>
+                    </td>
+                  </tr>
+                  <tr *ngIf="info.earnestMoney !=undefined">
+                    <td>Earnest Money</td>
+                    <td class="td-colon">:</td>
+                    <td>
+                      <strong>{{info.earnestMoney}}</strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="10">
+                      <hr>
+                    </td>
+                  </tr>
+                 
+                </ng-container>
+                
+              </ng-container>
+              <tr>
+                <td colspan="3">
+                  <table class="tbl-notice-details">
+                    <thead>
+                      <tr>
+                        <th>Survey/Khasra No.</th>
+                        <th width="6%">Gat No.</th>
+                        <th>Plot No.</th>
+                        <th>CTS No.</th>
+                        <th>Property Area</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngFor="let info of noticeInfo.noticeDetailList;let i=index;">
+                        <tr>
+                          <td>
+                            <strong>{{info.surveyNumber}}</strong>
+                          </td>
+                          <td width="6%">
+                            <strong>{{info.gatNumber}}</strong>
+                          </td>
+                          <td>
+                            <strong>{{info.plotNumber}}</strong>
+                          </td>
+                          <td>
+                            <strong>{{info.ctsNumber}}</strong>
+                          </td>
+                          <td>
+                            <strong>{{info.propertyArea}}</strong>
+                          </td>
+                          <!-- <td>
+                            <a (click)="viewmore(i)">View More</a>
+                          </td> -->
+                        </tr>
+                        <!-- <tr id="{{i}}" style="display: none;">
+                          <td colspan="7" style="padding: 15px;">
+                            <table class="othertablestyles" style="border-collapse: collapse; border:0px;">
+                            </table>
+                          </td>
+                        </tr> -->
+                      </ng-container>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+
+              <tr>
+                <td>Other information</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <strong>{{noticeInfo.otherDetails}}</strong>
+                </td>
+              </tr>
+              <tr>
+                <td>GoogleMap Location</td>
+                <td class="td-colon">:</td>
+                <td>
+                  <a [href]="noticeInfo.googleMapLink" target="_blank">
+                    <!-- <strong>{{noticeInfo.googleMapLink}}</strong></a> -->
+                    <strong>Click Here</strong></a>
+                </td>
+              </tr>
+              <ng-container *ngFor="let noticeImage of this.noticeInfo.noticeImage;let indexx = index;">
+                <tr>
+                  <td colspan="3" *ngIf="noticeImage.imageTypeId==1">
+                    <button class="btn btn-download btn-small"
+                      (click)="onDownloadFile($event, noticeImage)">Download</button>
+                    <!-- <button class="btn btn-download btn-small" (click)="onDownloadFile($event, noticeInfo)">Download Notice
+                    Image</button>  -->
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <!-- <img [ngClass]="{'img-preview':noticeInfo.enablePreview}" alt="Paper Add"
+                    [attr.src]="noticeInfo.imageUrl" width="75%">  -->
+                    <img [attr.src]="noticeImage.name" alt="Property Image" style="max-width:75%">
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <div colspan="3">
+          </div>
+          <!-- <div colspan="3">
+
+            <ng-container *ngFor="let noticeImage of imageList;let indexx = index;">      
+              
+                <span *ngIf="noticeImage.imageTypeId =='1'">
+                    <button  (click)="onDownloadFile($event, noticeImage)">Download</button>
+                </span>
+              &nbsp;               
+                <img [attr.src]="noticeImage.imageUrl" alt="Property Image" style="width: 500px;height: 300px;">       
+                          
+            </ng-container>
+          <img [ngClass]="{'img-preview':noticeInfo.enablePreview}" alt="Paper Add"
+            [attr.src]="noticeInfo.imageUrl" height="600px" width="100%"></div> 
+          </div> -->
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn green">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>

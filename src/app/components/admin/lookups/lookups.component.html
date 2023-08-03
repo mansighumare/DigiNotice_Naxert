@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="lookup-div">
+    <select name="ddlTables" id="ddlTables" (change)="onTableChange($event)">
+      <ng-container *ngFor="let lu of lookupTables">
+        <option [attr.value]="lu.name">{{lu.title}}</option>
+      </ng-container>
+    </select>
+  </div>
+
+  <hr>
+
+  <table id="tbl-rows" class="table table-bordered"></table>
+
+</div>

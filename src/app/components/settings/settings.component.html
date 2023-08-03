@@ -1,0 +1,90 @@
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<div id="settings-container" class="portlet light bordered" style="margin-top: 20px;">
+  <div class="portlet-title">
+    <div class="caption font-dark float-l">
+      <i class="fa fa-cog"></i>
+      <span class="caption-subject font-blue bold ">Settings</span>
+  </div>
+  </div>
+  <div class="portlet-body">
+    <div class="mt-element-card mt-card-round">
+      <div class="row">
+        <div class="panel-group accordion scrollable">
+          <div class="panel panel-default">
+            <div class="panel-heading active">
+              <h4 class="panel-title">
+                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#notification-preference"
+                  href="#collapse-notification-preference" aria-expanded="false">
+                  Notification Preference
+                </a>
+              </h4>
+            </div>
+            <div id="collapse-notification-preference" class="panel-collapse collapse in" aria-expanded="false"
+              style="height: 0px;">
+              <div class="panel-body">
+                <div class="row dg-checkbox-list">
+                  <div class="dg-checkbox-item">
+                    <input [(ngModel)]="userPreference.email.isChecked" class="dg-input-checkbox" value="1"
+                      type="checkbox" id="email" name="email">
+                    <label for="email">Email</label>
+                  </div>
+                  <div class="dg-checkbox-item">
+                    <input [(ngModel)]="userPreference.sms.isChecked" class="dg-input-checkbox" type="checkbox" id="sms"
+                      name="sms">
+                    <label for="sms">SMS</label>
+                  </div>
+                  <div class="dg-checkbox-item">
+                    <input [(ngModel)]="userPreference.inApp.isChecked" class="dg-input-checkbox" type="checkbox"
+                      id="InApp" name="inapp">
+                    <label for="InApp">InApp</label>
+                  </div>
+                </div>
+                <div class="row button-container">
+                  <div class="col-md-12">
+                    <button (click)="onSaveUserPreferences()" class="btn green">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+      <div class="row">
+        <div class="panel-group accordion scrollable">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" href="#collapse-interested-cities"
+                  aria-expanded="false">
+                  Interested Cities
+                </a>
+              </h4>
+            </div>
+            <div id="collapse-interested-cities" class="panel-collapse collapse" aria-expanded="false"
+              style="height: 0px;">
+              <div class="panel-body">
+                <div class="row dg-checkbox-list">
+                  <div *ngFor="let city of cityList" class="dg-checkbox-item">
+                    <input [(ngModel)]="city.isSelected" class="dg-input-checkbox" type="checkbox" id="{{city.id}}"
+                      name="{{city.id}}">
+                    <label for="{{city.id}}">{{city.name}}</label>
+                  </div>
+                </div>
+                <div class="row button-container">
+                  <div class="col-md-12">
+                    <button [disabled]="!isInterestedCitiesLoaded" (click)="onSaveInterestedCities()"
+                      class="btn green">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

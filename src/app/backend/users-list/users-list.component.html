@@ -1,0 +1,116 @@
+<app-loader *ngIf="isShowLoader">
+</app-loader>
+
+<div id="backend-users" class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-users"></i>
+          <span class="caption-subject font-blue bold" style="font-size: 16px;">Users</span>
+        </div>
+      </div>
+
+      <div class="row align-items-end">
+        <div class="col-sm-6 align-items-end">
+          <div class="row">
+            <div class="col-sm-12 align-items-end">
+              <label class="toggle-switch">
+                <input type="checkbox" (click)="onShowActiveOnly()" [ngClass]="{ checked: isShowActiveOnly }" checked>
+                <span class="slider"></span>
+              </label>&nbsp;
+              <span style="font-size: 15px;">Show Active Only</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 align-items-end">
+          <div class="row">
+            <div class="col-sm-6 align-items-end">
+              <div class="input-group">
+                <input type="search" class="form-control input-sm" [formControl]="searchControl" placeholder="Search"
+                  aria-label="Search" aria-describedby="search-addon" />
+                <div class="input-group-prepend">
+                  <span class="input-group-text" (click)="Search()"><i class="fa fa-search"></i></span>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-6 align-items-end">
+
+              <div class="actions action-c">
+                <span (click)="exportAsXLSX()" style="color:green!important;" tooltip="Export to Excel" placement="top"
+                  show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+                <span (click)="Refresh()" style="color:green!important;cursor: pointer;padding-left: 15px;"
+                  tooltip="Refresh" placement="top" show-delay="500"><i
+                    class="fa fa-refresh  fa-lg"></i></span>&nbsp;&nbsp;&nbsp;
+                <a id="btn-add-property" (click)="AddUsers()">
+                  <i class="fa fa-plus-circle"></i> Add User
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="portlet-body">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px;">
+          <div class="row">
+            <!-- <div (scroll)="onInfiniteScroll($event)" id="scrollable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> -->
+            <div id="row-scrollable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="!isShowLoader && tbldata==undefined" class="no-records">
+                    <td colspan="10">No Records Found</td>
+                  </tr>
+                  <tr *ngFor="let user of tbldata;let index = index;">
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.role}}</td>
+                    <td>
+                      <ng-container *ngIf="loggedInUserRole == 'SuperAdmin'">
+                        <span (click)="onActiveInActive(user)" [ngClass]="{'checked': user.isActive}"
+                          class="dg-checkbox" for="user"></span>
+                      </ng-container>
+                      <ng-container *ngIf="loggedInUserRole != 'SuperAdmin'">
+                        <span [ngClass]="{'checked': user.isActive}" class="dg-checkbox not-allowed" for="user"></span>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="25"
+                (page)="onChangePage($event)"></mat-paginator> -->
+                <div class="paginator-container">
+                  <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                    Total items: {{this.tbldataLength}}
+                  </span>
+                  <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                    Items per page: 25
+                  </span>
+                  <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1" (page)="onChangePage($event)"
+                    aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

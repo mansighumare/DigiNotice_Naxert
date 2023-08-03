@@ -1,0 +1,135 @@
+<a *ngIf="isShowDownloadLink" href="https://diginoticeapp.page.link/Zi7X" target="blank" class="mobileappFloat" style="font-size: 12px;">
+  <b>Download Mobile App</b>
+</a>
+
+<app-loader *ngIf="isShowLoader"></app-loader>
+
+<!-- BEGIN LOGIN -->
+<div id="login-container" class="log-box">
+  <div class="sign-box">
+    <h3>Sign in to DigiNotice</h3>
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <mat-tab label="OTP LOGIN">
+        <p class="text-center" style="font-size: 15px;"></p>        
+        <form  [formGroup]="otpForm" *ngIf="formToggle=='SendOTP'" class="login-f">
+          <div class="form-group pt-2"
+            [ngClass]="{'has-error': ((otpForm.get('email').touched || otpForm.get('email').dirty) && otpForm.get('email').errors)}">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <div class="input-icon">
+              <i class="fa fa-envelope-o"></i>
+              <input formControlName="email" name="email" [(ngModel)]="loginModel.email" class="form-control placeholder-no-fix input-s" type="text"
+                autocomplete="off" placeholder="Enter Email Or Phone"> <span class="help-block" *ngIf="((otpForm.get('email').touched ||
+                otpForm.get('email').dirty) && otpForm.get('email').errors)">
+                <span style="color:red;" *ngIf="otpForm.get('email').errors.required">
+                  Email Or Phone is Required
+                </span>
+                <span style="color:red;" *ngIf="otpForm.get('email').errors.email">
+                  Email Or Phone is Invalid
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="form-actions form-actions-c pt-2">
+            <button [disabled]="!otpForm.valid" type="submit"
+              class="btn red btn-block uppercase sgin-btn" (click)="sendOtp()">
+              SEND OTP
+            </button>
+          </div>
+        </form>
+        <form *ngIf="formToggle=='VerifyOTP'" class="form-horizontal" role="form" class="login-f">
+          <div class="form-group pt-2">
+            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <div class="input-icon">
+              <i class="fa fa-envelope-o"></i>
+              <input tabindex="1" name="UserOTP" [(ngModel)]="loginModel.otp" type="text"
+                class="form-control placeholder-no-fix input-s" placeholder="One Time Password">
+            </div>
+          </div>
+          <div class="form-actions form-actions-c pt-2">
+            <button type="button" [disabled]="!loginModel.email" (click)="verifyOtp()"
+              class="btn red btn-block uppercase sgin-btn">
+              VERIFY OTP
+            </button>
+          </div>
+          <div class="text-center">
+            <a (click)="onResetOTP()" class="forgot">Resend OTP?</a>
+          </div>
+        </form>
+      </mat-tab>
+
+      <mat-tab label="PASSWORD LOGIN">
+        <p class="text-center pt-2" style="font-size: 15px;">Use Your Email Account</p>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-f">
+          <div class="form-group"
+            [ngClass]="{'has-error': ((loginForm.get('email').touched || loginForm.get('email').dirty) && loginForm.get('email').errors)}">
+            <!--ie8, ie9 does not support html5 placeholder, so we just show field title for that-->
+            <label class="control-label visible-ie8 visible-ie9">Username</label>
+            <div class="input-icon">
+              <i class="fa fa-envelope-o"></i>
+              <input formControlName="email" name="email" class="form-control placeholder-no-fix input-s" type="text"
+                autocomplete="off" placeholder="Enter User Name"> <span class="help-block" *ngIf="((loginForm.get('email').touched ||
+                loginForm.get('email').dirty) &&
+                loginForm.get('email').errors)">
+                <span style="color:red;" *ngIf="loginForm.get('email').errors.required">
+                  User Name is Required
+                </span>
+                <span style="color:red;" *ngIf="loginForm.get('email').errors.email">
+                  User Name is Invalid
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="form-group"
+            [ngClass]="{'has-error': ((loginForm.get('password').touched || loginForm.get('password').dirty) && loginForm.get('password').errors)}">
+            <label class="control-label visible-ie8 visible-ie9">Password</label>
+            <div class="input-icon">
+              <i class="fa fa-lock"></i>
+              <input formControlName="password" name="password" class="form-control placeholder-no-fix input-s"
+                type="password" autocomplete="off" placeholder="Enter Password">
+              <span class="help-block" *ngIf="((loginForm.get('password').touched ||
+                loginForm.get('password').dirty) &&
+                loginForm.get('password').errors)">
+                <span style="color:red;" *ngIf="loginForm.get('password').errors.required">
+                  Password is Required
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-actions form-actions-c">
+            <button [disabled]="!loginForm.valid ||loginForm.controls['email'|| 'password'].invalid" type="submit"
+              class="btn red btn-block uppercase sgin-btn">
+              LOGIN
+            </button>
+          </div>
+          <div class="text-center">
+            <a (click)="onForgotPassword()" class="forgot">Forgot Password?</a>
+          </div>
+        </form>
+      </mat-tab>
+
+    </mat-tab-group>
+
+
+
+  </div>
+  <div class="hello-box">
+    <div class="text-center">
+      <a href="https://diginotice.in/">
+      <img src="assets/images/DNlogo1.png" alt="logo" />
+    </a>
+    </div>
+    <h3 class="text-center hello">Welcome!</h3>
+    <p class="message-lable">Enter Your Personal Details and Start Journey With Us.</p>
+    <div class="form-actions form-actions-c">
+      <button (click)="goToSignUp()" type="button" class="btn default btn-outline sgin-btn-w">
+        SIGN UP
+      </button>
+    </div>
+
+
+  </div>
+  <div class="clear"></div>
+</div>
+<!-- END LOGIN -->

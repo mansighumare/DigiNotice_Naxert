@@ -1,0 +1,43 @@
+.container-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+
+  button {
+    height: 100%;
+  }
+
+  h4 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+}
+
+.modal-dialog {
+  width: 300px;
+}
+
+.modal-footer {
+  font-size: 12px;
+}
+
+
+#btn-add-property {
+  background: #1abc9c;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff
+}
+
+.portlet.light .portlet-title  .caption i{
+  font-size: 18px!important;
+}
+
+.name{
+  margin-top: 18px;
+
+}
+
+
+
+

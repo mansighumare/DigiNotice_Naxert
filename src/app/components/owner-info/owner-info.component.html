@@ -1,0 +1,82 @@
+<!-- <app-loader *ngIf="isShowLoader"></app-loader> -->
+<body>
+  <div id="backend-users" class="row">
+    <div class="col-md-12 col-sm-12">
+      <div class="portlet light bordered">
+        <div class="portlet-title">
+          <div class="caption font-dark float-l">
+            <i class="fa fa-users"></i>
+            <span class="caption-subject font-blue bold" style="font-size: 16px;">Owner Information</span>
+          </div>
+        </div><br>
+        <div class="row">
+          <div class="col-sm-8">
+          </div>
+         
+          <div class="col-sm-2">
+            <label class="dg-lable" style="text-align: left;" for="daterange">Date Range:</label>
+                  <input id="txtSearchDateRange" class="form-control input-sm col-md-6" name="daterange"
+                    placeholder="Select Date Range" type="text" />
+                
+          </div>
+          <div class="col-sm-1 text-right" style="margin-top: 15px;">
+            <button (click)="onViewReport()" type="button" class="btn btn-default search-cs">
+              <i class="fa fa-search"></i> View Report
+            </button>
+          </div>
+          <div class="col-sm-1 text-right"  style="margin-top: 10px;">
+            <div class="actions action-c">
+              <span (click)="exportAsXLSX()" style="color:green!important;" tooltip="Export to Excel" placement="top"
+                show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="portlet-body">
+          <div class="mt-element-card mt-card-round">
+            <div class="row">
+              <div id="row-scrollable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <!-- <table datatable id="tbl-users-list" class="table table-hover" [mfData]="tbldata" #mf="mfDataTable"
+                  [mfRowsOnPage]="10" [mfActivePage]="activePage">
+                  <thead class="sticky-header">
+                    <tr>
+                      <th>
+                        <mfDefaultSorter by="firstName">Owner Full Name</mfDefaultSorter>
+                      </th>
+                      <th>
+                        <mfDefaultSorter by="firstName">City</mfDefaultSorter>
+                      </th>
+                      <th>
+                        <mfDefaultSorter by="firstName">Created Date</mfDefaultSorter>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="!isShowLoader && tbldata.length == 0" class="no-records">
+                      <td colspan="10">No Records Found</td>
+                    </tr>
+                    <tr *ngFor="let ownerInfo of mf.data; let index = index">
+                      <td>{{ ownerInfo.ownerFullName }}</td>
+                      <td>{{ ownerInfo.city }}</td>
+                      <td>{{ ownerInfo.createdDate }}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="9">
+                        <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]">
+                        </mfBootstrapPaginator>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table> -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>

@@ -1,0 +1,61 @@
+<div class="modal fade" id="view-asset-history" tabindex="-1" role="view" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" (click)="closeViewPropertyPopup()"></button>
+        <h4 class="modal-title modal-title-c">Asset History</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center">
+          <div Class="col-md-12 col-xs-12">
+            <div class="animated fadeIn">
+              <div class="card card-accent-primary">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12" style="border-right: 1px solid lightgray;">
+
+                      <div id="row-scrollable">
+                        <div class="col-md-12" *ngIf="comments.length == 0">
+                          <p>No History Available for this Assets</p>
+
+                        </div>
+                        <div class="row" style="padding: 15px;" *ngFor="let item of comments">
+                         
+                          <div class="col-md-12">
+                            <div class="card" style="margin-bottom:0px;"
+                              [ngClass]="{'card-accent-danger': item.role_id ===7, 'card-accent-warning': item.role_id ===8, 'card-accent-dark':item.role_id ===9}">
+                              <div class="card-body">
+                                <div class="row">
+                                  <div class="col-md-8" style="border-right: 1px solid lightgrey;">
+                                    {{item.comments}}<br /><br />
+                                    - <i><b>{{item.fullName}}</b> on {{item.createdDate}}</i>
+                                  </div>
+                                  <div class="col-md-4">
+                                    <b>Attachments:</b><br />
+                                    <div *ngFor="let itm of item.documents">
+                                      {{itm.FileName}}&nbsp;&nbsp;
+                                      <span (click)="Download_doc(itm.OriginalFileName);" tooltip="Download File"
+                                        style="color:#065336!important; cursor: pointer;" placement="top"
+                                        show-delay="500">
+                                        <i class="fa fa-download"></i>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+#backend-users{
+    .caption{
+        display: flex;
+        // justify-content: space-between;
+        // width: 100%;
+    }
+}
+
+.action-c{
+    top: 28px!important;
+}
+// .input-group{
+// top: 21px!important;
+// }
+.form-control{
+    height: 31px!important;
+}
+
+.no-records{
+    td{
+        text-align: center;
+    }
+}
+
+
+table#tbl-users-list{
+    td,th{
+        font-size: 14px;
+        width: 100px !important;
+    }
+}
+
+
+
+.input-group {
+    display: flex;
+ //   width: 195px;
+  }
+
+  .visible{
+    display: visible;
+  }
+  .none {
+   display: none;
+  }
+  .w-50 {
+    width:50%;
+  }
+  .rightPos {
+    float: right; 
+  }
+
+
+  .modal-dialog {
+    width: 90%
+}
+
+.container {
+    width: 100%;
+}

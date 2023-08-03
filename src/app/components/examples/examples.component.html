@@ -1,0 +1,39 @@
+<p>
+  examples works!
+</p>
+
+<div class="autocomplete" style="width:300px;">
+  <input placeholder="serach countries..." id="autocmpt" type="text" />
+</div>
+
+<br>
+<br>
+<br>
+
+<button (click)="onShowMessage()">Show Toaster</button>
+
+<br>
+<br>
+<br>
+
+<div class="notice-container">
+  <ng-container *ngFor="let img of imageList">
+    <img class="notice-image img-preview" [attr.src]="img.imagePath" [attr.alt]="img.imagePath">
+  </ng-container>
+</div>
+
+<img id="myImg" src="./assets/images/sample-notice.jpg" alt="Snow" style="width:100%;max-width:300px">
+
+
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-info">Info</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-link">Link</button>
+<button type="button" class="btn">
+  <code>btn</code> only</button>
+<button type="button" class="btn active">
+  <code>.active</code>
+</button>

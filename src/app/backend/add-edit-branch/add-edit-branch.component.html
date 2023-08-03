@@ -1,0 +1,285 @@
+<app-loader *ngIf="isShowLoader">
+</app-loader>
+
+
+<div id="backend-users" class="row"> 
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-code-fork"></i>
+          <span class="caption-subject font-blue bold" style="font-size: 16px;">Branches</span>
+        </div>
+      </div>
+
+      <div class="row align-items-end">
+        <div class="col-sm-6 align-items-end">
+          <div class="row">
+            <div class="col-sm-6 align-items-end">
+              <!-- <span (click)="onShowActiveOnly()" [ngClass]="{ checked: isShowActiveOnly }" class="dg-checkbox"
+            style="font-size: 16px; top:25px;" for="isBackendUserActive">
+              Show Active Only
+              </span> -->
+              <label class="toggle-switch">
+                <input type="checkbox" (click)="onShowActiveOnly()" [ngClass]="{ checked: isShowActiveOnly }" checked>
+                <span class="slider"></span>
+              </label>&nbsp;
+              <span style="font-size: 15px;">Show Active Only</span>
+            </div>
+            <div class="col-sm-6 align-items-end" *ngIf="this.loggedInUserRoleGuid=='6fa5ce77-1e42-4487-b880-229180e0e9a1'">
+
+              <div class="dg-lable" for="organisation">Organization : </div>
+              <select tabindex="7" [(ngModel)]="addOrganisationModel.OrganisationId" name="as-OrganisationId"
+                class="form-control input-sm" (change)="onSelectedOrg($event)">
+                <option value="0" selected>Please Select Organization</option>
+                <option *ngFor="let organisation of OrganisationList" [value]="organisation.orgId">
+                  {{organisation.name}}</option>
+              </select>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 align-items-end">
+          <div class="row">
+            <div class="col-sm-6 align-items-end">
+              <div class="input-group">
+                <input type="text" class="form-control input-sm" [formControl]="searchControl"
+                  placeholder="Search" />
+                <div class="input-group-prepend">
+                  <span class="input-group-text" (click)="Search()"><i class="fa fa-search"></i></span>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-6 align-items-end">
+
+              <div class="actions action-c">
+                <span (click)="exportAsXLSX()" style="color:green!important;" tooltip="Export to Excel" placement="top"
+                  show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+                <span (click)="Refresh()" style="color:green!important;cursor: pointer;padding-left: 15px;"
+                  tooltip="Refresh" placement="top" show-delay="500"><i
+                    class="fa fa-refresh  fa-lg"></i></span>&nbsp;&nbsp;&nbsp;
+                <a id="btn-add-property" (click)="AddBranch()">
+                  <i class="fa fa-plus-circle"></i> Add Branch
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <br />
+      <div class="tools">
+        <div class="portlet-body">
+          <div class="mt-element-card mt-card-round" style="margin-top: 20px">
+            <div class="row">
+              <div id="scrollable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Branch Id</th>
+                      <th>Name</th>
+                      <th>Display Name</th>
+                      <th>Organization Name</th>
+                      <th>Address</th>
+                      <th>Status</th>
+                      <th>Edit</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngIf="!isShowLoader && tbldata === null" class="no-records">
+                      <td colspan="10">No Records Found</td>
+                    </tr>
+                    <tr *ngFor="let addOrganisationBranch of tbldata; let index = index">
+                      <td>{{addOrganisationBranch.branchId }}</td>
+                      <td>{{ addOrganisationBranch.name }}</td>
+                      <td>{{ addOrganisationBranch.displayName }}</td>
+                      <td>{{ addOrganisationBranch.orgName }}</td>
+                      <td>{{addOrganisationBranch.address }}</td>
+                      <td>
+                        <ng-container *ngIf="
+                              loggedInUserRole == 'SuperAdmin' ||
+                              loggedInUserId == addOrganisationBranch.parentUserId
+                            ">
+                          <span (click)="onActiveInActive(addOrganisationBranch)"
+                            [ngClass]="{ checked: addOrganisationBranch.isActive }" class="dg-checkbox"
+                            for="isOrganisationBranchActive"></span>
+                        </ng-container>
+                        <ng-container *ngIf="
+                              !(
+                                loggedInUserRole == 'SuperAdmin'  || 
+                                loggedInUserId == addOrganisationBranch.parentUserId
+                              )
+                            ">
+                          <span (click)="onActiveInActive(addOrganisationBranch)"
+                            [ngClass]="{ checked: isShowActiveOnly }" class="dg-checkbox"
+                            for="isorganisationBranchActive">
+                          </span>
+                        </ng-container>
+                      </td>
+                      <td>
+                        <i (click)="onEditBranch(addOrganisationBranch)" class="fa fa-pencil"></i>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="25"
+                  (page)="onChangePage($event)"></mat-paginator> -->
+
+                  <div class="paginator-container">
+                    <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                     Total items: {{this.tbldataLength}}
+                    </span>
+                    <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                      Items per page: 25
+                    </span>
+                    <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1"
+                                   (page)="onChangePage($event)"
+                                   aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+                  
+                   
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="add-mode-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header modal-header-c">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title modal-title-c">{{label}}</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <div class="col-md-6" *ngIf="this.loggedInUserRoleGuid=='6fa5ce77-1e42-4487-b880-229180e0e9a1'">
+                  <label class="dg-lable" for="Organisation">Organization:</label>
+                  <select disabled tabindex="7" [(ngModel)]="addOrganisationModel.OrganisationId" name="as-OrganisationId"
+                    class="form-control input-sm">
+                    <option value=0>Select Organization</option>
+                    <option *ngFor="let organisation of OrganisationList" [value]="organisation.orgId">
+                      {{organisation.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="dg-lable" for="BranchName">Branch Name:</label>
+                  <input tabindex="1" [(ngModel)]="addOrganisationModel.BranchName" name="BranchName" type="text"
+                    class="form-control input-sm" placeholder="Enter Branch Name">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="BranchDisplayName">Branch Display Name:</label>
+                  <input tabindex="2" [(ngModel)]="addOrganisationModel.BranchDisplayName" name="BranchDisplayName"
+                    type="text" class="form-control input-sm" placeholder="Enter Branch Display Name">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="Country">Country:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.CountryId" name="as-CountryId" disabled
+                    class="form-control input-sm">
+                    <option value=1>{{country_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="dg-lable" for="State">State:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.StateId" name="as-StateId"
+                    (change)=" onOptionsSelectedState($event)" class="form-control input-sm">
+                    <option value=0>Select State</option>
+                    <option *ngFor="let state of stateList" [value]="state.id">
+                      {{state.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="dg-lable" for="City">District:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.CityId" name="as-CityId"
+                    (change)="onOptionsSelectedCity($event)" class="form-control input-sm">
+                    <option value=0>Select District</option>
+                    <option *ngFor="let city of CityList" [value]="city.id">
+                      {{city.name}}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="Taluka">Taluka:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.TalukaId" name="as-TalukaId"
+                    (change)="onOptionsSelectedTaluka($event)" class="form-control input-sm">
+                    <option value=0>Select Taluka</option>
+                    <option style="color: black;" *ngFor="let Taluka of TalukaList" [value]="Taluka.id">
+                      {{Taluka.name}}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="State">Village:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.VillageId" name="as-VillageId"
+                    class="form-control input-sm">
+                    <option value=0>Select Village</option>
+                    <option *ngFor="let Village of VillageList" [value]="Village.id">
+                      {{Village.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="dg-lable" for="BranchAddress">Address:</label>
+                  <input tabindex="2" [(ngModel)]="addOrganisationModel.BranchAddress" name="BranchAddress" type="text"
+                    class="form-control input-sm" placeholder="Enter Branch Address">
+                </div>
+                <div class="col-md-6">
+                  <label class="dg-lable" for="ParentId">Is It Parent Branch:</label>
+                  <div class="form-control input-sm dg-radio-list">
+
+                    <div class="dg-radio-item col-md-2" (change)="changedtype($event)">
+                      <input tabindex="8" [(ngModel)]="addOrganisationModel.ParentBranch" value="1" type="radio"
+                        id="Yes" name="property-type">
+                      <label for="Yes">Yes</label>
+                    </div>
+                    <div class="dg-radio-item col-md-2" (change)="changedtype($event)">
+                      <input tabindex="8" [(ngModel)]="addOrganisationModel.ParentBranch" value="0" type="radio" id="No"
+                        name="property-type">
+                      <label for="No">No</label>
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="col-md-6" *ngIf="parentbranch==0">
+                  <label class="dg-lable" for="Branches">Branch:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.ParentBranchId" name="as-ParentBranchId"
+                    class="form-control input-sm">
+                    <option value=0>Select Branch</option>
+                    <option *ngFor="let branch of BranchList" [value]="branch.branchId">
+                      {{branch.name}}</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn green" (click)="addBranch()">
+              Add
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a *ngIf="this.loggedInUserRole == 'SuperAdmin'" class="btn-hangup" (click)="back();" style="text-decoration:none;cursor: pointer;">
+  <span class="btnct">
+    <i class="fa fa-arrow-circle-left fa-lg"></i>&nbsp;Back
+  </span>
+</a>

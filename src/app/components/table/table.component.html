@@ -1,0 +1,336 @@
+<div class="actions action-c">
+  <a id="btn-add-property" (click)="showAddRowPopup()">
+    <i class="fa fa-plus-circle"></i> {{tableConfig.addRowButtonText}}
+  </a>
+</div>
+
+<div id="material-ui-table" class="shadow-z-1 table-bordered">
+  <div class="table-header">
+
+  </div>
+
+  <table id="table" class="table table-hover">
+    <thead>
+      <tr>
+        <th>#</th>
+        <ng-container *ngFor="let column of tableConfig.columns">
+          <th class="sortable" (click)="onColumnSort(column)" *ngIf="!column.hidden">
+            {{column.displayName}}
+            <i *ngIf="column.sortType == ASC"
+              [ngClass]="{'mdc-text-indigo-400' : column.name == tableConfig?.sortInfo?.sortedColumn?.name}"
+              class="fa fa-sort"></i>
+            <i *ngIf="column.sortType == DESC"
+              [ngClass]="{'mdc-text-indigo-400' : column.name == tableConfig?.sortInfo?.sortedColumn?.name}"
+              class="fa fa-sort"></i>
+          </th>
+        </ng-container>
+        <th *ngIf="tableConfig.addPopupTitle=='Notice Type'" style="text-align: center;">Sort Order</th>
+        <th *ngIf="tableConfig.addPopupTitle=='Notice Type'" style="text-align: center;">Banking/Non-Banking</th>
+        <th> Edit </th>
+        <th> Status </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of tableRows;let rowNo = index;">
+        <td>{{rowNo + 1}}</td>
+        <ng-container *ngFor="let th of tableConfig.columns">
+          <td *ngIf="!th.hidden"> {{row[th.name]}} </td>
+        </ng-container>
+        <td *ngIf="tableConfig.addPopupTitle=='Notice Type'" style="text-align: center;">{{row.sortOrder}}</td>
+        <td *ngIf="tableConfig.addPopupTitle=='Notice Type'" style="text-align: center;">
+          <span (click)="onTypeChange(row)" [ngClass]="{'checked': row.isBanking}" class="dg-checkbox"
+            for="user"></span>
+        </td>
+        
+        <td>
+          <i (click)="onRowEdit(row)" class="fa fa-pencil"></i>
+        </td>
+        <td>
+          <span (click)="onRowDelete(row)" [ngClass]="{'checked': row.isActive}" class="dg-checkbox" for="user"></span>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Edit Row Modal Popup -->
+<div *ngIf="tableConfig.useDefaultPopup" class="modal fade" id="edit-mode-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title modal-title-c">{{tableConfig.editPopupTitle}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal">
+          <ng-container
+            *ngIf="currentRow && (tableConfig.addPopupTitle=='Add Land Category' || tableConfig.addPopupTitle=='Add UnitType' || tableConfig.addPopupTitle=='Add Paper')">
+            <ng-container *ngFor="let column of tableConfig.columns">
+              <div *ngIf="!column.hidden && !column.noedit" class="form-group">
+                <label class="col-sm-3 control-label">{{column.displayName}} : </label>
+                <div class="col-sm-9">
+                  <input required class="form-control" [attr.type]="column.type"
+                    [(ngModel)]="currentRow[column.name]" />
+                </div>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="tableConfig.addPopupTitle=='Add Organisations'">
+            <div class="portlet-body">
+              <!-- <div class="mt-element-card mt-card-round" style="margin-top: 20px;"> -->
+              <div class="row">
+                <!-- BEGIN TITLE VERIFICATION-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                      <div class="col-md-6">
+                        <label class="dg-lable" for="OrganisationName">Organization Name:</label>
+                        <input tabindex="1" [(ngModel)]="addOrganisationModel.OrganisationName" name="OrganisationName"
+                          type="text" class="form-control input-sm" placeholder="Enter Organization Name">
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="dg-lable" for="OrganisationDisplayName">Organization Display Name:</label>
+                        <input tabindex="2" [(ngModel)]="addOrganisationModel.OrganisationDisplayName"
+                          name="OrganisationDisplayName" type="text" class="form-control input-sm"
+                          placeholder="Enter Organization Display Name">
+                      </div>
+                      <div class="col-md-6">
+                        <label class="dg-lable" for="Country">Country:</label>
+                        <select tabindex="7" [(ngModel)]="addOrganisationModel.CountryId" name="as-CountryId"
+                          (change)="changedCountry($event)" class="form-control input-sm">
+                          <option value="null">Select Country</option>
+                          <option *ngFor="let country of countryList" [value]="country.id">{{country.name}}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="dg-lable" for="State">State:</label>
+                        <select tabindex="7" [(ngModel)]="addOrganisationModel.StateId" name="as-StateId"
+                          (change)="changedState($event)" class="form-control input-sm">
+                          <option value="null">Select State</option>
+                          <option *ngFor="let state of stateList" [value]="state.id">
+                            {{state.name}}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="dg-lable" for="City">District:</label>
+                        <select tabindex="7" [(ngModel)]="addOrganisationModel.CityId" name="as-CityId"
+                          (change)="changedCity($event)" class="form-control input-sm">
+                          <option value="null">Select District</option>
+                          <option *ngFor="let city of CityList" [value]="city.id">
+                            {{city.name}}</option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="dg-lable" for="Taluka">Taluka:</label>
+                        <select tabindex="7" [(ngModel)]="addOrganisationModel.TalukaId" name="as-TalukaId"
+                          (change)="changedTaluka($event)" class="form-control input-sm">
+                          <option value="null">Select Taluka</option>
+                          <option style="color: black;" *ngFor="let Taluka of TalukaList" [value]="Taluka.id">
+                            {{Taluka.name}}</option>
+                        </select>
+                      </div>
+
+                      <div class="col-md-6">
+                        <label class="dg-lable" for="State">Village:</label>
+                        <select tabindex="7" [(ngModel)]="addOrganisationModel.VillageId" name="as-VillageId"
+                          class="form-control input-sm">
+                          <option value="null">Select Village</option>
+                          <option *ngFor="let Village of VillageList" [value]="Village.id">
+                            {{Village.name}}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6">
+                        <label class="dg-lable" for="OrganisationAddress">Address:</label>
+                        <input tabindex="2" [(ngModel)]="addOrganisationModel.OrganisationAddress"
+                          name="OrganisationAddress" type="text" class="form-control input-sm"
+                          placeholder="Enter Organization Address">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- END TITLE VERIFICATION-->
+                <!-- </div> -->
+
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="tableConfig.addPopupTitle=='Notice Type'">
+            <div class="portlet-body">
+              <!-- <div class="mt-element-card mt-card-round" style="margin-top: 20px;"> -->
+              <div class="row">
+                <!-- BEGIN TITLE VERIFICATION-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <form class="form-horizontal" role="form">
+                    <div class="form-group">
+
+                      <div class="col-md-12">
+                        <label class="dg-lable" for="Name">Name:</label>
+                        <input tabindex="1" [(ngModel)]="noticeType.name" name="Name" type="text"
+                          class="form-control input-sm" placeholder="Enter Name">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="dg-lable" for="DisplayName">Display Name:</label>
+                        <input tabindex="2" [(ngModel)]="noticeType.displayName" name="DisplayName" type="text"
+                          class="form-control input-sm" placeholder="Enter Display Name">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="dg-lable" for="SortOrder">Sort Order:</label>
+                        <input tabindex="2" [(ngModel)]="noticeType.sortOrder" name="sortOrder" type="text"
+                          class="form-control input-sm" placeholder="Enter Sort Order">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="dg-lable" for="ParentId">Banking/Non-Banking</label>
+                        <div class="form-control input-sm dg-radio-list">
+
+                          <div class="dg-radio-item col-md-2" (change)="changedtype(true)">
+                            <input tabindex="8" [(ngModel)]="noticeType.isBanking" value="1" type="radio" id="Yes"
+                              name="property-type">
+                            <label for="Yes">Yes</label>
+                          </div>
+                          <div class="dg-radio-item col-md-2" (change)="changedtype(false)">
+                            <input tabindex="8" [(ngModel)]="noticeType.isBanking" value="0" type="radio" id="No"
+                              name="property-type">
+                            <label for="No">No</label>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+                <!-- END TITLE VERIFICATION-->
+                <!-- </div> -->
+
+              </div>
+            </div>
+
+
+          </ng-container>
+        </div>
+      </div>
+      <div class="modal-footer"
+        *ngIf="currentRow && tableConfig.addPopupTitle=='Add Land Category' || tableConfig.addPopupTitle=='Add UnitType' || tableConfig.addPopupTitle=='Add Paper'">
+        <button type="button" class="btn green" (click)="onRowUpdate()">Update</button>
+        <button type="button" class="btn btn-secondary" (click)="closePopupById('#edit-mode-modal')">Close</button>
+      </div>
+      <div class="modal-footer" *ngIf="tableConfig.addPopupTitle=='Add Organisations'">
+        <button type="button" class="btn green" (click)="addOrganisation()">Update</button>
+        <button type="button" class="btn btn-secondary" (click)="closePopupById('#edit-mode-modal')">Close</button>
+      </div>
+      <div class="modal-footer" *ngIf="tableConfig.addPopupTitle=='Add Branch'">
+        <button type="button" class="btn green" (click)="addBranch()">Update</button>
+        <button type="button" class="btn btn-secondary" (click)="closePopupById('#edit-mode-modal')">Close</button>
+      </div>
+      <div class="modal-footer" *ngIf="tableConfig.addPopupTitle=='Notice Type'">
+        <button type="button" class="btn green" (click)="addNoticetype()">Update</button>
+        <button type="button" class="btn btn-secondary" (click)="closePopupById('#edit-mode-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Row Modal Popup -->
+<div *ngIf="tableConfig.useDefaultPopup" class="modal fade" id="add-mode-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title modal-title-c">{{tableConfig.addPopupTitle}}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal">
+          <ng-container
+            *ngIf="tableConfig.addPopupTitle=='Add Land Category' || tableConfig.addPopupTitle=='Add UnitType' || tableConfig.addPopupTitle=='Add Paper'">
+            <ng-container *ngFor="let column of tableConfig.columns">
+              <div *ngIf="!column.hidden && !column.noedit" class="form-group">
+                <div class="col-md-12">
+                  <label class="dg-lable" for="{{column.name}}">{{column.displayName}}:</label>
+                  <input [attr.type]="column.type" [(ngModel)]="addRowModel[column.name]" name="{{column.name}}"
+                    type="text" class="form-control input-sm" placeholder="{{column.displayName}}">
+                </div>
+               </div>
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="tableConfig.addPopupTitle=='Notice Type'">
+            <div class="portlet-body">
+              <!-- <div class="mt-element-card mt-card-round" style="margin-top: 20px;"> -->
+              <div class="row">
+                <!-- BEGIN TITLE VERIFICATION-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <form class="form-horizontal" role="form">
+                    <div class="form-group">
+
+                      <div class="col-md-12">
+                        <label class="dg-lable" for="Name">Name:</label>
+                        <input tabindex="1" [(ngModel)]="noticeType.name" name="Name" type="text"
+                          class="form-control input-sm" placeholder="Enter Name">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="dg-lable" for="DisplayName">Display Name:</label>
+                        <input tabindex="2" [(ngModel)]="noticeType.displayName" name="DisplayName" type="text"
+                          class="form-control input-sm" placeholder="Enter Display Name">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="dg-lable" for="SortOrder">Sort Order:</label>
+                        <input tabindex="2" [(ngModel)]="noticeType.sortOrder" name="sortOrder" type="text"
+                          class="form-control input-sm" placeholder="Enter Sort Order">
+                      </div>
+                      <div class="col-md-12">
+                        <label class="dg-lable" for="ParentId">Banking/Non-Banking</label>
+                        <div class="form-control input-sm dg-radio-list">
+                          <div class="dg-radio-item col-md-2" (change)="changedtype(true)">
+                            <input tabindex="8" [(ngModel)]="noticeType.isBanking" value="1" type="radio" id="Yes"
+                              name="property-type">
+                            <label for="Yes">Yes</label>
+                          </div>
+                          <div class="dg-radio-item col-md-2" (change)="changedtype(false)">
+                            <input tabindex="8" [(ngModel)]="noticeType.isBanking" value="0" type="radio" id="No"
+                              name="property-type">
+                            <label for="No">No</label>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+                <!-- END TITLE VERIFICATION-->
+                <!-- </div> -->
+
+              </div>
+            </div>
+
+
+          </ng-container>
+
+
+        </div>
+      </div>
+      <div class="modal-footer"
+        *ngIf="tableConfig.addPopupTitle=='Add Land Category' || tableConfig.addPopupTitle=='Add UnitType' || tableConfig.addPopupTitle=='Add Paper'">
+        <button type="button" class="btn green" (click)="onRowAdd()">Add</button>
+        <button type="button" class="btn btn-secondary" (click)="closePopupById('#add-mode-modal')">Close</button>
+      </div>
+      <div class="modal-footer" *ngIf="tableConfig.addPopupTitle=='Add Organisations'">
+        <button type="button" class="btn green" (click)="addOrganisation()">Add</button>
+        <button type="button" class="btn btn-secondary" (click)="closePopupById('#add-mode-modal')">Close</button>
+      </div>
+      <div class="modal-footer" *ngIf="tableConfig.addPopupTitle=='Add Branch'">
+        <button type="button" class="btn green" (click)="addBranch()">Add</button>
+        <button type="button" class="btn btn-secondary" (click)="closePopupById('#add-mode-modal')">Close</button>
+      </div>
+
+      <div class="modal-footer" *ngIf="tableConfig.addPopupTitle=='Notice Type'">
+        <button type="button" class="btn green" (click)="addNoticetype()">Add</button>
+        <button type="button" class="btn btn-secondary" (click)="closePopupById('#add-mode-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

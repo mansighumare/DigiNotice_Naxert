@@ -1,0 +1,92 @@
+#container{
+   position: relative;
+   overflow-x: hidden;
+   overflow-y: hidden;
+}
+#grid {
+  display: grid;
+  height: 150;
+  grid-template-columns: repeat(1, 1fr);
+ 
+  grid-column-gap: 20px;
+}
+
+.overlay-left {
+    position: absolute;
+    display: inline-block;
+    display: grid;
+    /* width: 0.5rem; */
+    height: 100%;
+    top: 0%;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.overlay-right {
+    position: absolute;
+    display: inline-block;
+    display: grid;
+    /* width: 0.5rem; */
+    height: 100%;
+    top: 0%;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 1;
+    cursor: pointer;
+}
+
+#grid > div {
+  background-color: gray;
+}
+
+#slider-buttons-left{
+   
+  position: absolute;
+  z-index: 1000;
+  top: 60px;
+  float: left;
+  cursor: pointer;
+  font-size: 250%;
+  color: #778899;
+  left: 60px;
+  
+}
+
+#slider-buttons-right{
+   
+  position: absolute;
+  top: 60px;
+  z-index: 1000;
+  float: right;
+  cursor: pointer;
+  font-size: 250%;
+  color: #778899;
+  right: 60px;
+  
+}
+
+/* .image-cropper {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-cropper img {
+    max-width: 60%!important;
+    max-height: 100%!important;
+    display: block;
+    margin: 0 auto;
+} */
+
+
+/* @media (min-width: 992px){
+.page-content-wrapper .page-content {
+    margin-left: 169px!important;
+}
+} */

@@ -1,0 +1,333 @@
+<app-loader *ngIf="locationMasterService.isShowLocationLoader"></app-loader>
+
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="portlet light bordered">
+            <div class="portlet-title">
+                <div class="caption font-dark float-l">
+                    <i class="fa fa-globe"></i>
+                    <span class="caption-subject font-blue bold">Location Master</span>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="mt-element-card mt-card-round">
+
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <div class="col-md-3">
+                                        <label class="dg-lable" for="countryId">Country:</label>
+                                        <select disabled [(ngModel)]="addLocationDto.countryId" name="as-countryId"
+                                            class="form-control input-sm">
+                                            <option value="1">India</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="dg-lable" for="stateId">State:</label>
+                                        <select [(ngModel)]="addLocationDto.stateId" (change)="onStateChange($event)"
+                                            name="as-stateId" class="form-control input-sm">
+                                            <option *ngFor="let state of locationMasterService.stateList"
+                                                [value]="state.id">
+                                                {{state.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="dg-lable" for="districtId">District:</label>
+                                        <select [(ngModel)]="addLocationDto.districtId"
+                                            (change)="onDistrictChange($event)" name="as-districtId"
+                                            class="form-control input-sm">
+                                            <option *ngFor="let district of districtList" [value]="district.id">
+                                                {{district.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="dg-lable" for="talukaId">Taluka:</label>
+                                        <select [(ngModel)]="addLocationDto.talukaId" (change)="onTalukaChange($event)"
+                                            name="as-talukaId" class="form-control input-sm">
+                                            <option value="">All Talukas </option>
+                                            <option *ngFor="let taluka of locationMasterService.talukaList"
+                                                [value]="taluka.id">
+                                                {{taluka.name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </form>
+                            <div class="row">
+                                <div class="col-sm-5 name">
+                                    <h4><b>{{locationTableName}} List</b></h4>
+                                </div>
+                                <div class="col-sm-3">
+
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" (click)="onActiveCheckboxToggle()"
+                                            [ngClass]="{ checked: isActiveOnly }" checked>
+                                        <span class="slider"></span>
+                                    </label>&nbsp;
+                                    <span style="font-size: 15px;">Show Active Only</span>
+
+                                </div>
+
+                                <div class="col-sm-4 name">
+                                    <div class="actions action-c">
+                                        <a id="btn-add-property" data-toggle="modal" href="#add-location-modal">
+                                            <i class="fa fa-plus-circle"></i> Add {{locationTableName}}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="row-scrollable">
+                                    <div class="table-container">
+
+                                        <ng-container *ngIf="locationTableName == 'Taluka'">
+
+                                            <mat-table [dataSource]="talukaId" class="mat-elevation-z8">
+                                                <!-- Taluka Name column -->
+                                                <ng-container matColumnDef="name">
+                                                    <mat-header-cell *matHeaderCellDef>Taluka Name</mat-header-cell>
+                                                    <mat-cell *matCellDef="let taluka">{{ taluka.name }}</mat-cell>
+                                                </ng-container>
+
+                                                <!-- Action column -->
+                                                <ng-container matColumnDef="action">
+                                                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+                                                    <mat-cell *matCellDef="let taluka">
+                                                        <i (click)="onEditTaluka(taluka)" class="fa fa-pencil"></i>
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <!-- Status column -->
+                                                <ng-container matColumnDef="status">
+                                                    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+                                                    <mat-cell *matCellDef="let taluka">
+                                                        <span (click)="onActiveInActive(taluka, 'Taluka')"
+                                                            [ngClass]="{ 'checked': taluka.isActive }"
+                                                            class="dg-checkbox" for="isTalukaActive"></span>
+                                                    </mat-cell>
+                                                </ng-container>
+
+                                                <!-- No Records Found row -->
+                                                <mat-row *matRowDef="let taluka; columns: ['name', 'action', 'status']"
+                                                    class="no-records"
+                                                    [ngClass]="{ 'no-records': isShowLoader || talukaId.length === 0 }">
+                                                    <td colspan="3">No Records Found</td>
+                                                </mat-row>
+                                            </mat-table>
+
+                                            <!-- Pagination -->
+                                            <mat-paginator [length]="talukaId.length" [pageSizeOptions]="[5, 10, 15]"
+                                                showFirstLastButtons></mat-paginator>
+
+
+                                            <!--  <table id="tbl-users-list" class="table table-hover"
+                                                [mfData]="locationMasterService.talukaList" #mf="mfDataTable"
+                                                [mfRowsOnPage]="10">
+                                                <thead>
+                                                    <tr>
+                                                        <th> Taluka Name </th>
+                                                        <th> Action </th>
+                                                        <th> Status </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!isShowLoader && mf.data== 0" class="no-records">
+                                                        <td colspan="10">No Records Found</td>
+                                                    </tr>
+                                                    <tr *ngFor="let taluka of mf.data;let index = index;">
+
+                                                        <td> {{taluka.name}} </td>
+                                                        <td>
+                                                            <i (click)="onEditTaluka(taluka)" class="fa fa-pencil"></i>
+                                                        </td>
+                                                        <td>
+                                                            <span (click)="onActiveInActive(taluka, 'Taluka')"
+                                                                [ngClass]="{'checked': taluka.isActive}"
+                                                                class="dg-checkbox" for="isTalukaActive"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="9">
+                                                           <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]"> 
+                                                            </mfBootstrapPaginator>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table> -->
+                                        </ng-container>
+                                        <ng-container *ngIf="locationTableName == 'Village'">
+                                            <!--   <table id="tbl-users-list" class="table table-hover" [mfData]="villageList"
+                                                #mf="mfDataTable" [mfRowsOnPage]="10"> 
+                                                    <tr>
+
+
+                                                        <th> Village Name </th>
+                                                        <th> Action </th>
+                                                        <th> Status </th>
+                                                    </tr>
+                                               </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!isShowLoader && mf.data == 0" class="no-records">
+                                                        <td colspan="10">No Records Found</td>
+                                                    </tr>
+                                                    <tr *ngFor="let village of mf.data;let index = index;"> 
+
+                                                        <td> {{village.name}} </td>
+                                                        <td>
+                                                            <i (click)="onEditVillage(village)"
+                                                                class="fa fa-pencil"></i>
+                                                        </td>
+                                                        <td>
+                                                            <span (click)="onActiveInActive(village, 'Village')"
+                                                                [ngClass]="{'checked': village.isActive}"
+                                                                class="dg-checkbox" for="isVillageActive"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="9">
+                                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]">
+                                                            </mfBootstrapPaginator>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table> -->
+                                        </ng-container>
+
+                                        <ng-container *ngIf="locationTableName == 'District'">
+                                            <!-- <table id="tbl-users-list" class="table table-hover" [mfData]="districtList"
+                                                #mf="mfDataTable" [mfRowsOnPage]="10">
+                                                <thead>
+                                                    <tr>
+
+
+                                                        <th> District Name </th>
+                                                        <th> Action </th>
+                                                        <th> Status </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngIf="!isShowLoader && mf.data == 0" class="no-records">
+                                                        <td colspan="10">No Records Found</td>
+                                                    </tr>
+                                                    <tr *ngFor="let district of mf.data;let index = index;">
+
+                                                        <td> {{district.name}} </td>
+                                                        <td>
+                                                            <i (click)="onEditDistrict(district)"
+                                                                class="fa fa-pencil"></i>
+                                                        </td>
+                                                        <td>
+                                                            <span (click)="onActiveInActive(district, 'District')"
+                                                                [ngClass]="{'checked': district.isActive}"
+                                                                class="dg-checkbox" for="isDistrictActive"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td colspan="9">
+                                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]">
+                                                            </mfBootstrapPaginator>
+                                                        </td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table> -->
+                                        </ng-container>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Start : Add Location Modal Popup -->
+<div class="modal fade" id="add-location-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header modal-header-c">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title modal-title-c">{{locationTableName}}</h4>
+            </div>
+            <!-- <div class="modal-header">
+                <h5 class="modal-title">Add {{locationTableName}}</h5>
+            </div> -->
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div *ngIf="locationTableName == 'District'" class="col-md-12">
+                            <label class="dg-lable" for="District">District Name:</label>
+                            <input [(ngModel)]="addLocationDto.districtName" name="districtName" type="text"
+                                class="form-control input-sm" placeholder="District Name">
+                        </div>
+                        <div *ngIf="locationTableName == 'Taluka'" class="col-md-12">
+                            <label class="dg-lable" for="talukaName">Taluka Name:</label>
+                            <input [(ngModel)]="addLocationDto.talukaName" name="talukaName" type="text"
+                                class="form-control input-sm" placeholder="Taluka Name">
+                        </div>
+                        <div *ngIf="locationTableName == 'Village'" class="col-md-12">
+                            <label class="dg-lable" for="villageName">Village Name:</label>
+                            <input [(ngModel)]="addLocationDto.villageName" name="villageName" type="text"
+                                class="form-control input-sm" placeholder="Village Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn green" (click)="onAddLocation()">Add
+                    {{locationTableName}}</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End : Add Location Modal Popup -->
+
+
+
+<!-- Start : Edit Location Modal Popup -->
+<div class="modal fade" id="edit-location-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit {{locationTableName}}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div *ngIf="locationTableName == 'District'" class="col-md-12">
+                            <input [(ngModel)]="editDistrict.districtName" name="districtName" type="text"
+                                class="form-control input-sm" placeholder="District Name">
+                        </div>
+                        <div *ngIf="locationTableName == 'Taluka'" class="col-md-12">
+                            <input [(ngModel)]="editedTaluka.talukaName" name="talukaName" type="text"
+                                class="form-control input-sm" placeholder="Taluka Name">
+                        </div>
+                        <div *ngIf="locationTableName == 'Village'" class="col-md-12">
+                            <input [(ngModel)]="editedVillage.villageName" name="villageName" type="text"
+                                class="form-control input-sm" placeholder="Village Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="onUpdateLocation()">Update
+                    {{locationTableName}}</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End : Edit Location Modal Popup -->

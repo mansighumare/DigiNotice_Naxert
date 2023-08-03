@@ -1,0 +1,293 @@
+// .list-unstyled{
+//     overflow-y: scroll;
+//     height: 190px;
+// }
+
+// .modal-content{
+//     padding: 20px;
+// }
+
+// .remove-image {
+//     float: right;
+//     background-color: #000;
+//     width: 20px;
+//     height: 20px;
+//     color: #fff;
+//     display: inline-flex;
+//     justify-content: center;
+//     align-items: center;
+//     border-radius: 5px;
+//     cursor: pointer;
+//     &:hover{
+//         color: red;
+//     }
+// }
+
+
+// .mt-30{
+//     margin-top: 30px;
+//     margin-bottom: 5px;
+//     .keyword-buttons{
+//         position: absolute;
+//         top: -22px;
+//         button.k-b{
+//             background: #1abc9c;
+//             border: #fff;
+//             color: #fff;
+//             outline: none;
+//             border-radius: 5px;
+//             font-size: 10px;
+//             margin-bottom: 2px;
+//             margin-left: 2px;
+//         }
+//     }
+// }
+
+
+.no-records {
+    td {
+        text-align: center;
+    }
+}
+
+.check-box-container {
+    user-select: none;
+    margin-bottom: 20px;
+
+    .dg-checkbox {
+        display: inline-block;
+        padding-left: 25px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+}
+
+
+#scrollable {
+    height: 400px;
+    overflow-y: scroll;
+
+    table {
+        thead.sticky-header {
+            tr {
+                td {
+                    position: sticky;
+                    top: 0;
+                    width: 100%;
+                    background: #fff;
+                    z-index: 999;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+
+
+    td,
+    th {
+
+        text-align: center;
+    }
+
+
+
+
+
+
+.input-group-text {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0.784rem 1.3rem;
+    margin-bottom: 0;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #5c6873;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #f0f3f5;
+    border: 1px solid #e4e7ea;
+    border-radius: .25rem
+}
+
+.input-group-append .input-group-prepend {
+    display: flex;
+}
+
+.form-control {
+    height: 33px !important;
+}
+
+.input-group {
+  // top: 21px !important;
+   display: inline-table;
+   // width: 195px;
+}
+
+
+.action-c {
+    top: 24px !important;
+}
+
+
+.modal-dialog {
+    width: 75%
+}
+
+.modal-content{
+    padding: 15px;
+}
+
+
+
+
+
+//new css
+
+.list-unstyled{
+    overflow-y: scroll;
+    height: 190px;
+}
+
+.mt-30{
+    margin-top: 30px;
+    .keyword-buttons{
+        position: absolute;
+        top: -22px;
+        button.k-b{
+            background: #1abc9c;
+            border: #fff;
+            color: #fff;
+            outline: none;
+            border-radius: 5px;
+            font-size: 10px;
+            margin-bottom: 2px;
+            margin-left: 2px;
+        }
+    }
+}
+
+.area-container{
+    input{
+        height: 20px;
+        width: 70px;
+    }
+}
+
+.clear-uploads{
+    padding: 2px;font-size: 1rem;margin-bottom: 3px;
+}
+
+
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#img-upload{
+    width: 100%;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
+}
+
+.remove-image {
+    float: right;
+    background-color: #000;
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    &:hover{
+        color: red;
+    }
+}
+.scrollable {
+    overflow-y: auto !important;  // Use !important only if there is already an overflow style rule for this element and you want to override
+  }
+  .datalist {
+    height:50px !important;
+    max-height:80px !important;
+    overflow-y:auto;
+    display:block !important;
+ }
+ .dropdown-menu{
+    max-height: 150px;
+    overflow-y: auto;
+  }
+ 
+.pList{
+   
+  position: absolute;
+  //left:770px;
+  top: 115px;
+  border: #fff;
+  background-color: #fff;
+  z-index: 2;
+  word-wrap: break-word;
+} 
+
+  
+  tr:hover {background-color:#f5f5f5;}
+
+  .form-group {
+    margin-bottom: 4px;
+}
+
+
+.fa {
+    position: relative;
+  }
+
+  .fa-eye {
+    color: #124f77;
+  }
+
+  .fa-history {
+    color: #009900;
+  }
+  
+  .fa::after {
+    content: attr(data-text);
+    position: absolute;
+    // top: 100%;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease-in-out;
+  }
+  
+  .fa:hover::after {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  

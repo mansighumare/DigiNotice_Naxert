@@ -1,0 +1,24 @@
+body {
+    background-color: #ffff!important;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  color: #555;
+//  background: #ececec;
+  margin-top:20px;
+}
+
+.project-list > tbody > tr > td {
+  padding: 12px 8px;
+}
+
+.project-list > tbody > tr > td .avatar {
+  width: 22px;
+  border: 1px solid #CCC;
+}
+
+
+.portlet.light {
+    padding: 12px 20px 15px 20px!important;
+    background-color: #fff!important;
+    margin: 20px 20px 20px 20px!important;
+}

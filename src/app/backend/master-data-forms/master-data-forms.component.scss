@@ -1,0 +1,33 @@
+// .portlet-title{
+//     display: flex;
+//     justify-content:space-between; 
+// }
+
+a.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: .25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+    padding: 5px;
+    &.active{
+        color: #fff;
+        text-decoration: none;
+        background-color: #007bff;
+    }
+    &:hover{
+        color: #fff;
+        text-decoration: none;
+        background-color: #dddddd;
+    }
+}
+
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    right: 15px!important;
+}

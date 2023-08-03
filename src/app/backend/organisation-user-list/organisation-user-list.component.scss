@@ -1,0 +1,84 @@
+.no-records {
+    td {
+        text-align: center;
+    }
+}
+
+.check-box-container {
+    user-select: none;
+    margin-bottom: 20px;
+
+    .dg-checkbox {
+        display: inline-block;
+        padding-left: 25px;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+}
+
+
+#scrollable {
+    height: 400px;
+    overflow-y: scroll;
+
+    table {
+        thead.sticky-header {
+            tr {
+                td {
+                    position: sticky;
+                    top: 0;
+                    width: 100%;
+                    background: #fff;
+                    z-index: 999;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+table#tbl-users-list {
+
+    td,
+    th {
+        font-size: 14px;
+        width: 100px !important;
+    }
+}
+
+.input-group-text {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0.784rem 1.3rem;
+    margin-bottom: 0;
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #5c6873;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #f0f3f5;
+    border: 1px solid #e4e7ea;
+    border-radius: .25rem
+}
+
+.input-group-append .input-group-prepend {
+    display: flex;
+}
+
+.form-control {
+    height: 34px !important;
+}
+
+.input-group {
+    top: 21px !important;
+    display: flex;
+    width: 232px;
+}
+
+
+.action-c {
+    top: 24px !important;
+}

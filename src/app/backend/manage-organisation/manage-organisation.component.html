@@ -1,0 +1,259 @@
+<app-loader *ngIf="isShowLoader">
+</app-loader>
+
+
+
+<div id="backend-users" class="row">
+  <div class="col-md-12 col-sm-12">
+    <div class="portlet light bordered">
+
+      <div class="portlet-title">
+        <div class="caption font-dark float-l">
+          <i class="fa fa-building-o"></i>
+          <span class="caption-subject font-blue bold" style="font-size: 16px;">Manage Organizations</span>
+        </div>
+      </div><br>
+      <div class="row align-items-end">
+        <div class="col-sm-6 align-items-end">
+          <div class="row">
+            <div class="col-sm-12 align-items-end">
+              <label class="toggle-switch">
+                <input type="checkbox" (click)="onShowActiveOnly()" [ngClass]="{ checked: isShowActiveOnly }" checked>
+                <span class="slider"></span>
+              </label>&nbsp;
+              <span style="font-size: 15px;">Show Active Only</span>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-6 align-items-end">
+          <div class="row">
+            <div class="col-sm-6 align-items-end">
+              <div class="input-group">
+                <input type="search" class="form-control input-sm" [formControl]="searchControl" placeholder="Search"
+                  aria-label="Search" aria-describedby="search-addon" />
+                <div class="input-group-prepend">
+                  <span class="input-group-text" (click)="Search()"><i class="fa fa-search"></i></span>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-6 align-items-end">
+
+              <div class="actions action-c">
+                <span (click)="exportAsXLSX()" style="color:green!important;" tooltip="Export to Excel" placement="top"
+                  show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+                <span (click)="Refresh()" style="color:green!important;cursor: pointer;padding-left: 15px;"
+                  tooltip="Refresh" placement="top" show-delay="500"><i
+                    class="fa fa-refresh  fa-lg"></i></span>&nbsp;&nbsp;&nbsp;
+                <a id="btn-add-property" (click)="AddOrganisation()">
+                  <i class="fa fa-plus-circle"></i> Add Organization
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="portlet-body">
+        <div class="mt-element-card mt-card-round" style="margin-top: 20px">
+          <div class="row">
+            <div id="row-scrollable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Organization Id</th>
+                    <th>Name</th>
+                    <th>Display Name</th>
+                    <th>Address</th>
+                    <th>Logo</th>
+                    <th>Edit</th>
+                    <th>Status</th>
+                    <th>Add Branch</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngIf="!isShowLoader && tbldata===null" class="no-records">
+                    <td colspan="10">No Records Found</td>
+                  </tr>
+                  <tr *ngFor="let addOrganisation of tbldata; let index = index">
+                    <td>{{addOrganisation.orgId }}</td>
+                    <td>{{ addOrganisation.name }}</td>
+                    <td>{{ addOrganisation.displayName }}</td>
+                    <td>{{addOrganisation.address }}</td>
+                    <td><img class="img-preview dg-asset-img" *ngIf="addOrganisation.logoURL" [src]="addOrganisation.logoURL" alt="Organisation Logo"></td>
+                    <td>
+                      <i (click)="onEditOrganisation(addOrganisation)" class="fa fa-pencil"></i>&nbsp;&nbsp;
+                    </td>
+                    <td>
+                      <ng-container *ngIf="
+                              loggedInUserRole == 'SuperAdmin' ||
+                              loggedInUserId == addOrganisation.parentUserId
+                            ">
+                        <span (click)="onActiveInActive(addOrganisation)"
+                          [ngClass]="{ checked: addOrganisation.isActive }" class="dg-checkbox"
+                          for="isOrganisationBranchActive"></span>
+                      </ng-container>
+                      <ng-container *ngIf="
+                              !(
+                                loggedInUserRole == 'SuperAdmin'  || 
+                                loggedInUserId == addOrganisation.parentUserId
+                              )
+                            ">
+                        <span (click)="onShowActiveOnly()" [ngClass]="{ checked: isShowActiveOnly }" class="dg-checkbox"
+                          for="isorganisationActive">
+                        </span>
+                      </ng-container>
+                    </td>
+                    <td style="text-align: center;">
+                      <i (click)="addBranch(addOrganisation.orgId)" class="fa fa-plus-circle"
+                        style="font-size:20px"></i>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="25"
+                (page)="onChangePage($event)"></mat-paginator> -->
+              <div class="paginator-container">
+                <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                  Total items: {{this.tbldataLength}}
+                </span>
+                <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;" class="paginator-message">
+                  Items per page: 25
+                </span>
+                <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1" (page)="onChangePage($event)"
+                  aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <div class="modal fade" id="add-mode-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header modal-header-c">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+            <h4 class="modal-title modal-title-c">{{label}}</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="OrganisationName">Organization Name:</label>
+                  <input tabindex="1" [(ngModel)]="addOrganisationModel.OrganisationName" name="OrganisationName"
+                    type="text" class="form-control input-sm" placeholder="Enter Organisation Name">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="OrganisationDisplayName">Organization Display Name:</label>
+                  <input tabindex="2" [(ngModel)]="addOrganisationModel.OrganisationDisplayName"
+                    name="BranchDisplayName" type="text" class="form-control input-sm"
+                    placeholder="Enter Organization Display Name">
+                </div>
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="Country">Country:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.CountryId" name="as-CountryId" disabled
+                    class="form-control input-sm">
+                    <option value=1 selected>{{country_name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="dg-lable" for="State">State:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.StateId" name="as-StateId"
+                    (change)=" onOptionsSelectedState($event)" class="form-control input-sm">
+                    <option value=0>Select State</option>
+                    <option *ngFor="let state of stateList" [value]="state.id">
+                      {{state.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="dg-lable" for="City">District:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.CityId" name="as-CityId"
+                    (change)="onOptionsSelectedCity($event)" class="form-control input-sm">
+                    <option value=0>Select District</option>
+                    <option *ngFor="let city of CityList" [value]="city.id">
+                      {{city.name}}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="Taluka">Taluka:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.TalukaId" name="as-TalukaId"
+                    (change)="onOptionsSelectedTaluka($event)" class="form-control input-sm">
+                    <option value=0>Select Taluka</option>
+                    <option style="color: black;" *ngFor="let Taluka of TalukaList" [value]="Taluka.id">
+                      {{Taluka.name}}</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="dg-lable" for="State">Village:</label>
+                  <select tabindex="7" [(ngModel)]="addOrganisationModel.VillageId" name="as-VillageId"
+                    class="form-control input-sm">
+                    <option value=0>Select Village</option>
+                    <option *ngFor="let Village of VillageList" [value]="Village.id">
+                      {{Village.name}}</option>
+                  </select>
+                </div>
+                
+                <div class="col-md-6">
+
+                  <label class="dg-lable" for="OrganisationAddress">Address:</label>
+                  <input tabindex="2" [(ngModel)]="addOrganisationModel.OrganisationAddress" name="BranchAddress"
+                    type="text" class="form-control input-sm" placeholder="Enter Organization Address">
+                </div>
+                <div class="col-md-12">
+                  <ng-container *ngFor="let logoImage of organizationLogoImageList;let index = index;">
+                    <div *ngIf="!logoImage.isDeleted" class="col-md-2 col-sm-6 img-wrap">
+                      <span (click)="onRemoveImage(logoImage, index)" class="remove-image" title="Delete">&times;</span>
+                      <img class="img-preview dg-asset-img" [src]="logoImage.fileName" alt="Organisation Logo">
+                    </div>
+                  </ng-container>
+                </div>
+                <br> <br>
+                <div class="col-md-6" style="margin-top: 10px;">
+
+                  <label>Select Organization Logo</label>
+                  <div class="input-group" style="top:0px!important;display: inline-table;">
+                    <span class="input-group-btn">
+                      <span id="file-input-span" class="btn btn-default btn-file">
+                        Browse…
+                        <input tabindex="42" class="form-control" type="file" id="imgInp" multiple
+                          (change)="getFileDetails($event)">
+                      </span>
+                    </span>
+                    <input id="txt-selected-filename" type="text" class="form-control" readonly>
+                  </div>
+                  <div id='previewImg' class="col-md-12"></div>
+
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn green" (click)="addOrg()">
+              {{this.Savedlabel}}
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

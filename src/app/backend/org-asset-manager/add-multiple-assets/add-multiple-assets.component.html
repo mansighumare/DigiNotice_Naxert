@@ -1,0 +1,66 @@
+
+<app-loader *ngIf="isShowLoader">
+</app-loader>
+<div class="modal fade" id="add-multiple-property" tabindex="-1" role="view" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header modal-header-c">
+        <button type="button" class="close" (click)="closeViewPropertyPopup()"></button>
+        <h4 class="modal-title modal-title-c">Add Multiple Assets</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center">
+          <div Class="col-md-12 col-xs-12">
+            <div class="animated fadeIn">
+              <div class="card card-accent-primary">
+                <div class="card-body">
+                  <div class="row" *ngIf="this.loggedInUserRole=='Org Admin'">
+                    <div class="col-sm-6">
+                      <div >
+                        <label class="dg-lable" style="font-size: 12px;" for="userRole">Branch:</label>
+                        <select name="as-userRole" (change)='onSelectedBranches($event)' class="form-control input-sm"
+                          name="userRole">
+                          <option value="0" selected>Select Branch</option>
+                          <option *ngFor="let branch of Branch" [value]="branch.branchId">{{branch.branchName}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <label class="dg-lable" style="font-size: 12px;">Attachments: &nbsp;</label>
+                      <input type="file" (change)="onFileChange($event)" placeholder="Upload files here"
+                        autocomplete="off" />
+                      <!-- <input type="file" #myInputfile accept="*" style="overflow: hidden;" multiple
+                        class="custom-file-input-new" (change)="onFileChange($event);"
+                        id="comment_file" placeholder="Upload files here" autocomplete="off"> -->
+                    </div>
+
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <label class="dg-lable" style="font-size: 12px;">Click Here to Download File Format: &nbsp;</label>
+                      <a style="color:green" href="https://digiimages.blob.core.windows.net/noticeimages/OrgDocuments/1/0/Propertiesdemod3aae25c-2e1b-4ecb-8f6a-8b3cb826d387.xlsx" target="_blank" download>
+                        <i style="font-size:21px;"  class="fa fa-file-excel-o fa-lg"></i>
+                      </a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn green" (click)="onAddProperty()">Upload</button>
+        <button type="button" class="btn dark btn-outline" (click)="closeViewPropertyPopup()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

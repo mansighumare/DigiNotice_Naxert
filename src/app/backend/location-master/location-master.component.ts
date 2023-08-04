@@ -4,20 +4,24 @@ import { Taluka, Village } from 'src/app/models';
 import { Router } from '@angular/router';
 import { LocationMasterService } from 'src/app/services/location-master.service';
 
+
 declare var $;
 declare var toastr;
 @Component({
   selector: 'app-location-master',
   templateUrl: './location-master.component.html',
-  styleUrls: ['./location-master.component.scss']
+  styleUrls: ['./location-master.component.scss'],
+ 
 })
-export class LocationMasterComponent implements OnInit {
 
+export class LocationMasterComponent implements OnInit {
+  
   constructor(
     private ms: MappingService,
     private masterDataService: MasterDataService,
     private router: Router,
-    public locationMasterService:LocationMasterService
+    public locationMasterService:LocationMasterService,
+    
   ) { }
 
   isShowLoader: boolean = false;
@@ -263,7 +267,7 @@ export class LocationMasterComponent implements OnInit {
   }
 
   onTalukaChange($event) {
-   
+   debugger;
     this.talukaId = $event.target.value;
     this.addLocationDto.villageId = "";
     this.locationMasterService.villageList = [];
@@ -370,6 +374,7 @@ export class LocationMasterComponent implements OnInit {
 
 export class VillageInfo {
   id: number;
+  name:string;
   countryId: number;
   countryName: string;
   stateId: number;
@@ -380,6 +385,8 @@ export class VillageInfo {
   talukaName: string;
   villageId: number;
   villageName: string;
+  isActive: boolean = true;
+
 }
 export class DistrictInfo {
   id: number;
@@ -390,6 +397,8 @@ export class DistrictInfo {
   stateName: string;
   cityId: number;
   cityName: string;
+  isActive: boolean = true;
+  
 }
 
 export class AddLocationDto {

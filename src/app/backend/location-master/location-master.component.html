@@ -82,125 +82,85 @@
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="row-scrollable">
                                     <div class="table-container">
-
                                         <ng-container *ngIf="locationTableName == 'Taluka'">
 
-                                            <mat-table [dataSource]="talukaId" class="mat-elevation-z8">
-                                                <!-- Taluka Name column -->
-                                                <ng-container matColumnDef="name">
-                                                    <mat-header-cell *matHeaderCellDef>Taluka Name</mat-header-cell>
-                                                    <mat-cell *matCellDef="let taluka">{{ taluka.name }}</mat-cell>
-                                                </ng-container>
 
-                                                <!-- Action column -->
-                                                <ng-container matColumnDef="action">
-                                                    <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
-                                                    <mat-cell *matCellDef="let taluka">
-                                                        <i (click)="onEditTaluka(taluka)" class="fa fa-pencil"></i>
-                                                    </mat-cell>
-                                                </ng-container>
-
-                                                <!-- Status column -->
-                                                <ng-container matColumnDef="status">
-                                                    <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-                                                    <mat-cell *matCellDef="let taluka">
-                                                        <span (click)="onActiveInActive(taluka, 'Taluka')"
-                                                            [ngClass]="{ 'checked': taluka.isActive }"
-                                                            class="dg-checkbox" for="isTalukaActive"></span>
-                                                    </mat-cell>
-                                                </ng-container>
-
-                                                <!-- No Records Found row -->
-                                                <mat-row *matRowDef="let taluka; columns: ['name', 'action', 'status']"
-                                                    class="no-records"
-                                                    [ngClass]="{ 'no-records': isShowLoader || talukaId.length === 0 }">
-                                                    <td colspan="3">No Records Found</td>
-                                                </mat-row>
-                                            </mat-table>
-
-                                            <!-- Pagination -->
-                                            <mat-paginator [length]="talukaId.length" [pageSizeOptions]="[5, 10, 15]"
-                                                showFirstLastButtons></mat-paginator>
-                                        </ng-container>
-                                        <ng-container *ngIf="locationTableName == 'Village'">
-                                            <!--   <table id="tbl-users-list" class="table table-hover" [mfData]="villageList"
-                                                #mf="mfDataTable" [mfRowsOnPage]="10"> 
-                                                    <tr>
-
-
-                                                        <th> Village Name </th>
-                                                        <th> Action </th>
-                                                        <th> Status </th>
-                                                    </tr>
-                                               </thead>
-                                                <tbody>
-                                                    <tr *ngIf="!isShowLoader && mf.data == 0" class="no-records">
-                                                        <td colspan="10">No Records Found</td>
-                                                    </tr>
-                                                    <tr *ngFor="let village of mf.data;let index = index;"> 
-
-                                                        <td> {{village.name}} </td>
-                                                        <td>
-                                                            <i (click)="onEditVillage(village)"
-                                                                class="fa fa-pencil"></i>
-                                                        </td>
-                                                        <td>
-                                                            <span (click)="onActiveInActive(village, 'Village')"
-                                                                [ngClass]="{'checked': village.isActive}"
-                                                                class="dg-checkbox" for="isVillageActive"></span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <td colspan="9">
-                                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]">
-                                                            </mfBootstrapPaginator>
-                                                        </td>
-                                                    </tr>
-                                                </tfoot>
-                                            </table> -->
-                                        </ng-container>
-
-                                        <ng-container *ngIf="locationTableName == 'District'">
-                                            <!-- <table id="tbl-users-list" class="table table-hover" [mfData]="districtList"
-                                                #mf="mfDataTable" [mfRowsOnPage]="10">
+                                            <table>
                                                 <thead>
                                                     <tr>
-
-
-                                                        <th> District Name </th>
-                                                        <th> Action </th>
-                                                        <th> Status </th>
+                                                        <th>Taluka Name </th>
+                                                        <th>Action </th>
+                                                        <th>Status </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr *ngIf="!isShowLoader && mf.data == 0" class="no-records">
-                                                        <td colspan="10">No Records Found</td>
-                                                    </tr>
-                                                    <tr *ngFor="let district of mf.data;let index = index;">
-
-                                                        <td> {{district.name}} </td>
+                                                    <tr *ngFor="let taluka of locationMasterService.talukaList">
+                                                        <td>{{ taluka.name }}</td>
+                                                        <td><i (click)="onEditTaluka(taluka)" class="fa fa-pencil"></i>
+                                                        </td>
                                                         <td>
-                                                            <i (click)="onEditDistrict(district)"
+                                                            <mat-checkbox (click)="onActiveInActive(taluka, 'Taluka')"
+                                                                [ngModel]="taluka.isActive" class="dg-checkbox"
+                                                                for="isTalukaActive"></mat-checkbox>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </ng-container>
+                                        <ng-container *ngIf="locationTableName == 'Village'">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Village Name </th>
+                                                        <th>Action </th>
+                                                        <th>Status </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let village of villageList">
+                                                        <td>{{ village.name }}</td>
+                                                        <td><i (click)="onEditVillage(village)"
                                                                 class="fa fa-pencil"></i>
                                                         </td>
                                                         <td>
-                                                            <span (click)="onActiveInActive(district, 'District')"
-                                                                [ngClass]="{'checked': district.isActive}"
-                                                                class="dg-checkbox" for="isDistrictActive"></span>
+                                                            <mat-checkbox (click)="onActiveInActive(village, 'Village')"
+                                                                [ngModel]="village.isActive" class="dg-checkbox"
+                                                                for="isVillageActive"></mat-checkbox>
                                                         </td>
+
                                                     </tr>
                                                 </tbody>
-                                                <tfoot>
+                                            </table>
+
+                                        </ng-container>
+
+                                        <ng-container *ngIf="locationTableName == 'District'">
+                                            <table>
+                                                <thead>
                                                     <tr>
-                                                        <td colspan="9">
-                                                            <mfBootstrapPaginator [rowsOnPageSet]="[5,10,15]">
-                                                            </mfBootstrapPaginator>
-                                                        </td>
+                                                        <th>District Name </th>
+                                                        <th>Action </th>
+                                                        <th>Status </th>
                                                     </tr>
-                                                </tfoot>
-                                            </table> -->
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let district of districtList">
+                                                        <td>{{ district.name }}</td>
+                                                        <td><i (click)="onEditDistrict(district)"
+                                                                class="fa fa-pencil"></i>
+                                                        </td>
+                                                        <td>
+                                                            <mat-checkbox
+                                                                (click)="onActiveInActive(district, 'District')"
+                                                                [ngModel]="district.isActive" class="dg-checkbox"
+                                                                for="isDistrictActive"></mat-checkbox>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+
                                         </ng-container>
                                     </div>
 

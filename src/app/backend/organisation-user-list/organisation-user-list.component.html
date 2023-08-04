@@ -95,10 +95,16 @@
                     <td>{{ organisationUser.role }}</td>
                     <td>
 
-                      <span (click)="onActiveInActive(organisationUser)"
+                      <!-- <span (click)="onActiveInActive(organisationUser)"
                         [ngClass]="{ checked: organisationUser.isActive }" class="dg-checkbox"
-                        for="isOrganisationUserActive"></span>
+                        for="isOrganisationUserActive"></span> -->
 
+                        <mat-checkbox 
+                        (click)="onActiveInActive(organisationUser)"
+                      [checked]="organisationUser.isActive"
+                      class="mat-checkbox"
+                    >
+                    </mat-checkbox>
                     </td>
                     <td>
                       <i (click)="onEditUser(organisationUser)" class="fa fa-pencil"></i>

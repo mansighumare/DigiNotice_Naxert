@@ -85,11 +85,26 @@
                     <td>{{user.role}}</td>
                     <td>
                       <ng-container *ngIf="loggedInUserRole == 'SuperAdmin'">
-                        <span (click)="onActiveInActive(user)" [ngClass]="{'checked': user.isActive}"
-                          class="dg-checkbox" for="user"></span>
+                        <!-- <span (click)="onActiveInActive(user)" [ngClass]="{'checked': user.isActive}"
+                          class="dg-checkbox" for="user"></span> -->
+                          <mat-checkbox 
+                          (click)="onActiveInActive(user)"
+                          [checked]="user.isActive"
+                          
+                          class="mat-checkbox"
+                        >
+                        </mat-checkbox>
                       </ng-container>
                       <ng-container *ngIf="loggedInUserRole != 'SuperAdmin'">
                         <span [ngClass]="{'checked': user.isActive}" class="dg-checkbox not-allowed" for="user"></span>
+                        <mat-checkbox 
+                       
+                        [checked]="user.isActive"
+                        [disabled]="user.disableCheckboxClick"
+                        class="mat-checkbox"
+                      >
+                      </mat-checkbox>
+                        
                       </ng-container>
                     </td>
                   </tr>

@@ -28,10 +28,14 @@ export class AssetsReportComponent implements OnInit {
   assetpage = 1;
   searchAssetReportModel: searchAssetReportModel = new searchAssetReportModel();
   ViewAssetReportModel: ViewAssetReportModel = new ViewAssetReportModel();
+startDate:string='';
+endDate: string='';
 
   constructor(private router: Router, private orgReportService: OrgReportService) { }
 
   ngOnInit() {
+    this.startDate=this.getDefaultStartDate();
+    this.endDate=this.getDefaultStartDate();
 
     var loggedInUserString = JSON.parse(localStorage.getItem("LoggedInUser"));
     if (loggedInUserString != null) {
@@ -90,6 +94,12 @@ export class AssetsReportComponent implements OnInit {
     }
   }
 
+  
+  getDefaultStartDate(): string {
+    const defaultDate = new Date(); // You can set this to any desired default date
+    return defaultDate.toISOString().substr(0, 10); // Convert to YYYY-MM-DD format
+  }
+
   onSelectOrganization() {
     this.searchAssetReportModel.selectedOrgId;
     this.searchAssetReportModel.orgId=this.searchAssetReportModel.selectedOrgId;
@@ -116,8 +126,8 @@ export class AssetsReportComponent implements OnInit {
   get_Assets_Report() {
     this.isShowLoader = true;
     var $dateField = $('#txtSearchDateRange');
-    this.searchAssetReportModel.startDate = $dateField.data('daterangepicker').startDate._d;
-    this.searchAssetReportModel.endDate = $dateField.data('daterangepicker').endDate._d;
+    this.searchAssetReportModel.startDate = new Date(this.startDate);
+    this.searchAssetReportModel.endDate = new Date(this.endDate);
     this.searchAssetReportModel.userId = this.loggedInUserId;
     this.searchAssetReportModel.roleGuid = this.loggedInUserRoleGuid;
     this.orgReportService.get_Assets_Report(this.searchAssetReportModel)

@@ -6,10 +6,11 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { FormControl } from '@angular/forms';
 import { OrgAssetManagerService } from 'src/app/services/org-asset-manager.service';
 import { AssetImage } from 'src/app/models/asset-manager';
+import { ToastrService } from 'ngx-toastr';
 
 
 declare var $;
-declare var toastr;
+
 @Component({
   selector: 'app-manage-organisation',
   templateUrl: './manage-organisation.component.html',
@@ -18,6 +19,7 @@ declare var toastr;
 export class ManageOrganisationComponent implements OnInit {
 
   constructor(
+    private toastr: ToastrService,
     private masterDataService: MasterDataService,
     private excelService: ExcelService,
     private router: Router, private route: ActivatedRoute,
@@ -88,7 +90,7 @@ export class ManageOrganisationComponent implements OnInit {
         }
       },
         error => {
-          toastr.error('Failed to Upload Organization Logo!', "Error");
+          this.toastr.error('Failed to Upload Organization Logo!', "Error");
         });
 
   }
@@ -397,7 +399,8 @@ export class ManageOrganisationComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
+
       isValid = false;
     }
     return isValid;
@@ -416,7 +419,7 @@ export class ManageOrganisationComponent implements OnInit {
         .subscribe((addedRow: any) => {
 
           let message = addedRow[0].message;
-          toastr.success(message, "Success");
+          this.toastr.success(message, "Success");
           $("#add-mode-modal").modal('hide');
           this.isShowLoader = false;
           this.reset();
@@ -424,7 +427,7 @@ export class ManageOrganisationComponent implements OnInit {
         },
           error => {
             this.isShowLoader = false;
-            toastr.error('Failed to create User!', "Error");
+            this.toastr.error('Failed to create User!', "Error");
           });
     }
   }
@@ -503,14 +506,14 @@ export class ManageOrganisationComponent implements OnInit {
       (addedRow: any) => {
 
         let message = addedRow[0].message;
-        toastr.success(message, "Success");
+        this.toastr.success(message, "Success");
         this.getOrgDetails();
         this.isShowLoader = false;
 
       },
       (error) => {
         this.isShowLoader = false;
-        toastr.error("Failed to Update User!", "Error");
+        this.toastr.error("Failed to Update User!", "Error");
       }
     );
   }

@@ -8,9 +8,10 @@ import { BackendUserService } from 'src/app/services/backend-user.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { FormControl } from '@angular/forms';
 import { MatSort } from '@angular/material/sort';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $;
-declare var toastr;
+
 @Component({
   selector: 'app-backend-users-list',
   templateUrl: './backend-users-list.component.html',
@@ -29,7 +30,7 @@ export class BackendUsersListComponent implements OnInit {
     private router: Router, private excelService: ExcelService,
     private AddEditBackendUserService: BackendUserService,
     private masterDataService: MasterDataService,
-
+    private toastr: ToastrService
   ) {
 
   }
@@ -246,7 +247,7 @@ export class BackendUsersListComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -265,14 +266,14 @@ export class BackendUsersListComponent implements OnInit {
 
           let message = addedRow[0].message;
 
-          toastr.success(message, "Success");
+          this.toastr.success(message, "Success");
           $("#add-mode-modal").modal('hide');
           this.isShowLoader = false;
           this.getBackendUsers()
         },
           error => {
             this.isShowLoader = false;
-            toastr.error('Failed to create User!', "Error");
+            this.toastr.error('Failed to create User!', "Error");
           });
 
     }
@@ -362,13 +363,13 @@ export class BackendUsersListComponent implements OnInit {
       .subscribe((addedRow: any) => {
 
         let message = addedRow[0].message;
-        toastr.success(message, "Success");
+        this.toastr.success(message, "Success");
         this.isShowLoader = false;
         this.getBackendUsers();
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed to Update User!', "Error");
+          this.toastr.error('Failed to Update User!', "Error");
         });
   }
 

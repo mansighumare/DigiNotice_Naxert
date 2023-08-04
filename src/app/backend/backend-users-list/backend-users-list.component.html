@@ -124,13 +124,19 @@
                     <td>{{ backendUser.email }}</td>
                     <td>{{ backendUser.role }}</td>
                     <td>{{ backendUser.totalNotice }}</td>
-                    <td>
-                      <span (click)="onActiveInActive(backendUser)" [ngClass]="{ checked: backendUser.isActive }"
-                        class="dg-checkbox" for="isBackendUserActive"></span>
+                    <td >
+                        <mat-checkbox 
+                       
+                        (click)="onActiveInActive(backendUser)"
+                        [checked]="backendUser.isActive"
+                        class="mat-checkbox"
+                      >
+                      </mat-checkbox>
                     </td>
                     <td>
                       <i (click)="onEditUser(backendUser)" class="fa fa-pencil"></i>
                     </td>
+                    
                   </tr>
                 </tbody>
               </table>

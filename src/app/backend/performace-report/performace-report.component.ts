@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { ExcelService } from 'src/app/services/excel.service';
 
-declare var moment;
 declare var $;
 @Component({
   selector: 'app-performace-report',
@@ -15,6 +14,12 @@ declare var $;
   styleUrls: ['./performace-report.component.scss']
 })
 export class PerformanceReportComponent implements OnInit {
+
+  startDate:string='';
+  endDate: string= '';
+  
+
+
   loggedInUserRole: any;
   loggedInUserRoleGuid: any;
   loggedInUserId: any;
@@ -34,6 +39,8 @@ export class PerformanceReportComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+this.startDate=this.getDefaultStartDate();
+this.endDate=this.getDefaultStartDate();
 
     let loggedInUserString: any = localStorage.getItem("LoggedInUser");
     if (loggedInUserString != null) {
@@ -44,41 +51,41 @@ export class PerformanceReportComponent implements OnInit {
       this.loggedInUserOrgId = loggedInUserString.org_id;
       this.getUsersLookup();
       this.getCities();
-      $(document).ready(function () {
-        $('#txtSearchDateRange').daterangepicker(
-          {
-            startDate: moment(),
-            endDate: moment(),
-           // dateLimit: { days: 90 },
-            showDropdowns: true,
-            showWeekNumbers: true,
-            ranges: {
-              'Today': [moment(), moment()],
-              'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-              'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-              'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-              'This Month': [moment().startOf('month'), moment().endOf('month')],
-              'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            },
-            opens: 'left',
-            buttonClasses: ['btn btn-default'],
-            applyClass: 'btn-small btn-primary',
-            cancelClass: 'btn-small',
-            format: 'DD/MM/YYYY',
-            separator: ' to ',
-            locale: {
-              applyLabel: 'Submit',
-              fromLabel: 'From',
-              format: 'DD/MM/YYYY',
-              toLabel: 'To',
-              customRangeLabel: 'Custom Range',
-              daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-              monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-              firstDay: 1
-            }
-          }
-        );
-      });
+      // $(document).ready(function () {
+      //   $('#txtSearchDateRange').daterangepicker(
+      //     {
+      //       startDate: moment(),
+      //       endDate: moment(),
+      //      // dateLimit: { days: 90 },
+      //       showDropdowns: true,
+      //       showWeekNumbers: true,
+      //       ranges: {
+      //         'Today': [moment(), moment()],
+      //         'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+      //         'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+      //         'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+      //         'This Month': [moment().startOf('month'), moment().endOf('month')],
+      //         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+      //       },
+      //       opens: 'left',
+      //       buttonClasses: ['btn btn-default'],
+      //       applyClass: 'btn-small btn-primary',
+      //       cancelClass: 'btn-small',
+      //       format: 'DD/MM/YYYY',
+      //       separator: ' to ',
+      //       locale: {
+      //         applyLabel: 'Submit',
+      //         fromLabel: 'From',
+      //         format: 'DD/MM/YYYY',
+      //         toLabel: 'To',
+      //         customRangeLabel: 'Custom Range',
+      //         daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+      //         monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+      //         firstDay: 1
+      //       }
+      //     }
+      //   );
+      // });
       this.onViewReport();
     }
     else {
@@ -87,6 +94,10 @@ export class PerformanceReportComponent implements OnInit {
     }
   }
  
+  getDefaultStartDate(): string {
+    const defaultDate = new Date(); // You can set this to any desired default date
+    return defaultDate.toISOString().substr(0, 10); // Convert to YYYY-MM-DD format
+  }
 
   searchReportModel: SearchReportModel = new SearchReportModel();
   //performanceReportList: Array<PerformanceReportModel> = new Array<PerformanceReportModel>();
@@ -124,8 +135,8 @@ export class PerformanceReportComponent implements OnInit {
    
     this.isShowLoader = true;
     var $dateField = $('#txtSearchDateRange');
-    this.searchReportModel.startDate = $dateField.data('daterangepicker').startDate._d;
-    this.searchReportModel.endDate = $dateField.data('daterangepicker').endDate._d;
+    this.searchReportModel.startDate = new Date(this.startDate);
+    this.searchReportModel.endDate = new Date(this.endDate);
     this.reportService.getPerformanceReport(this.searchReportModel)
       .subscribe((userNoticeCountList) => {
        

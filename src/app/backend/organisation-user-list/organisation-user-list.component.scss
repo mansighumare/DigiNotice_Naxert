@@ -82,3 +82,6 @@ table#tbl-users-list {
 .action-c {
     top: 24px !important;
 }
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: rgb(27, 188, 155) !important;
+  }

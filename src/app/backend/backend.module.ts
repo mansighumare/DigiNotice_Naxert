@@ -88,6 +88,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SharedModule } from '../modules/shared.module';
 
 import {NgxChartsModule  } from '@swimlane/ngx-charts';
+import { AddsBannerMasterComponent } from './adds-banner-master/adds-banner-master.component';
 
 
 
@@ -149,11 +150,11 @@ const routes: Routes = [
         data: { roles: ["SuperAdmin", "Admin"] },
         canActivate: [GuardService]
       },
-      // {
-      //   path: 'addsbanner-master', component: AddsBannerMasterComponent,
-      //   data: { roles: ["SuperAdmin", "Admin"] },
-      //   canActivate: [GuardService]
-      // },
+      {
+        path: 'addsbanner-master', component: AddsBannerMasterComponent,
+        data: { roles: ["SuperAdmin", "Admin"] },
+        canActivate: [GuardService]
+      },
       {
         path: 'masterdata-forms', component: MasterDataFormsComponent,
         data: { roles: ["SuperAdmin", "Admin"] },

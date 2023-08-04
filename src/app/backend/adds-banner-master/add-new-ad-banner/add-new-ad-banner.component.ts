@@ -38,11 +38,11 @@ export class AddNewAdBannerComponent implements OnInit {
   tabIndex:number=0;
   tabIsActive:number=10;
   constructor(public adBannerService: AdBannerService,   
-    private modalService:BsModalService,
-    private bsModalRef:BsModalRef,
+    // private modalService:BsModalService,
+    // private bsModalRef:BsModalRef,
     public appConfig: AppConfig
   ) {
-    this.AdBannerModelPopup = this.modalService.config['data'] != undefined ? this.modalService.config['data' ] : {}
+    // this.AdBannerModelPopup = this.modalService.config['data'] != undefined ? this.modalService.config['data' ] : {}
     if(this.AdBannerModelPopup == undefined){
     this.isShowRowOrder=false;
     }
@@ -331,7 +331,7 @@ export class AddNewAdBannerComponent implements OnInit {
   }
 
   CloseForm(){
-    this.bsModalRef.hide();
+    // this.bsModalRef.hide();
   }
   
   onKeyPressValidateNumber($event: any) {    
@@ -344,22 +344,22 @@ export class AddNewAdBannerComponent implements OnInit {
     return true;
   }
 
-  onNoticePeriodInput($event: any,index:number) {    
-    let noticePeriod: number = Number(($any)($event.target).value);
-    if (noticePeriod > this.MaxRowOrderByType ){
-      $event.target.value = this.MaxRowOrderByType;
-      if(index==1){
-        this.AdBannerModel.rowOrder= $event.target.value;
-      }
-      else if(index==2){
-        this.AdBannerMobTopModel.rowOrder= $event.target.value;
-      }
-      else if(index==3){
-        this.AdBannerMobNtcModel.rowOrder= $event.target.value;
-      }
-      else if(index==4){
-        this.AdBannerWebNtcModel.rowOrder= $event.target.value;
-      }    
-    }   
-  }
+  // onNoticePeriodInput($event: any,index:number) {    
+  //   let noticePeriod: number = Number(($any)($event.target).value);
+  //   if (noticePeriod > this.MaxRowOrderByType ){
+  //     $event.target.value = this.MaxRowOrderByType;
+  //     if(index==1){
+  //       this.AdBannerModel.rowOrder= $event.target.value;
+  //     }
+  //     else if(index==2){
+  //       this.AdBannerMobTopModel.rowOrder= $event.target.value;
+  //     }
+  //     else if(index==3){
+  //       this.AdBannerMobNtcModel.rowOrder= $event.target.value;
+  //     }
+  //     else if(index==4){
+  //       this.AdBannerWebNtcModel.rowOrder= $event.target.value;
+  //     }    
+  //   }   
+  // }
 }

@@ -83,7 +83,7 @@
                     #startdate
                     tabindex="8"
                     id="txtSearchStartDate"
-                   
+                   [(ngModel)]="startDate"
                     class="form-control input-sm"
                     name="startDate"
                     placeholder="Select Start Date"
@@ -91,17 +91,17 @@
                   />
                 </div>
                 <div class="col-md-3">
-                  <label class="dg-lable" for="startDate"
+                  <label class="dg-lable" for="endDate"
                     >End Date:</label
                   >
                   <input
-                    #startdate
+                    #enddate
                     tabindex="8"
-                    id="txtSearchStartDate"
-                   
+                    id="txtSearchEndDate"
+                    [(ngModel)]="endDate"
                     class="form-control input-sm"
-                    name="startDate"
-                    placeholder="Select Start Date"
+                    name="endDate"
+                    placeholder="Select End Date"
                     type="date"
                   />
                 </div>
@@ -109,7 +109,7 @@
               <div class="form-group text-center">
                 <div class="col-md-10">
                   <button (click)="onViewReport()" type="button" class="btn btn-default search-cs">
-                    <i style="color: white;" class="fa fa-search"></i> View Report
+                    <i style="color: white;" class="fa fa-search"></i> <span style="color: white; margin-left: 5px;">View Report</span> 
                   </button>
                 </div>
                 <div class="col-md-2 text-right">

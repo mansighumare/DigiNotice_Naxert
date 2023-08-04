@@ -11,10 +11,11 @@ import {
 import { OrganisationService } from "src/app/services/organisation.service";
 import { ExcelService } from "src/app/services/excel.service";
 import { FormControl } from "@angular/forms";
+import { ToastrService } from 'ngx-toastr';
 
 declare var $;
 declare var CityId
-declare var toastr;
+
 @Component({
   selector: "app-organisation-user-list",
   templateUrl: "./organisation-user-list.component.html",
@@ -30,7 +31,7 @@ export class OrganisationUserListComponent implements OnInit {
     private excelService: ExcelService,
     private AddEditOrganisationService: OrganisationService,
     private masterDataService: MasterDataService,
-
+    private toastr: ToastrService
 
   ) { }
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -331,7 +332,7 @@ export class OrganisationUserListComponent implements OnInit {
     if (validationErrors.length > 0) {
 
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -360,10 +361,10 @@ export class OrganisationUserListComponent implements OnInit {
 
           let message = addedRow[0].message;
           if (message == "User already exists in system") {
-            toastr.error(message, "Error");
+            this.toastr.error(message, "Error");
           }
           else {
-            toastr.success(message, "Success");
+            this.toastr.success(message, "Success");
             $("#add-mode-modal").modal("hide");
          
             this.getOrganisationUsers();
@@ -373,7 +374,7 @@ export class OrganisationUserListComponent implements OnInit {
         },
         (error) => {
           this.isShowLoader = false;
-          toastr.error("Failed to create Organisation!", "Error");
+          this.toastr.error("Failed to create Organisation!", "Error");
         }
       );
     }
@@ -471,13 +472,13 @@ export class OrganisationUserListComponent implements OnInit {
       (addedRow: any) => {
 
         let message = addedRow[0].message;
-        toastr.success(message, "Success");
+        this.toastr.success(message, "Success");
         this.isShowLoader = false;
         this.getOrganisationUsers();
       },
       (error) => {
         this.isShowLoader = false;
-        toastr.error("Failed to Update User!", "Error");
+        this.toastr.error("Failed to Update User!", "Error");
       }
     );
   }

@@ -25,7 +25,6 @@ top: 21px!important;
 }
 
 
-
 // thead, tbody { display: block; }
 
 // tbody {
@@ -62,3 +61,7 @@ table#tbl-users-list{
   .rightPos {
     float: right; 
   }
+  
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+  background-color: rgb(27, 188, 155) !important;
+}

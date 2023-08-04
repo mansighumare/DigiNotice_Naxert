@@ -4,7 +4,7 @@ import { AdBannerService } from 'src/app/services/ad-banner.service';
 import { AddAdBannerWebModel } from 'src/app/models/AdBanner';
 import { AppConfig } from 'src/app/services';
 
-import{ BsModalRef, BsModalService } from 'ngx-bootstrap';
+// import{ BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { AddNewAdBannerComponent } from './add-new-ad-banner/add-new-ad-banner.component';
 declare var toastr;
 declare var $;
@@ -19,9 +19,10 @@ export class AddsBannerMasterComponent implements OnInit {
   constructor(private router: Router,
     public adBannerService: AdBannerService,
     public appConfig: AppConfig
-    ,private modalService:BsModalService) { }
+    //,private modalService:BsModalService
+    ) { }
 
-    bsModalRef: BsModalRef;
+   // bsModalRef: BsModalRef;
     isShowLoader: boolean = false;
     adBannerList: Array<AddAdBannerWebModel> = new Array<AddAdBannerWebModel>();
     adBanner: AddAdBannerWebModel = new AddAdBannerWebModel();
@@ -63,11 +64,11 @@ const initialState = {
  ignoreBackdropClick: true,
 };
 //$("#add-banner-modal").modal("show");
-this.bsModalRef = this.modalService.show(AddNewAdBannerComponent, initialState);
-this.bsModalRef.content.closeBtnName = 'Close';
+// this.bsModalRef = this.modalService.show(AddNewAdBannerComponent, initialState);
+// this.bsModalRef.content.closeBtnName = 'Close';
 
-this.modalService.onHide.subscribe((reason: string) => {
- })
+// this.modalService.onHide.subscribe((reason: string) => {
+//  })
 }
 OnAddAdBanner(){ 
   
@@ -77,12 +78,12 @@ OnAddAdBanner(){
    ignoreBackdropClick: true,
   };
   
-  this.bsModalRef = this.modalService.show(AddNewAdBannerComponent, initialState);
-  this.bsModalRef.content.closeBtnName = 'Close';
+  // this.bsModalRef = this.modalService.show(AddNewAdBannerComponent, initialState);
+  // this.bsModalRef.content.closeBtnName = 'Close';
   
-  this.modalService.onHide.subscribe((reason: string) => {
-   console.log("modal close: " + reason);
-  })
+  // this.modalService.onHide.subscribe((reason: string) => {
+  //  console.log("modal close: " + reason);
+  // })
  
 } 
   onDeleteAdBanner(adBanner:AddAdBannerWebModel){

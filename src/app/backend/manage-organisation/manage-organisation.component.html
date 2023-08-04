@@ -93,9 +93,17 @@
                               loggedInUserRole == 'SuperAdmin' ||
                               loggedInUserId == addOrganisation.parentUserId
                             ">
-                        <span (click)="onActiveInActive(addOrganisation)"
+                        <!-- <span (click)="onActiveInActive(addOrganisation)"
                           [ngClass]="{ checked: addOrganisation.isActive }" class="dg-checkbox"
-                          for="isOrganisationBranchActive"></span>
+                          for="isOrganisationBranchActive"></span> -->
+
+
+                          <mat-checkbox 
+                          (click)="onActiveInActive(addOrganisation)"
+                        [checked]="addOrganisation.isActive"
+                        class="mat-checkbox"
+                      >
+                      </mat-checkbox>
                       </ng-container>
                       <ng-container *ngIf="
                               !(
@@ -103,9 +111,15 @@
                                 loggedInUserId == addOrganisation.parentUserId
                               )
                             ">
-                        <span (click)="onShowActiveOnly()" [ngClass]="{ checked: isShowActiveOnly }" class="dg-checkbox"
-                          for="isorganisationActive">
-                        </span>
+                        <!-- <span (click)="onShowActiveOnly()" [ngClass]="{ checked: isShowActiveOnly }" class="dg-checkbox"
+                          for="isorganisationActive">    </span> -->
+                          <mat-checkbox 
+                          (click)="onShowActiveOnly()"
+                        [checked]="addOrganisation.isActive"
+                        class="mat-checkbox"
+                      >
+                      </mat-checkbox>
+                    
                       </ng-container>
                     </td>
                     <td style="text-align: center;">

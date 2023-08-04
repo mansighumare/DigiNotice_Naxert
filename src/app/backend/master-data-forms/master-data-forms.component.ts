@@ -22,6 +22,7 @@ export class MasterDataFormsComponent implements OnInit {
     private masterDataService: MasterDataService,
     private pagerService: PagerService,
     private router:Router
+    
   ) { }
 
   // tableColumns: Array<TableColumn> = null;

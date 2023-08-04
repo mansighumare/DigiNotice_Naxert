@@ -38,15 +38,27 @@
         </ng-container>
         <td *ngIf="tableConfig.addPopupTitle=='Notice Type'" style="text-align: center;">{{row.sortOrder}}</td>
         <td *ngIf="tableConfig.addPopupTitle=='Notice Type'" style="text-align: center;">
-          <span (click)="onTypeChange(row)" [ngClass]="{'checked': row.isBanking}" class="dg-checkbox"
-            for="user"></span>
+          <!-- <span (click)="onTypeChange(row)" [ngClass]="{'checked': row.isBanking}" class="dg-checkbox"
+            for="user"></span> -->
+
+            <mat-checkbox 
+            (click)="onTypeChange(row)"
+          [checked]="row.isBanking"
+          class="mat-checkbox" > 
+        </mat-checkbox>
+           
         </td>
         
         <td>
           <i (click)="onRowEdit(row)" class="fa fa-pencil"></i>
         </td>
         <td>
-          <span (click)="onRowDelete(row)" [ngClass]="{'checked': row.isActive}" class="dg-checkbox" for="user"></span>
+          <!-- <span (click)="onRowDelete(row)" [ngClass]="{'checked': row.isActive}" class="dg-checkbox" for="user"></span> -->
+          <mat-checkbox 
+          (click)="onRowDelete(row)"
+        [checked]=" row.isActive"
+        class="mat-checkbox" > 
+      </mat-checkbox>
         </td>
 
       </tr>

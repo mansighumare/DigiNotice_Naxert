@@ -6,7 +6,7 @@ import { TableComponent } from '../components/table/table.component';
 import { ViewNoticeComponent } from '../components/notice-card/view-notice/view-notice.component';
 import { NoticeCardComponent } from '../components/notice-card/notice-card.component';
 import { PropertyCardComponent } from '../components/property-card/property-card.component';
-
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LoaderComponent } from '../components/loader/loader.component';
 import { AddPropertyComponent } from 'src/app/components/asset-manager/add-property/add-property.component';
 import { SettingsComponent } from '../components/settings/settings.component';
@@ -34,6 +34,7 @@ import { ViewPropertyComponent } from '../components/asset-manager/view-property
     ],
     imports: [
         CommonModule,
+        MatCheckboxModule,
         FormsModule,
         ReactiveFormsModule
        ],

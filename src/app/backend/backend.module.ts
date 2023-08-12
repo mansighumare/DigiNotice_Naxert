@@ -8,6 +8,7 @@ import { AddNoticeComponent } from './add-notice/add-notice.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NoticeMasterComponent } from './notice-master/notice-master.component';
 //import { AddsBannerMasterComponent } from './adds-banner-master/adds-banner-master.component';
+
 import { MasterDataFormsComponent } from './master-data-forms/master-data-forms.component';
 import { LocationMasterComponent } from './location-master/location-master.component';
 import { EditNoticeComponent } from './edit-notice/edit-notice.component';
@@ -26,7 +27,9 @@ import { NotificationListComponent } from './notification/notification-list/noti
 //  MatSnackBarModule, MatSortModule, MatStepperModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatTreeModule } from '@angular/material';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-//import { AddNewAdBannerComponent } from './adds-banner-master/add-new-ad-banner/add-new-ad-banner.component';
+import { MatTabsModule  } from '@angular/material/tabs'
+
+import { AddNewAdBannerComponent } from './adds-banner-master/add-new-ad-banner/add-new-ad-banner.component';
 //import { ModalModule, PopoverModule } from 'ngx-bootstrap';
 //import { MatTableModule } from '@angular/material/table'
 //import { DataTableModule } from 'angular2-datatable';
@@ -261,7 +264,7 @@ const routes: Routes = [
     DashboardComponent,
     OrgAssetManagerComponent,
     NoticeMasterComponent, 
-    //AddsBannerMasterComponent,
+    AddsBannerMasterComponent,
     MasterDataFormsComponent, 
     LocationMasterComponent,
     EditNoticeComponent,
@@ -274,7 +277,7 @@ const routes: Routes = [
     NotificationComponent,
     DeleteAssetsComponent,
     NotificationListComponent,
-    //AddNewAdBannerComponent, 
+    AddNewAdBannerComponent, 
     OrganisationUserListComponent, 
     AddEditBranchComponent, 
     OrganisationDashboardComponent, 
@@ -293,7 +296,7 @@ const routes: Routes = [
     OcrAddNoticeComponent
   ],
   imports: [
-
+    MatTabsModule,
     //ChartsModule,
     MatOptionModule,
     MatSelectModule,

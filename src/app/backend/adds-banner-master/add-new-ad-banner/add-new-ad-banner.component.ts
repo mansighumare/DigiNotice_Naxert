@@ -3,7 +3,8 @@ import {  AddAdBannerWebModel, AddAdBannerMobileTopModel, AddAdBannerMobileNotic
 import { AdBannerService } from 'src/app/services/ad-banner.service';
 //import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { AppConfig } from 'src/app/services';
-declare var toastr;
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-add-new-ad-banner',
@@ -40,6 +41,7 @@ export class AddNewAdBannerComponent implements OnInit {
   constructor(public adBannerService: AdBannerService,   
     // private modalService:BsModalService,
     // private bsModalRef:BsModalRef,
+    private toastr: ToastrService,
     public appConfig: AppConfig
   ) {
     // this.AdBannerModelPopup = this.modalService.config['data'] != undefined ? this.modalService.config['data' ] : {}
@@ -251,12 +253,12 @@ export class AddNewAdBannerComponent implements OnInit {
   AddAdBanner(adBanner:AddAdBannerWebModel,imagePath:any){
     
     if(adBanner.userName==""){
-      toastr.warning('Please Enter User Name!', "Warning");
+      this.toastr.warning('Please Enter User Name!', "Warning");
     }else if(adBanner.adUrl==""){
-      toastr.warning('Please Enter Ad Url!', "Warning");
+      this.toastr.warning('Please Enter Ad Url!', "Warning");
     }
     else if( imagePath ==null ){  
-      toastr.warning('Please Insert Image!', "Warning");
+      this.toastr.warning('Please Insert Image!', "Warning");
     }
    
  else if(imagePath!==undefined){
@@ -266,13 +268,13 @@ export class AddNewAdBannerComponent implements OnInit {
      this.adBannerService.addAdBanner(adBanner).subscribe((addedRow: any)=>{
       
        this.adBannerService.AddAdBannerList();
-       toastr.success('AdBanner Added Successsfully!', "Success");
+       this.toastr.success('AdBanner Added Successsfully!', "Success");
        this.isShowLoader = false;
       this.CloseForm();
      },
        error => {
          this.isShowLoader = false;
-         toastr.error('Failed to create AdBanner!', "Error");
+         this.toastr.error('Failed to create AdBanner!', "Error");
        });
  
  
@@ -281,12 +283,12 @@ export class AddNewAdBannerComponent implements OnInit {
   }
   EditAdBanner(adBanner:AddAdBannerWebModel,imagepath:any){
     if(adBanner.userName==""){
-      toastr.warning('Please Enter User Name!', "Warning");
+      this.toastr.warning('Please Enter User Name!', "Warning");
     }else if(adBanner.adUrl==""){
-      toastr.warning('Please Enter Ad Url!', "Warning");
+      this.toastr.warning('Please Enter Ad Url!', "Warning");
     }
     else if( imagepath ==undefined &&adBanner.imagePath==""){  
-      toastr.warning('Please Insert Image!', "Warning");
+      this.toastr.warning('Please Insert Image!', "Warning");
       //imagepath ==undefined &&
     }
    
@@ -294,13 +296,13 @@ export class AddNewAdBannerComponent implements OnInit {
     this.adBannerService.addAdBanner(adBanner).subscribe((addedRow: any)=>{
       this.adBannerService.AddAdBannerList();
       let message =addedRow[0].column1;
-      toastr.success(message, "Success");
+      this.toastr.success(message, "Success");
       this.isShowLoader = false;
      this.clearForm();
     },
       error => {
         this.isShowLoader = false;
-        toastr.error('Failed to create AdBanner!', "Error");
+        this.toastr.error('Failed to create AdBanner!', "Error");
       }); 
     }
   }
@@ -344,22 +346,22 @@ export class AddNewAdBannerComponent implements OnInit {
     return true;
   }
 
-  // onNoticePeriodInput($event: any,index:number) {    
-  //   let noticePeriod: number = Number(($any)($event.target).value);
-  //   if (noticePeriod > this.MaxRowOrderByType ){
-  //     $event.target.value = this.MaxRowOrderByType;
-  //     if(index==1){
-  //       this.AdBannerModel.rowOrder= $event.target.value;
-  //     }
-  //     else if(index==2){
-  //       this.AdBannerMobTopModel.rowOrder= $event.target.value;
-  //     }
-  //     else if(index==3){
-  //       this.AdBannerMobNtcModel.rowOrder= $event.target.value;
-  //     }
-  //     else if(index==4){
-  //       this.AdBannerWebNtcModel.rowOrder= $event.target.value;
-  //     }    
-  //   }   
-  // }
+  onNoticePeriodInput($event: any,index:number) {    
+    // let noticePeriod: number = Number(($any)($event.target).value);
+    // if (noticePeriod > this.MaxRowOrderByType ){
+    //   $event.target.value = this.MaxRowOrderByType;
+    //   if(index==1){
+    //     this.AdBannerModel.rowOrder= $event.target.value;
+    //   }
+    //   else if(index==2){
+    //     this.AdBannerMobTopModel.rowOrder= $event.target.value;
+    //   }
+    //   else if(index==3){
+    //     this.AdBannerMobNtcModel.rowOrder= $event.target.value;
+    //   }
+    //   else if(index==4){
+    //     this.AdBannerWebNtcModel.rowOrder= $event.target.value;
+    //   }    
+    // }   
+  }
 }

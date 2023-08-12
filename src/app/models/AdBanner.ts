@@ -6,6 +6,7 @@ export class AddAdBannerWebModel {
     imagePath:string="";
     imageType:number;
     rowOrder:number;
+createdDate?: string|number|Date;
 
 }
 

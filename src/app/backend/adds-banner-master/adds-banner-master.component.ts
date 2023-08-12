@@ -6,7 +6,9 @@ import { AppConfig } from 'src/app/services';
 
 // import{ BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { AddNewAdBannerComponent } from './add-new-ad-banner/add-new-ad-banner.component';
-declare var toastr;
+import { ToastrService } from 'ngx-toastr';
+
+
 declare var $;
 @Component({
   selector: 'app-adds-banner-master',
@@ -18,7 +20,8 @@ export class AddsBannerMasterComponent implements OnInit {
   isShowNotificationLogPopup: boolean = false;
   constructor(private router: Router,
     public adBannerService: AdBannerService,
-    public appConfig: AppConfig
+    public appConfig: AppConfig,
+    private toastr: ToastrService
     //,private modalService:BsModalService
     ) { }
 
@@ -63,13 +66,17 @@ const initialState = {
  keyboard: true,
  ignoreBackdropClick: true,
 };
-//$("#add-banner-modal").modal("show");
+
+console.log(data);
+$("#add-banner-modal").modal("show");
 // this.bsModalRef = this.modalService.show(AddNewAdBannerComponent, initialState);
 // this.bsModalRef.content.closeBtnName = 'Close';
 
 // this.modalService.onHide.subscribe((reason: string) => {
 //  })
 }
+
+
 OnAddAdBanner(){ 
   
   const initialState = {  
@@ -93,7 +100,7 @@ OnAddAdBanner(){
       if(res){
         this.getAddAdBannerList();
       this.adBannerService.AddAdBannerList();
-        toastr.success('AdBanner Deleted Successfully!', "Success");  
+        this.toastr.success('AdBanner Deleted Successfully!', "Success");  
       }
 
     });

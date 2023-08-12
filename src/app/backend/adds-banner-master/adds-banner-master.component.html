@@ -24,30 +24,30 @@
   <div class="col-md-12">
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
     <div class="portlet light bordered">
-      <div class="portlet-title">   
+      <div class="portlet-title">
         <div class="caption font-dark float-l">
           <i class="icon-settings font-dark"></i>
-          <span class="caption-subject bold uppercase"> Ads/Banner Master </span>        
-       
+          <span class="caption-subject bold uppercase"> Ads/Banner Master </span>
+
         </div>
         <div class="actions">
-            <div class="btn-group btn-group-devided" data-toggle="buttons">  
-                <!-- <span>
+          <div class="btn-group btn-group-devided" data-toggle="buttons">
+            <!-- <span>
                     <i class="fa fa-angle-down blue-hoki btn-circle " type="button" 
                      style="font-size:36px"></i>   
                       class="btn blue-hoki btn-outline sbold uppercase btn-circle  btn-sm"  
                     <i class="fa fa-angle-up" style="font-size:36px"></i>  
                 </span> -->
-                <span>
+            <span>
               <input type="button" (click)="OnAddAdBanner()" value="Add New +"
-              class="btn blue-hoki btn-outline sbold uppercase btn-circle  btn-sm" />   
-            </span>      
+                class="btn blue-hoki btn-outline sbold uppercase btn-circle  btn-sm" />
+            </span>
           </div>
         </div>
       </div>
       <div class="portlet-body">
         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-          <div class="row">           
+          <div class="row">
           </div>
           <div class="table-scrollable">
             <table
@@ -55,7 +55,7 @@
               id="sample_1" role="grid" aria-describedby="sample_1_info">
               <thead>
                 <tr role="row">
-                    <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
+                  <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                     aria-sort="ascending" aria-label=" Username : activate to sort column descending"
                     style="width: 100px;"> Username </th>
                   <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
@@ -64,38 +64,39 @@
                     aria-label=" Points : activate to sort column ascending" style="width: 100px;"> Date </th>
                   <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                     aria-label=" Joined : activate to sort column ascending" style="width: 100px;"> AdBanner Type </th>
-                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                     aria-label=" Status : activate to sort column ascending" style="width: 148px;"> Order </th>
                   <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                     aria-label=" Status : activate to sort column ascending" style="width: 148px;"> Image </th>
-                    <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
+                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
                     aria-label=" Status : activate to sort column ascending" style="width: 148px;"> Action </th>
                 </tr>
               </thead>
-             <tbody>
-                  <tr  *ngFor="let adBanner of adBannerList; let index = index;" >                    
-                      <!-- adBannerList -->
-                      <td>{{adBanner.userName}}</td>
-                      <td>{{adBanner.adUrl}}</td>
-                      <!-- <td>{{adBanner.createdDate | date: 'dd-MMM-yyyy'}}</td> -->
-                      <td *ngIf="adBanner.imageType==1">WebSite</td>
-                      <td *ngIf="adBanner.imageType==2">Mobile Top</td>
-                      <td *ngIf="adBanner.imageType==3">Mobile Notice</td>
-                      <td *ngIf="adBanner.imageType==4">Web Notice</td>
-                      <!-- <td>{{appConfig.imageAdBannerPath}}{{adBanner.imagePath}}</td>-->
-                      <td>{{adBanner.rowOrder}}</td>
-                      <td> 
-                          <img  height="150" width="100"
-                            alt="" [src]="adBanner.imagePath">                           
-                        </td>
-                        <td><i class="fa fa-edit" (click)="OnEditAdBanner(adBanner)" style="font-size:20px;color:#1BBC9B;padding: 5px;"></i> 
-    
-                          <i class="fa fa-close" (click)= "onDeleteAdBanner(adBanner)"style="font-size:20px;color:red;padding: 5px;"></i>
-                                                </td>    
-                                                            </tr>
-             </tbody>
+              <tbody>
+                <tr *ngFor="let adBanner of adBannerList; let index = index;">
+                  <!-- adBannerList -->
+                  <td>{{adBanner.userName}}</td>
+                  <td>{{adBanner.adUrl}}</td>
+                  <td>{{adBanner.createdDate | date: 'dd-MMM-yyyy'}}</td>
+                  <td *ngIf="adBanner.imageType==1">WebSite</td>
+                  <td *ngIf="adBanner.imageType==2">Mobile Top</td>
+                  <td *ngIf="adBanner.imageType==3">Mobile Notice</td>
+                  <td *ngIf="adBanner.imageType==4">Web Notice</td>
+                  <!-- <td>{{appConfig.imageAdBannerPath}}{{adBanner.imagePath}}</td>-->
+                  <td>{{adBanner.rowOrder}}</td>
+                  <td>
+                    <img height="150" width="100" alt="" [src]="adBanner.imagePath">
+                  </td>
+                  <td><i class="fa fa-edit" (click)="OnEditAdBanner(adBanner)"
+                      style="font-size:20px;color:#1BBC9B;padding: 5px;"></i>
+
+                    <i class="fa fa-close" (click)="onDeleteAdBanner(adBanner)"
+                      style="font-size:20px;color:red;padding: 5px;"></i>
+                  </td>
+                </tr>
+              </tbody>
             </table>
-          </div>     
+          </div>
         </div>
       </div>
     </div>
@@ -103,4 +104,4 @@
   </div>
 
 </div>
-  
+

@@ -7,9 +7,6 @@ import { OrganisationService } from 'src/app/services/organisation.service';
 import { MasterDataService } from 'src/app/services';
 import { ExcelService } from 'src/app/services/excel.service';
 
-
-
-
 declare var $;
 @Component({
   selector: 'app-dashboard',
@@ -17,17 +14,6 @@ declare var $;
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-
-  xAxis: boolean = true;
-  yAxis: boolean = true;
-  saleData:any[] = [
-    { name: "Mobiles", value: 105000 },
-    { name: "Laptop", value: 55000 },
-    { name: "AC", value: 15000 },
-    { name: "Headset", value: 150000 },
-    { name: "Fridge", value: 20000 }
-  ];
-
   page = 1;
   pageSize = 25;
   tbldataLength: number;
@@ -36,15 +22,262 @@ export class DashboardComponent implements OnInit {
   tbldata: any = [];
   //table:any
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  mainChartElements = 31;
+  mainChartData1: Array<number> = [];
+  mainChartData2: Array<number> = [];
+  mainChartData3: Array<number> = [];
+
+  mainChartData: Array<any> = [
+    {
+      data: this.mainChartData1,
+      label: 'Notices'
+    }
+  ];
+
+  mainChartLabels: Array<any> = [];
+
+  mainChartOptions: any = {
+    tooltips: {
+      enabled: true,
+      //custom: CustomTooltips,
+      intersect: true,
+      mode: 'index',
+      position: 'nearest',
+      callbacks: {
+        labelColor: function (tooltipItem, chart) {
+          return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor };
+        }
+      }
+    },
+    responsive: true,
+    responsiveAnimationDuration: 0,
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{
+        gridLines: {
+          drawOnChartArea: false,
+        },
+        ticks: {
+          callback: function (value: any) {
+            return value.substring(6, 10).replace("-", "/");
+          }
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          maxTicksLimit: 5,
+        }
+      }]
+    },
+    elements: {
+      line: {
+        borderWidth: 2
+      },
+      point: {
+        radius: 0,
+        hitRadius: 10,
+        hoverRadius: 4,
+        hoverBorderWidth: 3,
+      }
+    },
+    legend: {
+      display: false
+    }
+  };
+
+  mainChartColours: Array<any> = [
+    { // brandInfo
+      backgroundColor: '#d3d3d3',
+      borderColor: '#d3d3d3',
+      pointHoverBackgroundColor: '#fff'
+    },
+    { // brandSuccess
+      backgroundColor: 'transparent',
+      borderColor: '#d3d3d3',
+      pointHoverBackgroundColor: '#fff'
+    },
+    { // brandDanger
+      backgroundColor: 'transparent',
+      borderColor: '#d3d3d3',
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5]
+    }
+  ];
+
+  mainChartLegend = false;
+  mainChartType = 'line';
+
+  //  
+  public mainChartOptionsEMPAnalaysis: any = {
+    tooltips: {
+      enabled: true,
+      //custom: CustomTooltips,
+      intersect: true,
+      mode: 'index',
+      position: 'nearest',
+      callbacks: {
+        labelColor: function (tooltipItem, chart) {
+          return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor };
+        }
+      }
+    },
+    responsive: true,
+    responsiveAnimationDuration: 0,
+    maintainAspectRatio: false,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+        ticks: {
+          beginAtZero: true,
+        },
+        type: 'linear'
+      }
+    },
+    legend: {
+      display: false,
+      position: 'bottom'
+    }
+  };
+
+  public mainChartDataEMP1: Array<number> = [];
+  public mainChartDataEMP2: Array<number> = [];
+  public mainChartDataEMP3: Array<number> = [];
+
+  public mainChartDataEMPAnalaysis: Array<any> = [
+    {
+      data: this.mainChartDataEMP1,
+      // label: 'High',
+      stack: 'Stack 0'
+    },
+    // {
+    //   data: this.mainChartDataEMP2,
+    // //  label: 'Medium',
+    //   stack: 'Stack 0'
+    // },
+    // {
+    //   data: this.mainChartDataEMP3,
+    //  // label: 'Low',
+    //   stack: 'Stack 0'
+    // },
+  ];
+  /* tslint:disable:max-line-length */
+  public mainChartLabelsEMPAnalaysis: Array<any> = [];
+
+  public mainChartColoursEMPAnalaysis: Array<any> = [
+    { // brandInfo
+      backgroundColor: '#d3d3d3',
+      borderColor: '#d3d3d3',
+      pointHoverBackgroundColor: '#fff'
+    },
+    { // brandSuccess
+      backgroundColor: '#d3d3d3',
+      borderColor: '#d3d3d3',
+      pointHoverBackgroundColor: '#fff'
+    },
+    { // brandDanger
+      backgroundColor: '#d3d3d3',
+      borderColor: '#d3d3d3',
+      pointHoverBackgroundColor: '#fff',
+      borderWidth: 1,
+      borderDash: [8, 5]
+    }
+  ];
+
+
+
+  public mainChartDataDeptClosed1: Array<number> = [];
+
+  public mainChartDataDeptClosed: Array<any> = [
+    {
+      data: this.mainChartDataDeptClosed1,
+      label: 'Tasks',
+      backgroundColor: [
+        'rgb(255, 99, 132)',
+        'rgb(54, 162, 235)',
+        'rgb(255, 205, 86)',
+        "#4b77a9",
+        "#5f255f",
+        "#d21243",
+        "#B27200"
+      ],
+    }
+  ];
+  /* tslint:disable:max-line-length */
+  public mainChartLabelsDeptClosed: Array<any> = [];
+
+  /* tslint:enable:max-line-length */
+  public mainChartOptionsDeptClosed: any = {
+    tooltips: {
+      enabled: true,
+      //custom: CustomTooltips,
+      intersect: true,
+      mode: 'index',
+      position: 'nearest',
+      callbacks: {
+        labelColor: function (tooltipItem, chart) {
+          return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor };
+        }
+      }
+    },
+    responsive: true,
+    responsiveAnimationDuration: 0,
+    maintainAspectRatio: false,
+    animation: {
+      duration: 500,
+      easing: "easeOutQuart",
+      onComplete: function () {
+        var ctx = this.chart.ctx;
+        //ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'bottom';
+
+        this.data.datasets.forEach(function (dataset) {
+
+          for (var i = 0; i < dataset.data.length; i++) {
+            var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
+              total = dataset._meta[Object.keys(dataset._meta)[0]].total,
+              mid_radius = model.innerRadius + (model.outerRadius - model.innerRadius) / 2,
+              start_angle = model.startAngle,
+              end_angle = model.endAngle,
+              mid_angle = start_angle + (end_angle - start_angle) / 2;
+
+            var x = mid_radius * Math.cos(mid_angle);
+            var y = mid_radius * Math.sin(mid_angle);
+
+            ctx.fillStyle = '#fff';
+            if (i == 3) { // Darker text color for lighter background
+              ctx.fillStyle = '#444';
+            }
+
+            var val = dataset.data[i];
+            var percent = String(Math.round(val / total * 100)) + "%";
+
+            if (val != 0) {
+              ctx.fillText(dataset.data[i], model.x + x, model.y + y);
+              // Display percent in another line, line break doesn't work for fillText
+              ctx.fillText(percent, model.x + x, model.y + y + 15);
+            }
+          }
+        });
+      }
+    },
+    legend: {
+      display: true
+    }
+  };
+
 
   constructor(public reportService: ReportService,
     public router: Router,
     private masterDataService: MasterDataService,
     private excelService: ExcelService,
     private AddEditOrganisationService: OrganisationService,
-    private accoutService: AccountService) {
-      
-     }
+    private accoutService: AccountService) { }
   isShowActiveOnly: boolean = true;
   loggedInUserRole: any;
   loggedInUserRoleGuid: any;
@@ -403,8 +636,15 @@ export class DashboardComponent implements OnInit {
       if (reportdata) {
 
         reportdata.forEach(element => {
+          this.mainChartData1.push(element.notices);
+          this.mainChartLabels.push(element.day);
         });
-    
+        this.mainChartData = [
+          {
+            data: this.mainChartData1,
+            label: 'Notices'
+          }
+        ];
         this.isShowLoader = false;
       }
     });
@@ -417,8 +657,18 @@ export class DashboardComponent implements OnInit {
       if (reportdata) {
         reportdata.forEach(element => {
 
+          this.mainChartDataEMP1.push(element.notices);
+          // this.mainChartDataEMP2.push(element.medium);
+          // this.mainChartDataEMP3.push(element.low);
+          this.mainChartLabelsEMPAnalaysis.push(element.monthYear);
         });
-
+        this.mainChartDataEMPAnalaysis = [
+          {
+            data: this.mainChartDataEMP1,
+            // label: 'High',
+            stack: 'Stack 0'
+          }
+        ];
         this.isShowLoader = false;
       }
     });

@@ -4,6 +4,7 @@ import { AdBannerService } from 'src/app/services/ad-banner.service';
 //import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { AppConfig } from 'src/app/services';
 import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/services/shared-service.service';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { ToastrService } from 'ngx-toastr';
 export class AddNewAdBannerComponent implements OnInit {
 
  @Input() editAdBannerModel:AddAdBannerWebModel = new AddAdBannerWebModel();  
+
+
   AdBannerModelPopup: AddAdBannerWebModel = new AddAdBannerWebModel(); 
   AdBannerModel: AddAdBannerWebModel = new AddAdBannerWebModel();  
   AdBannerMobTopModel: AddAdBannerMobileTopModel = new AddAdBannerMobileTopModel();  
@@ -21,7 +24,7 @@ export class AddNewAdBannerComponent implements OnInit {
    
   AdBannerWebNtcModel: AddAdBannerWebNoticeModel = new AddAdBannerWebNoticeModel();  
   isShowLoader: boolean = false;
-  isShowRowOrder: boolean = false;
+  isShowRowOrder: boolean = true;
   MaxRowOrderByType:number;
   
   public imagePath;
@@ -42,7 +45,8 @@ export class AddNewAdBannerComponent implements OnInit {
     // private modalService:BsModalService,
     // private bsModalRef:BsModalRef,
     private toastr: ToastrService,
-    public appConfig: AppConfig
+    public appConfig: AppConfig,
+    private shared:SharedServiceService
   ) {
     // this.AdBannerModelPopup = this.modalService.config['data'] != undefined ? this.modalService.config['data' ] : {}
     if(this.AdBannerModelPopup == undefined){
@@ -95,6 +99,13 @@ export class AddNewAdBannerComponent implements OnInit {
    }
 
   ngOnInit() {    
+
+    this.editAdBannerModel=this.shared.editAdBannerModel;
+    this.AdBannerModel=this.shared.editAdBannerModel;
+
+
+    console.log(this.shared.editAdBannerModel)
+
   }
 
   matTabSelect(event){

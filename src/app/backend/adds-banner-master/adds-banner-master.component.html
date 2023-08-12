@@ -38,10 +38,24 @@
                       class="btn blue-hoki btn-outline sbold uppercase btn-circle  btn-sm"  
                     <i class="fa fa-angle-up" style="font-size:36px"></i>  
                 </span> -->
-            <span>
+            <!-- <span>
               <input type="button" (click)="OnAddAdBanner()" value="Add New +"
                 class="btn blue-hoki btn-outline sbold uppercase btn-circle  btn-sm" />
             </span>
+            <div *ngIf="showPopup" class="popup">
+              <div class="card">
+                <app-add-new-ad-banner> </app-add-new-ad-banner>
+              </div>
+            </div> -->
+            <input type="button" (click)="onAddAdBanner()" value="Add New +"
+            class="btn blue-hoki btn-outline sbold uppercase btn-circle btn-sm" />
+            <div *ngIf="showPopup" class="popup">
+              <div class="popup-overlay"></div>
+              <div class="card popup-content">
+                <app-add-new-ad-banner></app-add-new-ad-banner>
+                <button (click)="onClosePopup()" class="close-button">Close</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -104,4 +118,3 @@
   </div>
 
 </div>
-

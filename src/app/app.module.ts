@@ -56,6 +56,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { TokenInterceptor } from './custom-headers.service';
 import { ToastrModule } from 'ngx-toastr';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 10000,
       positionClass: 'toast-top-center',
       preventDuplicates: true
-    })
+    }),
+    NgbModule
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AdBannerService } from 'src/app/services/ad-banner.service';
 import { AddAdBannerWebModel } from 'src/app/models/AdBanner';
 import { AppConfig } from 'src/app/services';
-
+import { ModalDismissReasons, NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 // import{ BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { AddNewAdBannerComponent } from './add-new-ad-banner/add-new-ad-banner.component';
 import { ToastrService } from 'ngx-toastr';
+import { SharedServiceService } from 'src/app/services/shared-service.service';
 
 
 declare var $;
@@ -16,15 +17,18 @@ declare var $;
   styleUrls: ['./adds-banner-master.component.scss']
 })
 export class AddsBannerMasterComponent implements OnInit {
+  @ViewChild(AddNewAdBannerComponent, { static: false }) addNewAdBannerComponent: AddNewAdBannerComponent;
+
 
   isShowNotificationLogPopup: boolean = false;
   constructor(private router: Router,
     public adBannerService: AdBannerService,
     public appConfig: AppConfig,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private shared:SharedServiceService
     //,private modalService:BsModalService
     ) { }
-
+    showPopup:boolean=false;
    // bsModalRef: BsModalRef;
     isShowLoader: boolean = false;
     adBannerList: Array<AddAdBannerWebModel> = new Array<AddAdBannerWebModel>();
@@ -58,7 +62,13 @@ export class AddsBannerMasterComponent implements OnInit {
   }
   
   OnEditAdBanner(data:AddAdBannerWebModel){
-   
+ 
+      this.shared.editAdBannerModel=data;
+
+
+    this.showPopup = true;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
 
 const initialState = {
  data: data,
@@ -67,7 +77,7 @@ const initialState = {
  ignoreBackdropClick: true,
 };
 
-console.log(data);
+
 $("#add-banner-modal").modal("show");
 // this.bsModalRef = this.modalService.show(AddNewAdBannerComponent, initialState);
 // this.bsModalRef.content.closeBtnName = 'Close';
@@ -76,7 +86,16 @@ $("#add-banner-modal").modal("show");
 //  })
 }
 
+onAddAdBanner() {
+  this.showPopup = true;
 
+
+  this.shared.editAdBannerModel=new AddAdBannerWebModel();
+}
+
+onClosePopup() {
+  this.showPopup = false;
+}
 OnAddAdBanner(){ 
   
   const initialState = {  
@@ -84,6 +103,7 @@ OnAddAdBanner(){
    keyboard: true,
    ignoreBackdropClick: true,
   };
+  this.showPopup=!this.showPopup;
   
   // this.bsModalRef = this.modalService.show(AddNewAdBannerComponent, initialState);
   // this.bsModalRef.content.closeBtnName = 'Close';

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { AddAdBannerWebModel } from '../models/AdBanner';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ export class SharedServiceService {
   constructor() { }
   private booleanSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private valueChangeSubject: Subject<void> = new Subject<void>();
-
+  editAdBannerModel:AddAdBannerWebModel = new AddAdBannerWebModel();  
   getBoolean(): Observable<boolean> {
     return this.booleanSubject.asObservable();
   }
@@ -23,5 +24,9 @@ export class SharedServiceService {
     return this.valueChangeSubject.asObservable();
   }
 
+
+
+
+  
 
 }

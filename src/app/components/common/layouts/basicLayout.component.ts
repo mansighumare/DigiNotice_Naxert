@@ -1,6 +1,6 @@
-import { Component, OnInit, SecurityContext } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, SecurityContext, ViewChild } from '@angular/core';
 import { AdBannerService } from 'src/app/services/ad-banner.service';
-import { AppConfig } from 'src/app/services';
+import { AppConfig, SharedModelService } from 'src/app/services';
 import { AddAdBannerWebModel, BannerImageModel } from 'src/app/models/AdBanner';
 import { Subscription, interval } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -44,6 +44,9 @@ declare var jQuery: any;
 export class BasicLayoutComponent implements OnInit {
   // imagesUrl:any[];
   //  imagesUrl = Array<{}>();
+  @ViewChild('myDivElement1', { static: true }) myDivElementRef1!: ElementRef;
+  @ViewChild('myDivElement', { static: true }) myDivElementRef!: ElementRef;
+
   imagesUrl: Array<AddAdBannerWebModel> = new Array<AddAdBannerWebModel>();
   bannerImageModelList: Array<BannerImageModel> = new Array<BannerImageModel>();
   bannerImageModel: BannerImageModel = new BannerImageModel();
@@ -59,10 +62,31 @@ export class BasicLayoutComponent implements OnInit {
   public state = 'void';
   public disableSliderButtons = false;
   subscription: Subscription;
+  collaps: boolean;
 
   constructor(public adBannerService: AdBannerService,
     public appConfig: AppConfig,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private shared:SharedModelService) {
+  }
+
+
+
+
+  @HostListener('document:click', ['$event'])
+  private updateValue() {
+    this.shared.getBoolean().subscribe((newValue) => {
+      this.collaps = newValue;
+      const myDiv = this.myDivElementRef.nativeElement as HTMLDivElement;
+      
+      if(!this.collaps){
+      myDiv.style.width = '110%';
+      myDiv.style.marginLeft = '-200px'
+      }else{
+        myDiv.style.width = '';
+        myDiv.style.marginLeft = '00px'
+      }
+    });
   }
 
   ngOnInit() {

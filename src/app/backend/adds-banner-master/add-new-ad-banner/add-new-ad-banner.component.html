@@ -1,17 +1,20 @@
 
-<div  id="add-banner-modal" tabindex="-1" role="view" aria-hidden="true" class="AdBannerModel">
-    <div class="">
-      <div class="">
+<div >
+    <div >
+      <div>
         <!-- <div class="modal-header" style="text-align: center">
           <strong> {{AddEditLogo}}  Advertisement Banner</strong>
           <button type="button"  (click)="CloseForm()" class="close" data-dismiss="modal">X</button>
         </div> -->
-
+<!-- 
         <div class="modal-header modal-header-c">
-          <button type="button"  (click)="CloseForm()" class="close" data-dismiss="modal">X</button>
+          <button type="button"  (click)="CloseForm()" class="close" data-dismiss="modal">
+            <i style="font-size:24px" class="fa">&#xf00d;</i>
+          </button>
+
           <h4 class="modal-title modal-title-c">{{AddEditLogo}}  Advertisement Banner</h4>
-        </div>
-        <div class="modal-body">
+        </div> -->
+        <div >
           <mat-tab-group [selectedIndex]="tabIndex"  (selectedTabChange)="matTabSelect($event)">
             <!-- Tab for Website -->
             <mat-tab  label="Website">
@@ -23,7 +26,7 @@
                           <input tabindex="1" name="personName"  [(ngModel)]="AdBannerModel.userName"type="text" class="form-control input-sm"
                             placeholder="Person Name">
                         </div>
-                        <div class="col-md-4" *ngIf="isShowRowOrder">
+                        <div class="col-md-4" *ngIf="AdBannerModel.rowOrder">
                             <label class="dg-lable" for="rowOrder">Row Order:</label>
                             <input tabindex="1" name="rowOrder"  [(ngModel)]="AdBannerModel.rowOrder"type="number" 
                             (keypress)="onKeyPressValidateNumber($event)"  min="1" (input)="onNoticePeriodInput($event,1)" class="form-control input-sm"
@@ -69,7 +72,7 @@
                   </div>    
                 </div>
                 <div class="modal-footer modal-footer-c">
-                    <button (click)="clearForm()" [disabled]="AddEditLogo !='Add'" type="button" class="btn btn-default">Reset Fields</button>
+                    <button (click)="clearForm()" [disabled]="AddEditLogo !='Add' || AdBannerModel.userName" type="button" class="btn btn-default" >Reset Fields</button>
                     <button  (click)="onAddAdBanner(1)" type="button" class="btn btn-success bt-c">{{AddEditLogo}} AdBanner</button>
                   </div>
               </form>

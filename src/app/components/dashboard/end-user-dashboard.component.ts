@@ -5,9 +5,9 @@ import { ReportService } from 'src/app/services/report.service';
 import { Router } from '@angular/router';
 import { AccountService } from 'src/app/services/account.service';
 import { NoticeAdvocateModel } from 'src/app/models/notice-info';
-import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 import * as $ from 'jquery';
-declare var toastr;
+
 
 @Component({
   selector: 'app-dashboard',
@@ -23,19 +23,24 @@ export class EndUserDashboardComponent implements OnInit {
   is_add_other_details: any;
   city: any;
 
+  startDate:string='';
+  endDate:string='';
   constructor(
     public authService: AuthenticationService,
     public noticeService: NoticeService,
     public reportService: ReportService,
     public lookupService: LookupService,
     private router: Router,
-    private accoutService: AccountService) {
+    private accoutService: AccountService,
+    private toastr: ToastrService) {
     this.isDashboard = location.hash.indexOf('dashboard') >= 0;
   }
   loggedInUserRole: string = this.authService.loggedInUser.role;
   searchModel: SearchModel = new SearchModel();
   noticeInfoList: Array<NoticeInfoModel> = new Array<NoticeInfoModel>();
   ngOnInit() {
+    this.startDate= this.getDefaultStartDate();
+    this.endDate= this.getDefaultStartDate();
 
     let loggedInUserString: any = localStorage.getItem("LoggedInUser");
     loggedInUserString = JSON.parse(loggedInUserString);
@@ -60,6 +65,11 @@ export class EndUserDashboardComponent implements OnInit {
 
       this.router.navigate(["./login"]);
     }
+  }
+
+  getDefaultStartDate(): string {
+    const defaultDate = new Date(); // You can set this to any desired default date
+    return defaultDate.toISOString().substr(0, 10); // Convert to YYYY-MM-DD format
   }
 
   isGetRecentNotices: boolean = true;
@@ -182,39 +192,39 @@ export class EndUserDashboardComponent implements OnInit {
   }
 
   initDateRangePicker() {
-    $('#txtSearchDateRange').daterangepicker(
-      {
-        startDate: moment(),
-        endDate: moment(),
-        //  dateLimit: { days: 3650 },
-        showDropdowns: true,
-        showWeekNumbers: true,
-        ranges: {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        opens: 'left',
-        buttonClasses: ['btn btn-default'],
-        applyClass: 'btn-small btn-primary',
-        cancelClass: 'btn-small',
+    // $('#txtSearchDateRange').daterangepicker(
+    //   {
+    //     startDate: moment(),
+    //     endDate: moment(),
+    //     //  dateLimit: { days: 3650 },
+    //     showDropdowns: true,
+    //     showWeekNumbers: true,
+    //     ranges: {
+    //       'Today': [moment(), moment()],
+    //       'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+    //       'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+    //       'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+    //       'This Month': [moment().startOf('month'), moment().endOf('month')],
+    //       'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    //     },
+    //     opens: 'left',
+    //     buttonClasses: ['btn btn-default'],
+    //     applyClass: 'btn-small btn-primary',
+    //     cancelClass: 'btn-small',
 
-        separator: ' to ',
-        locale: {
-          format: 'DD/MM/YYYY',
-          applyLabel: 'Submit',
-          fromLabel: 'From',
-          toLabel: 'To',
-          customRangeLabel: 'Custom Range',
-          daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-          monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          firstDay: 1
-        }
-      }
-    );
+    //     separator: ' to ',
+    //     locale: {
+    //       format: 'DD/MM/YYYY',
+    //       applyLabel: 'Submit',
+    //       fromLabel: 'From',
+    //       toLabel: 'To',
+    //       customRangeLabel: 'Custom Range',
+    //       daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+    //       monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+    //       firstDay: 1
+    //     }
+    //   }
+    // );
   }
 
 
@@ -317,8 +327,8 @@ export class EndUserDashboardComponent implements OnInit {
       this.searchModel.pageNumber = 1;
     }
     var $dateField = $('#txtSearchDateRange');
-    this.searchModel.startDate = $dateField.data('daterangepicker').startDate._d;
-    this.searchModel.endDate = $dateField.data('daterangepicker').endDate._d;
+    this.searchModel.startDate = new Date(this.startDate);
+    this.searchModel.endDate = new Date(this.endDate);
     this.isShowLoader = true;
 
     this.noticeService.GetSearchNoticeCount(this.searchModel).subscribe((GetSearchNoticeCount: number) => {
@@ -388,11 +398,11 @@ export class EndUserDashboardComponent implements OnInit {
         this.isShowLoader = false;
         this.noticeInfoList = [];
         this.getRecentNotices();
-        toastr.success('Successsfully Saved Interested Cities', "Success");
+        this.toastr.success('Successsfully Saved Interested Cities', "Success");
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed To Save Interested Cities', "Error");
+          this.toastr.error('Failed To Save Interested Cities', "Error");
         });
   }
   getRecentNoticesBtn() {

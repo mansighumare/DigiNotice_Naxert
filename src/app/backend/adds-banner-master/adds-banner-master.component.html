@@ -48,14 +48,43 @@
               </div>
             </div> -->
             <input type="button" (click)="onAddAdBanner()" value="Add New +"
-            class="btn blue-hoki btn-outline sbold uppercase btn-circle btn-sm" />
-            <div *ngIf="showPopup" class="popup">
+            class="btn blue-hoki btn-outline sbold uppercase btn-circle btn-sm" data-toggle="modal" data-target="#exampleModalCenter" />
+            <!-- <div *ngIf="showPopup" class="popup">
               <div class="popup-overlay"></div>
               <div class="card popup-content">
                 <app-add-new-ad-banner></app-add-new-ad-banner>
                 <button (click)="onClosePopup()" class="close-button">Close</button>
               </div>
+            </div> -->
+
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="showPopup">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title modal-title-c">{{AddEditLogo}}  Advertisement Banner</h4>
+                
+                  </div>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClosePopup()">X
+                      
+                  </button>
+                  <div class="modal-body">
+                    <div  class="popup">
+                      <div class="popup-overlay"></div>
+                      <div class="card popup-content">
+                        <app-add-new-ad-banner></app-add-new-ad-banner>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClosePopup()" >Close</button>
+                    
+                  </div>
+                </div>
+              </div>
             </div>
+
+
           </div>
         </div>
       </div>
@@ -102,7 +131,7 @@
                     <img height="150" width="100" alt="" [src]="adBanner.imagePath">
                   </td>
                   <td><i class="fa fa-edit" (click)="OnEditAdBanner(adBanner)"
-                      style="font-size:20px;color:#1BBC9B;padding: 5px;"></i>
+                      style="font-size:20px;color:#1BBC9B;padding: 5px;" data-toggle="modal" data-target="#exampleModalCenter"></i>
 
                     <i class="fa fa-close" (click)="onDeleteAdBanner(adBanner)"
                       style="font-size:20px;color:red;padding: 5px;"></i>

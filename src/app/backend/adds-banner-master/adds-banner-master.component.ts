@@ -19,7 +19,7 @@ declare var $;
 export class AddsBannerMasterComponent implements OnInit {
   @ViewChild(AddNewAdBannerComponent, { static: false }) addNewAdBannerComponent: AddNewAdBannerComponent;
 
-
+  AddEditLogo:string="Add";
   isShowNotificationLogPopup: boolean = false;
   constructor(private router: Router,
     public adBannerService: AdBannerService,
@@ -64,7 +64,7 @@ export class AddsBannerMasterComponent implements OnInit {
   OnEditAdBanner(data:AddAdBannerWebModel){
  
       this.shared.editAdBannerModel=data;
-
+      this.AddEditLogo="Update";
 
     this.showPopup = true;
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -78,7 +78,7 @@ const initialState = {
 };
 
 
-$("#add-banner-modal").modal("show");
+// $("#add-banner-modal").modal("show");
 // this.bsModalRef = this.modalService.show(AddNewAdBannerComponent, initialState);
 // this.bsModalRef.content.closeBtnName = 'Close';
 
@@ -87,6 +87,7 @@ $("#add-banner-modal").modal("show");
 }
 
 onAddAdBanner() {
+  
   this.showPopup = true;
 
 

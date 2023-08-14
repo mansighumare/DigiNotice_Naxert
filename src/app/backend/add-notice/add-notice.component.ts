@@ -42,7 +42,7 @@ export class AddNoticeComponent implements OnInit {
     public lookupService: LookupService,
     public router: Router,
     public http: HttpClient,
-    private toastr: ToastrService) {
+    public toastr: ToastrService) {
 
 
   }
@@ -52,9 +52,8 @@ export class AddNoticeComponent implements OnInit {
   public is_add_other_details: boolean = false;
   subscription: Subscription = new Subscription();
   searchControl: FormControl = new FormControl();
+
   ngOnInit() {
-
-
     var loggedInUserString = localStorage.getItem("LoggedInUser");
     if (loggedInUserString != null) {
       $(document).ready(() => {
@@ -62,10 +61,6 @@ export class AddNoticeComponent implements OnInit {
         this._initDropZone();
         this.noticeService.initDateRangePicker();
       });
-
-
-
-
       this.subscription.add(
         this.searchControl.valueChanges.pipe(
           startWith(''),
@@ -167,7 +162,6 @@ export class AddNoticeComponent implements OnInit {
     this.addNoticeModel.villageId = 0;
     this.lookupService.talukaList = [];
     this.lookupService.villageList = [];
-
     this.lookupService.getTalukas(cityId);
   }
 

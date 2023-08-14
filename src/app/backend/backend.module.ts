@@ -93,7 +93,7 @@ import { SharedModule } from '../modules/shared.module';
 import {NgxChartsModule  } from '@swimlane/ngx-charts';
 import { AddsBannerMasterComponent } from './adds-banner-master/adds-banner-master.component';
 
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 const routes: Routes = [
   {
@@ -296,6 +296,7 @@ const routes: Routes = [
     OcrAddNoticeComponent
   ],
   imports: [
+    NgbModule,
     MatTabsModule,
     //ChartsModule,
     MatOptionModule,

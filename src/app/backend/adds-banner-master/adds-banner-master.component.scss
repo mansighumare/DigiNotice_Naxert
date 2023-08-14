@@ -41,31 +41,41 @@
     }
 }
 
-.popup{
-    position: absolute;
-    margin-left: -1200px;
-    z-index: 11;
-}
-.card{
-    background-color: #fff;
-    border: solid 2px rgba(0, 0, 0, 0.61);
-    border-radius: 2%;
-    z-index: 11;
-}
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Dimmed background color */
-    z-index: 9999; /* Ensure overlay is on top of everything else */
-  }
+// .popup{
+//     position: absolute;
+//     margin-left: -1200px;
+//     z-index: 11;
+// }
+// .card{
+//     background-color: #fff;
+//     border: solid 2px rgba(0, 0, 0, 0.61);
+//     border-radius: 2%;
+//     z-index: 11;
+// }
+// .popup-overlay {
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     background-color: rgba(0, 0, 0, 0.5); /* Dimmed background color */
+//     z-index: 9999; /* Ensure overlay is on top of everything else */
+//   }
   
-  /* Styling for the popup content */
-  .popup-content {
-    position: absolute;
-    background-color: white;
-    padding: 20px;
-    z-index: 10000; /* Ensure popup is on top of the overlay */
-  }
+//   /* Styling for the popup content */
+//   .popup-content {
+//     position: absolute;
+//     background-color: white;
+//     padding: 20px;
+//     z-index: 10000; /* Ensure popup is on top of the overlay */
+//   }
+
+.modal-header h4{
+    text-align: center;
+}
+.modal-header{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
+}

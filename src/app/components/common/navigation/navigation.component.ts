@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService, SharedModelService, AppConfig } from 'src/app/services';
 import { AccountService } from 'src/app/services/account.service';
@@ -12,7 +12,14 @@ declare var $;
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationComponent {
+  collaps :boolean=true;
 
+  @HostListener('document:click', ['$event'])
+  private updateValue() {
+    this.shared.getBoolean().subscribe((newValue) => {
+      this.collaps = newValue;
+    });
+  }
   constructor(
     public accountService: AccountService,
     private router: Router,
@@ -20,6 +27,7 @@ export class NavigationComponent {
     public sharedModelService: SharedModelService,
     private changeDetectorRef: ChangeDetectorRef,
     public appConfig: AppConfig,
+    private shared:SharedModelService
   ) { }
 
   sideMenuPersonalList: any = [];

@@ -23,21 +23,43 @@
             <div id="collapse-notification-preference" class="panel-collapse collapse in" aria-expanded="false"
               style="height: 0px;">
               <div class="panel-body">
-                <div class="row dg-checkbox-list">
+                <div class="row dg-checkbox-list" id="flex">
                   <div class="dg-checkbox-item">
-                    <input [(ngModel)]="userPreference.email.isChecked" class="dg-input-checkbox" value="1"
+                    <mat-checkbox
+                    [(ngModel)]="userPreference.email.isChecked" 
+                    class="mat-checkbox"
+                    id="email" name="email"
+                  >
+                  Email
+                  </mat-checkbox>
+                    <!-- <input [(ngModel)]="userPreference.email.isChecked" class="dg-input-checkbox" value="1"
                       type="checkbox" id="email" name="email">
-                    <label for="email">Email</label>
+                    <label for="email">Email</label> -->
                   </div>
-                  <div class="dg-checkbox-item">
-                    <input [(ngModel)]="userPreference.sms.isChecked" class="dg-input-checkbox" type="checkbox" id="sms"
+                  <div class="dg-checkbox-item" style="margin-left: 5px;">
+                    <mat-checkbox
+                    [(ngModel)]="userPreference.sms.isChecked" 
+                    class="mat-checkbox"
+                    id="sms"
+                    name="sms"
+                  >
+                  SMS
+                  </mat-checkbox>
+                    <!-- <input [(ngModel)]="userPreference.sms.isChecked" class="dg-input-checkbox" type="checkbox" id="sms"
                       name="sms">
-                    <label for="sms">SMS</label>
+                    <label for="sms">SMS</label> -->
                   </div>
-                  <div class="dg-checkbox-item">
-                    <input [(ngModel)]="userPreference.inApp.isChecked" class="dg-input-checkbox" type="checkbox"
+                  <div class="dg-checkbox-item"  style="margin-left: 5px;">
+                    <mat-checkbox
+                    [(ngModel)]="userPreference.inApp.isChecked" 
+                    class="mat-checkbox"
+                    id="InApp" name="inapp"
+                  >
+                  InApp
+                  </mat-checkbox>
+                    <!-- <input [(ngModel)]="userPreference.inApp.isChecked" class="dg-input-checkbox" type="checkbox"
                       id="InApp" name="inapp">
-                    <label for="InApp">InApp</label>
+                    <label for="InApp">InApp</label> -->
                   </div>
                 </div>
                 <div class="row button-container">

@@ -26,3 +26,9 @@ textarea{
 .portlet.light .portlet-body {
     padding-top: 0px!important;
 }
+#flex{
+    display: flex;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: rgb(27, 188, 155) !important;
+  }

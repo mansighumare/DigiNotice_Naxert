@@ -94,11 +94,34 @@
                     <input tabindex="7" [(ngModel)]="searchModel.searchString" (ngModelChange)="searchModel.searchString= $event.toUpperCase()" name="searchString" type="text"
                       class="form-control input-sm" placeholder="Please Enter Your Search Text">
                   </div>
-                  <div class="col-md-3"
-                    *ngIf="tabName =='basic-search' || tabName == 'advance-search' || tabName == 'universal-search' ">
-                    <label class="dg-lable" for="daterange">Date Range:</label>
-                    <input tabindex="8" id="txtSearchDateRange" class="form-control input-sm col-md-6" name="daterange"
-                      placeholder="Select Date Range" type="text" />
+                  
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="startDate"
+                      >Start Date:</label
+                    >
+                    <input
+                      #startdate
+                      tabindex="8"
+                      id="txtSearchStartDate"
+                      [(ngModel)]="startDate"
+                      class="form-control input-sm"
+                      name="startDate"
+                      placeholder="Select Start Date"
+                      type="date"
+                    />
+                  </div>
+
+                  <div class="col-md-3">
+                    <label class="dg-lable" for="endDate">End Date:</label>
+                    <input
+                      tabindex="9"
+                      id="txtSearchEndDate"
+                      [(ngModel)]="endDate"
+                      class="form-control input-sm"
+                      name="endDate"
+                      placeholder="Select End Date"
+                      type="date"
+                    />
                   </div>
                 </div>
                 <div class="form-group" *ngIf="tabName =='basic-search' || tabName == 'advance-search'">

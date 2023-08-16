@@ -39,6 +39,58 @@ export class AddNewAdBannerComponent implements OnInit {
 
   AddEditLogo:string="Add";
   @Input()selectedIndex: number;
+
+  ifEdit(){
+    
+    // this.AdBannerModelPopup = this.modalService.config['data'] != undefined ? this.modalService.config['data' ] : {}
+    if(this.AdBannerModelPopup == undefined){
+      this.isShowRowOrder=false;
+      }
+      if(this.AdBannerModelPopup.id!==undefined){
+       this.AddEditLogo="Update";
+       var url:string;
+        if(this.AdBannerModelPopup.imageType==1){
+        
+          this.isShowRowOrder=true;
+          // this.getMaxRowOrderByImageType(this.AdBannerModelPopup.imageType);
+          this.AdBannerModel=this.AdBannerModelPopup;
+       
+          url= this.AdBannerModel.imagePath.substr(this.AdBannerModel.imagePath.lastIndexOf("/")+1,this.AdBannerModel.imagePath.length-1);
+          this.imgURL=this.appConfig.imageAdBannerPath+url;
+          this.tabIndex=0;   
+            }else if(this.AdBannerModelPopup.imageType==2){
+                this.isShowRowOrder=true;
+                // this.getMaxRowOrderByImageType(this.AdBannerModelPopup.imageType);
+                this.AdBannerMobTopModel=this.AdBannerModelPopup;
+               
+                url= this.AdBannerMobTopModel.imagePath.substr(this.AdBannerMobTopModel.imagePath.lastIndexOf("/")+1,this.AdBannerMobTopModel.imagePath.length-1);
+                this.imgURLMobTop=this.appConfig.imageAdBannerPath+url;
+                this.tabIndex=1;
+              }
+              else if(this.AdBannerModelPopup.imageType==3){
+                this.isShowRowOrder=true;
+                //  this.getMaxRowOrderByImageType(this.AdBannerModelPopup.imageType);
+                this.AdBannerMobNtcModel=this.AdBannerModelPopup;
+               
+                url= this.AdBannerMobNtcModel.imagePath.substr(this.AdBannerMobNtcModel.imagePath.lastIndexOf("/")+1,this.AdBannerMobNtcModel.imagePath.length-1);
+                this.imgURLMobNtc=this.appConfig.imageAdBannerPath+url;
+                this.tabIndex=2;             
+              }
+              else if(this.AdBannerModelPopup.imageType==4){
+  
+                this.isShowRowOrder=true;
+              //  this.getMaxRowOrderByImageType(this.AdBannerModelPopup.imageType);
+                this.AdBannerWebNtcModel=this.AdBannerModelPopup;
+               
+                url= this.AdBannerWebNtcModel.imagePath.substr(this.AdBannerWebNtcModel.imagePath.lastIndexOf("/")+1,this.AdBannerWebNtcModel.imagePath.length-1);
+                this.imgURLWebNtc=this.appConfig.imageAdBannerPath+this.AdBannerMobNtcModel.imagePath;
+                this.tabIndex=3;   
+              }            
+              else{
+                this.tabIndex=0;             
+              }
+      }
+  }
   tabIndex:number=0;
   tabIsActive:number=10;
   constructor(public adBannerService: AdBannerService,   
@@ -48,60 +100,14 @@ export class AddNewAdBannerComponent implements OnInit {
     public appConfig: AppConfig,
     private shared:SharedServiceService
   ) {
-    // this.AdBannerModelPopup = this.modalService.config['data'] != undefined ? this.modalService.config['data' ] : {}
-    if(this.AdBannerModelPopup == undefined){
-    this.isShowRowOrder=false;
-    }
-    if(this.AdBannerModelPopup.id!==undefined){
-     this.AddEditLogo="Update";
-     var url:string;
-      if(this.AdBannerModelPopup.imageType==1){
-      
-        this.isShowRowOrder=true;
-        // this.getMaxRowOrderByImageType(this.AdBannerModelPopup.imageType);
-        this.AdBannerModel=this.AdBannerModelPopup;
-     
-        url= this.AdBannerModel.imagePath.substr(this.AdBannerModel.imagePath.lastIndexOf("/")+1,this.AdBannerModel.imagePath.length-1);
-        this.imgURL=this.appConfig.imageAdBannerPath+url;
-        this.tabIndex=0;   
-          }else if(this.AdBannerModelPopup.imageType==2){
-              this.isShowRowOrder=true;
-              // this.getMaxRowOrderByImageType(this.AdBannerModelPopup.imageType);
-              this.AdBannerMobTopModel=this.AdBannerModelPopup;
-             
-              url= this.AdBannerMobTopModel.imagePath.substr(this.AdBannerMobTopModel.imagePath.lastIndexOf("/")+1,this.AdBannerMobTopModel.imagePath.length-1);
-              this.imgURLMobTop=this.appConfig.imageAdBannerPath+url;
-              this.tabIndex=1;
-            }
-            else if(this.AdBannerModelPopup.imageType==3){
-              this.isShowRowOrder=true;
-              //  this.getMaxRowOrderByImageType(this.AdBannerModelPopup.imageType);
-              this.AdBannerMobNtcModel=this.AdBannerModelPopup;
-             
-              url= this.AdBannerMobNtcModel.imagePath.substr(this.AdBannerMobNtcModel.imagePath.lastIndexOf("/")+1,this.AdBannerMobNtcModel.imagePath.length-1);
-              this.imgURLMobNtc=this.appConfig.imageAdBannerPath+url;
-              this.tabIndex=2;             
-            }
-            else if(this.AdBannerModelPopup.imageType==4){
-
-              this.isShowRowOrder=true;
-            //  this.getMaxRowOrderByImageType(this.AdBannerModelPopup.imageType);
-              this.AdBannerWebNtcModel=this.AdBannerModelPopup;
-             
-              url= this.AdBannerWebNtcModel.imagePath.substr(this.AdBannerWebNtcModel.imagePath.lastIndexOf("/")+1,this.AdBannerWebNtcModel.imagePath.length-1);
-              this.imgURLWebNtc=this.appConfig.imageAdBannerPath+this.AdBannerMobNtcModel.imagePath;
-              this.tabIndex=3;   
-            }            
-            else{
-              this.tabIndex=0;             
-            }
-    }
    }
 
   ngOnInit() {    
     this.editAdBannerModel=this.shared.editAdBannerModel;
     this.AdBannerModel=this.shared.editAdBannerModel;
-    console.log(this.shared.editAdBannerModel);
+    this.AdBannerModelPopup=this.shared.editAdBannerModel;
+    // console.log(this.shared.editAdBannerModel);
+    this.ifEdit();
   }
 
   matTabSelect(event){

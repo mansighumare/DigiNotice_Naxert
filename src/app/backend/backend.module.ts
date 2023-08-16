@@ -41,6 +41,7 @@ import { PropertyCardComponent } from './property-card/property-card.component';
 import { SettingsComponent } from '../components/settings/settings.component';
 import { HelpFeedbackComponent } from '../components/help-feedback/help-feedback.component';
 import { ContactUsComponent } from '../components/contact-us/contact-us.component';
+
 import { MyProfileComponent } from '../components/my-profile/my-profile.component';
 import { BookmarkComponent } from '../components/bookmark/bookmark.component';
 //import { MatchedNoticeComponent } from '../components/matched-notice/matched-notice.component';
@@ -95,6 +96,7 @@ import { AddsBannerMasterComponent } from './adds-banner-master/adds-banner-mast
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgChartsModule } from 'ng2-charts';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
+import { ChoosefileComponent } from '../choosefile/choosefile.component';
 const routes: Routes = [
   {
     path: '',
@@ -293,7 +295,8 @@ const routes: Routes = [
     AcknowledgeNotificationComponent, 
     AcknowledgedReportComponent, 
     AssetsReportComponent, 
-    OcrAddNoticeComponent
+    OcrAddNoticeComponent, ChoosefileComponent,
+
   ],
   imports: [
     NgbPopoverModule,

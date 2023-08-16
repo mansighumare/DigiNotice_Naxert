@@ -40,7 +40,7 @@
                       <input tabindex="1" name="imageUrl" [(ngModel)]="AdBannerModel.adUrl" type="text" class="form-control input-sm"
                         placeholder="Image Url">
                     </div>
-                  </div>  
+                    </div>  
                          
                   <div class="col-md-12">
                     <div class="col-md-6">
@@ -53,14 +53,14 @@
                               </div>
                               <div class="upload-options">
                                 <label>                                  
-                                    <input #fileweb type="file" accept='image/*' (change)="previewWeb(fileweb.files)" />
+                                    <input #fileweb type="file" accept='image/*' (change)="previewWeb(fileweb.files)" [(ngModel)]="AdBannerModel.imagePath" />
                                 </label>
-                               
+                      
                               </div>
                             </div>
                           </div>
                         </div>
-  
+                       
   
                     </div>
                   </div>

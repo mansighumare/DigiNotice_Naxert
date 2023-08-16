@@ -20,6 +20,7 @@
 </h3> -->
 <!-- END PAGE TITLE-->
 <!-- END PAGE HEADER-->
+
 <div class="row">
   <div class="col-md-12">
     <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -27,11 +28,13 @@
       <div class="portlet-title">
         <div class="caption font-dark float-l">
           <i class="icon-settings font-dark"></i>
-          <span class="caption-subject bold uppercase"> Ads/Banner Master </span>
-
+          <span class="caption-subject bold uppercase">
+            Ads/Banner Master
+          </span>
         </div>
+        
         <div class="actions">
-          <div class="btn-group btn-group-devided" data-toggle="buttons">
+          <div class="btn-group btn-group-devided">
             <!-- <span>
                     <i class="fa fa-angle-down blue-hoki btn-circle " type="button" 
                      style="font-size:36px"></i>   
@@ -47,8 +50,14 @@
                 <app-add-new-ad-banner> </app-add-new-ad-banner>
               </div>
             </div> -->
-            <input type="button" (click)="onAddAdBanner()" value="Add New +"
-            class="btn blue-hoki btn-outline sbold uppercase btn-circle btn-sm" data-toggle="modal" data-target="#exampleModalCenter" />
+            <input
+              type="button"
+              (click)="onAddAdBanner()"
+              value="Add New +"
+              class="btn blue-hoki btn-outline sbold uppercase btn-circle btn-sm"
+              data-toggle="modal"
+              data-target="#exampleModalCenter"
+            />
             <!-- <div *ngIf="showPopup" class="popup">
               <div class="popup-overlay"></div>
               <div class="card popup-content">
@@ -57,19 +66,33 @@
               </div>
             </div> -->
 
-
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="showPopup">
+            <div
+              class="modal fade"
+              id="exampleModalCenter"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="exampleModalCenterTitle"
+              aria-hidden="true"
+              *ngIf="showPopup"
+            > 
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h4 class="modal-title modal-title-c">{{AddEditLogo}}  Advertisement Banner</h4>
-                
+                    <h4 class="modal-title modal-title-c">
+                      {{ AddEditLogo }} Advertisement Banner
+                    </h4>
                   </div>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClosePopup()">X
-                      
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                    (click)="onClosePopup()"
+                  >
+                    X
                   </button>
                   <div class="modal-body">
-                    <div  class="popup">
+                    <div class="popup">
                       <div class="popup-overlay"></div>
                       <div class="card popup-content">
                         <app-add-new-ad-banner></app-add-new-ad-banner>
@@ -77,64 +100,147 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClosePopup()" >Close</button>
-                    
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                      (click)="onClosePopup()"
+                    >
+                      Close
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
       <div class="portlet-body">
         <div id="sample_1_wrapper" class="dataTables_wrapper no-footer">
-          <div class="row">
-          </div>
+          <div class="row"></div>
           <div class="table-scrollable">
             <table
               class="table table-striped table-bordered table-hover table-checkable order-column dataTable no-footer"
-              id="sample_1" role="grid" aria-describedby="sample_1_info">
+              id="sample_1"
+              role="grid"
+              aria-describedby="sample_1_info"
+            >
               <thead>
                 <tr role="row">
-                  <th class="sorting_asc" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                    aria-sort="ascending" aria-label=" Username : activate to sort column descending"
-                    style="width: 100px;"> Username </th>
-                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                    aria-label=" Email : activate to sort column ascending" style="width: 100px;"> Ad Banner Url </th>
-                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                    aria-label=" Points : activate to sort column ascending" style="width: 100px;"> Date </th>
-                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                    aria-label=" Joined : activate to sort column ascending" style="width: 100px;"> AdBanner Type </th>
-                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                    aria-label=" Status : activate to sort column ascending" style="width: 148px;"> Order </th>
-                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                    aria-label=" Status : activate to sort column ascending" style="width: 148px;"> Image </th>
-                  <th class="sorting" tabindex="0" aria-controls="sample_1" rowspan="1" colspan="1"
-                    aria-label=" Status : activate to sort column ascending" style="width: 148px;"> Action </th>
+                  <th
+                    class="sorting_asc"
+                    tabindex="0"
+                    aria-controls="sample_1"
+                    rowspan="1"
+                    colspan="1"
+                    aria-sort="ascending"
+                    aria-label=" Username : activate to sort column descending"
+                    style="width: 100px"
+                  >
+                    Username
+                  </th>
+                  <th
+                    class="sorting"
+                    tabindex="0"
+                    aria-controls="sample_1"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label=" Email : activate to sort column ascending"
+                    style="width: 100px"
+                  >
+                    Ad Banner Url
+                  </th>
+                  <th
+                    class="sorting"
+                    tabindex="0"
+                    aria-controls="sample_1"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label=" Points : activate to sort column ascending"
+                    style="width: 100px"
+                  >
+                    Date
+                  </th>
+                  <th
+                    class="sorting"
+                    tabindex="0"
+                    aria-controls="sample_1"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label=" Joined : activate to sort column ascending"
+                    style="width: 100px"
+                  >
+                    AdBanner Type
+                  </th>
+                  <th
+                    class="sorting"
+                    tabindex="0"
+                    aria-controls="sample_1"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label=" Status : activate to sort column ascending"
+                    style="width: 148px"
+                  >
+                    Order
+                  </th>
+                  <th
+                    class="sorting"
+                    tabindex="0"
+                    aria-controls="sample_1"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label=" Status : activate to sort column ascending"
+                    style="width: 148px"
+                  >
+                    Image
+                  </th>
+                  <th
+                    class="sorting"
+                    tabindex="0"
+                    aria-controls="sample_1"
+                    rowspan="1"
+                    colspan="1"
+                    aria-label=" Status : activate to sort column ascending"
+                    style="width: 148px"
+                  >
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let adBanner of adBannerList; let index = index;">
+                <tr *ngFor="let adBanner of adBannerList; let index = index">
                   <!-- adBannerList -->
-                  <td>{{adBanner.userName}}</td>
-                  <td>{{adBanner.adUrl}}</td>
-                  <td>{{adBanner.createdDate | date: 'dd-MMM-yyyy'}}</td>
-                  <td *ngIf="adBanner.imageType==1">WebSite</td>
-                  <td *ngIf="adBanner.imageType==2">Mobile Top</td>
-                  <td *ngIf="adBanner.imageType==3">Mobile Notice</td>
-                  <td *ngIf="adBanner.imageType==4">Web Notice</td>
+                  <td>{{ adBanner.userName }}</td>
+                  <td>{{ adBanner.adUrl }}</td>
+                  <td>{{ adBanner.createdDate | date : "dd-MMM-yyyy" }}</td>
+                  <td *ngIf="adBanner.imageType == 1">WebSite</td>
+                  <td *ngIf="adBanner.imageType == 2">Mobile Top</td>
+                  <td *ngIf="adBanner.imageType == 3">Mobile Notice</td>
+                  <td *ngIf="adBanner.imageType == 4">Web Notice</td>
                   <!-- <td>{{appConfig.imageAdBannerPath}}{{adBanner.imagePath}}</td>-->
-                  <td>{{adBanner.rowOrder}}</td>
+                  <td>{{ adBanner.rowOrder }}</td>
                   <td>
-                    <img height="150" width="100" alt="" [src]="adBanner.imagePath">
+                    <img
+                      height="150"
+                      width="100"
+                      alt=""
+                      [src]="adBanner.imagePath"
+                    />
                   </td>
-                  <td><i class="fa fa-edit" (click)="OnEditAdBanner(adBanner)"
-                      style="font-size:20px;color:#1BBC9B;padding: 5px;" data-toggle="modal" data-target="#exampleModalCenter"></i>
+                  <td>
+                    <i
+                      class="fa fa-edit"
+                      (click)="OnEditAdBanner(adBanner)"
+                      style="font-size: 20px; color: #1bbc9b; padding: 5px"
+                      data-toggle="modal"
+                      data-target="#exampleModalCenter"
+                    ></i>
 
-                    <i class="fa fa-close" (click)="onDeleteAdBanner(adBanner)"
-                      style="font-size:20px;color:red;padding: 5px;"></i>
+                    <i
+                      class="fa fa-close"
+                      (click)="onDeleteAdBanner(adBanner)"
+                      style="font-size: 20px; color: red; padding: 5px"
+                    ></i>
                   </td>
                 </tr>
               </tbody>
@@ -145,7 +251,4 @@
     </div>
     <!-- END EXAMPLE TABLE PORTLET-->
   </div>
-
-
-
 </div>

@@ -89,6 +89,7 @@ const initialState = {
 onAddAdBanner() {
   
   this.showPopup = true;
+  this.AddEditLogo="Add";
 
 
   this.shared.editAdBannerModel=new AddAdBannerWebModel();

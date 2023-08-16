@@ -48,23 +48,37 @@ export class DashboardComponent implements OnInit {
     responsive: true,
     responsiveAnimationDuration: 0,
     maintainAspectRatio: true ,
+    // scales: {
+    //   x: [{
+    //     gridLines: {
+    //       drawOnChartArea: false,
+    //     },
+    //     ticks: {
+    //       callback: function (value: any) {
+    //         return value.substring(6, 10).replace("-", "/");
+    //       }
+    //     }
+    //   }],
+    //   y: [{
+    //     ticks: {
+    //       beginAtZero: true,
+    //       maxTicksLimit: 5,
+    //     }
+    //   }]
+    // },
     scales: {
-      xAxes: [{
-        gridLines: {
-          drawOnChartArea: false,
-        },
-        ticks: {
-          callback: function (value: any) {
-            return value.substring(6, 10).replace("-", "/");
-          }
+      x: {
+        display: true, // Display x-axis
+        grid: {
+          display: false // Hide x-axis grid lines
         }
-      }],
-      yAxes: [{
+      },
+      y: {
+        display: true, // Display y-axis
         ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
+          maxTicksLimit: 5 // Set maximum number of y-axis tick marks
         }
-      }]
+      }
     },
     elements: {
       line: {

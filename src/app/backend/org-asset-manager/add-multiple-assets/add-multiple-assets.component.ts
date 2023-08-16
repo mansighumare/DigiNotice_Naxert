@@ -63,7 +63,7 @@ export class AddMultipleAssetsComponent implements OnInit {
         initial[name] = XLSX.utils.sheet_to_json(sheet);
         return initial;
       }, {});
-      console.table(this.jsonData);
+    //  console.table(this.jsonData);
 
     }
     reader.readAsBinaryString(this.file);

@@ -7,6 +7,8 @@ import { OrganisationService } from 'src/app/services/organisation.service';
 import { MasterDataService } from 'src/app/services';
 import { ExcelService } from 'src/app/services/excel.service';
 // import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
+
+
 declare var $;
 @Component({
   selector: 'app-dashboard',
@@ -82,7 +84,7 @@ export class DashboardComponent implements OnInit {
     },
     elements: {
       line: {
-        borderWidth: 2,
+        borderWidth: 1,
         hoverBackgroundColor: 'rgb(0, 165, 224)', 
         hoverBorderColor: 'rgb(0, 165, 224)' 
       },
@@ -690,7 +692,7 @@ export class DashboardComponent implements OnInit {
             lineTension: 0.5,
             backgroundColor: 'rgba(0, 165, 224, 0.1)',
             borderColor: 'rgb(0, 165, 224)',
-            borderWidth: 2, 
+            borderWidth: 1, 
             pointBackgroundColor: 'rgb(0, 165, 224)' ,
            
           }
@@ -719,7 +721,7 @@ export class DashboardComponent implements OnInit {
             stack: 'Stack 0',
             backgroundColor: 'rgb(0, 165, 224)',
             borderColor: 'rgb(0, 165, 224)',
-            borderWidth: 2, 
+            borderWidth: 0, 
             pointBackgroundColor: 'rgb(0, 165, 224)' ,
           }
         ];

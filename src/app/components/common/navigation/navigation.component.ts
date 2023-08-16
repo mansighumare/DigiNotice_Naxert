@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, HostListener } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService, SharedModelService, AppConfig } from 'src/app/services';
 import { AccountService } from 'src/app/services/account.service';
@@ -13,11 +13,20 @@ declare var $;
 })
 export class NavigationComponent {
   collaps :boolean=true;
-
+  @ViewChild('myDivElement', { static: true }) myDivElementRef!: ElementRef;
   @HostListener('document:click', ['$event'])
   private updateValue() {
     this.shared.getBoolean().subscribe((newValue) => {
       this.collaps = newValue;
+    
+      const myDiv = this.myDivElementRef.nativeElement as HTMLDivElement;
+      if(!this.collaps){
+        myDiv.style.width = 'auto'
+      }else{
+        myDiv.style.width = '';
+        myDiv.style.width = '210px';
+        
+      }
     });
   }
   constructor(

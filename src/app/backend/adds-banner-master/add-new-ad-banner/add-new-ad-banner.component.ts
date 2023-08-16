@@ -99,13 +99,9 @@ export class AddNewAdBannerComponent implements OnInit {
    }
 
   ngOnInit() {    
-
     this.editAdBannerModel=this.shared.editAdBannerModel;
     this.AdBannerModel=this.shared.editAdBannerModel;
-
-
-    console.log(this.shared.editAdBannerModel)
-
+    console.log(this.shared.editAdBannerModel);
   }
 
   matTabSelect(event){
@@ -163,16 +159,13 @@ export class AddNewAdBannerComponent implements OnInit {
   }
   
   previewMolieNtc(files){
-    
     if (files.length === 0)
     return;
-
   var mimeType = files[0].type;
   if (mimeType.match(/image\/*/) == null) {
     this.message = "Only images are supported.";
     return;
   }
-
   var reader = new FileReader();
   this.imagePathMobNtc = files;
   reader.readAsDataURL(files[0]); 

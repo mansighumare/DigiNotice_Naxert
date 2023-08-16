@@ -94,6 +94,7 @@ import { AddsBannerMasterComponent } from './adds-banner-master/adds-banner-mast
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgChartsModule } from 'ng2-charts';
+import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
 const routes: Routes = [
   {
     path: '',
@@ -295,6 +296,7 @@ const routes: Routes = [
     OcrAddNoticeComponent
   ],
   imports: [
+    NgbPopoverModule,
     NgbModule,
     MatTabsModule,
     NgChartsModule,
@@ -344,10 +346,10 @@ const routes: Routes = [
   ],
   providers: [
     //PaginationConfig
-  ]//,
-  //exports:[AddNewAdBannerComponent]
+  ],
+  exports:[AddNewAdBannerComponent]
   ,entryComponents:[
-    //AddNewAdBannerComponent,
+    AddNewAdBannerComponent,
     ConfirmationDialogComponent]
 
 })

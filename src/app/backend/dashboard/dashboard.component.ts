@@ -6,7 +6,7 @@ import { AccountService } from 'src/app/services/account.service';
 import { OrganisationService } from 'src/app/services/organisation.service';
 import { MasterDataService } from 'src/app/services';
 import { ExcelService } from 'src/app/services/excel.service';
-
+// import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 declare var $;
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +14,7 @@ declare var $;
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
   page = 1;
   pageSize = 25;
   tbldataLength: number;
@@ -27,12 +28,7 @@ export class DashboardComponent implements OnInit {
   mainChartData2: Array<number> = [];
   mainChartData3: Array<number> = [];
 
-  mainChartData: Array<any> = [
-    {
-      data: this.mainChartData1,
-      label: 'Notices'
-    }
-  ];
+  mainChartData: Array<any> = [];
 
   mainChartLabels: Array<any> = [];
 
@@ -51,7 +47,7 @@ export class DashboardComponent implements OnInit {
     },
     responsive: true,
     responsiveAnimationDuration: 0,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true ,
     scales: {
       xAxes: [{
         gridLines: {
@@ -72,13 +68,17 @@ export class DashboardComponent implements OnInit {
     },
     elements: {
       line: {
-        borderWidth: 2
+        borderWidth: 2,
+        hoverBackgroundColor: 'rgb(0, 165, 224)', 
+        hoverBorderColor: 'rgb(0, 165, 224)' 
       },
       point: {
         radius: 0,
         hitRadius: 10,
         hoverRadius: 4,
         hoverBorderWidth: 3,
+        hoverBackgroundColor: 'rgb(0, 165, 224)', 
+        hoverBorderColor: 'rgb(0, 165, 224)' 
       }
     },
     legend: {
@@ -125,7 +125,7 @@ export class DashboardComponent implements OnInit {
     },
     responsive: true,
     responsiveAnimationDuration: 0,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     scales: {
       x: {
         stacked: true,
@@ -141,6 +141,13 @@ export class DashboardComponent implements OnInit {
     legend: {
       display: false,
       position: 'bottom'
+    }
+    ,
+    datasets: {
+      bar: {
+        hoverBackgroundColor: 'rgb(0, 165, 224)' ,// Set hover background color to blue
+        hoverBorderColor: 'transparent'
+      }
     }
   };
 
@@ -307,6 +314,8 @@ export class DashboardComponent implements OnInit {
 
       this.router.navigate(["./login"]);
     }
+
+    console.log()
   }
 
   isShowLoader: boolean = false;
@@ -447,6 +456,22 @@ export class DashboardComponent implements OnInit {
   //       this.isShowLoader = false;
   //     });
   // }
+ 
+  public lineChartOptions: any = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: false // Hide the top label
+      }
+    }
+  };
+  public lineChartLegend = true;
+  public lineChartData: any[] = [
+    { data: [this.mainChartData], label: 'Notices' },
+
+  ];
+
+
 
 
 
@@ -637,12 +662,23 @@ export class DashboardComponent implements OnInit {
 
         reportdata.forEach(element => {
           this.mainChartData1.push(element.notices);
-          this.mainChartLabels.push(element.day);
+          const date = new Date(element.day);
+          const month = date.getMonth() + 1; 
+          const day = date.getDate();
+          const formattedDate = `${month}/${day}`;
+          this.mainChartLabels.push(formattedDate);
         });
         this.mainChartData = [
           {
             data: this.mainChartData1,
-            label: 'Notices'
+            label: 'Notices',
+            fill: true,
+            lineTension: 0.5,
+            backgroundColor: 'rgba(0, 165, 224, 0.1)',
+            borderColor: 'rgb(0, 165, 224)',
+            borderWidth: 2, 
+            pointBackgroundColor: 'rgb(0, 165, 224)' ,
+           
           }
         ];
         this.isShowLoader = false;
@@ -666,7 +702,11 @@ export class DashboardComponent implements OnInit {
           {
             data: this.mainChartDataEMP1,
             // label: 'High',
-            stack: 'Stack 0'
+            stack: 'Stack 0',
+            backgroundColor: 'rgb(0, 165, 224)',
+            borderColor: 'rgb(0, 165, 224)',
+            borderWidth: 2, 
+            pointBackgroundColor: 'rgb(0, 165, 224)' ,
           }
         ];
         this.isShowLoader = false;

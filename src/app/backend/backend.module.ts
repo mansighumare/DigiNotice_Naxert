@@ -54,7 +54,7 @@ import { OrgMatchedNoticeComponent } from './org-matched-notice/org-matched-noti
 import { DeletedAssetsComponent } from './deleted-assets/deleted-assets.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { OrganisationNoticesComponent } from './organisation-notices/organisation-notices.component';
-//import { ChartsModule } from 'ng2-charts/charts/charts';
+
 import { AcknowledgeNotificationComponent } from './acknowledge-notification/acknowledge-notification.component';
 import { AcknowledgedReportComponent } from './acknowledged-report/acknowledged-report.component';
 import { AssetsReportComponent } from './assets-report/assets-report.component';
@@ -90,11 +90,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SharedModule } from '../modules/shared.module';
 
-import {NgxChartsModule  } from '@swimlane/ngx-charts';
 import { AddsBannerMasterComponent } from './adds-banner-master/adds-banner-master.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { NgChartsModule } from 'ng2-charts';
 const routes: Routes = [
   {
     path: '',
@@ -298,7 +297,7 @@ const routes: Routes = [
   imports: [
     NgbModule,
     MatTabsModule,
-    //ChartsModule,
+    NgChartsModule,
     MatOptionModule,
     MatSelectModule,
     CommonModule,
@@ -341,7 +340,7 @@ const routes: Routes = [
     MatStepperModule,
     MatTableModule,    
     MatTreeModule    ,
-    NgxChartsModule,
+
   ],
   providers: [
     //PaginationConfig

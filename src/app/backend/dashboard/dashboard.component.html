@@ -8,21 +8,30 @@
       </div>
       <div class="details">
         <div class="number">
-          <span data-counter="counterup">{{dashboardInfo.totalUser}}</span>
+          <span data-counter="counterup">{{ dashboardInfo.totalUser }}</span>
         </div>
-        <div class="desc"> Total Users </div>
-        <button style="border:none;" class="bg-white ai-box" (click)="ActiveUsers(true)">Active
-          {{dashboardInfo.activeUser}}</button>&nbsp; &nbsp;
-        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box" (click)="ActiveUsers(false)">Inactive
-          {{dashboardInfo.inactiveUser}}</button>
+        <div class="desc">Total Users</div>
+        <button
+          style="border: none"
+          class="bg-white ai-box"
+          (click)="ActiveUsers(true)"
+        >
+          Active {{ dashboardInfo.activeUser }}</button
+        >&nbsp; &nbsp;
+        <button
+          style="border: none"
+          class="bg-red-haze bg-font-red-haze ai-box"
+          (click)="ActiveUsers(false)"
+        >
+          Inactive {{ dashboardInfo.inactiveUser }}
+        </button>
       </div>
-      <a class="more" href="javascript:;" (click)="ActiveUsers(true)"> View more
+      <a class="more" href="javascript:;" (click)="ActiveUsers(true)">
+        View more
         <i class="m-icon-swapright m-icon-white"></i>
       </a>
     </div>
   </div>
-
-
 
   <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
     <div class="dashboard-stat red">
@@ -31,20 +40,29 @@
       </div>
       <div class="details">
         <div class="number">
-          <span data-counter="counterup">{{dashboardInfo.totalCategory}}</span>
+          <span data-counter="counterup">{{
+            dashboardInfo.totalCategory
+          }}</span>
         </div>
-        <div class="desc"> Total Category </div>
+        <div class="desc">Total Category</div>
 
-
-        <button style="border:none;" class="bg-white ai-box" (click)="ActiveCategory(true)">Active
-          {{dashboardInfo.activeCategory}}</button>&nbsp; &nbsp;
-        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box"
-          (click)="ActiveCategory(false)">Inactive
-          {{dashboardInfo.inActiveCategory}}</button>
-
-
+        <button
+          style="border: none"
+          class="bg-white ai-box"
+          (click)="ActiveCategory(true)"
+        >
+          Active {{ dashboardInfo.activeCategory }}</button
+        >&nbsp; &nbsp;
+        <button
+          style="border: none"
+          class="bg-red-haze bg-font-red-haze ai-box"
+          (click)="ActiveCategory(false)"
+        >
+          Inactive {{ dashboardInfo.inActiveCategory }}
+        </button>
       </div>
-      <a class="more" href="javascript:;" (click)="ActiveCategory(true)"> View more
+      <a class="more" href="javascript:;" (click)="ActiveCategory(true)">
+        View more
         <i class="m-icon-swapright m-icon-white"></i>
       </a>
     </div>
@@ -56,15 +74,26 @@
       </div>
       <div class="details">
         <div class="number">
-          <span data-counter="counterup">{{dashboardInfo.totalPaper}}</span>
+          <span data-counter="counterup">{{ dashboardInfo.totalPaper }}</span>
         </div>
-        <div class="desc"> Total News Paper </div>
-        <button style="border:none;margin-left:7px;" class="bg-white ai-box" (click)="ActivePaper(true)">Active
-          {{dashboardInfo.activePaper}}</button>&nbsp; &nbsp;
-        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box" (click)="ActivePaper(false)">Inactive
-          {{dashboardInfo.inActivePaper}}</button>
+        <div class="desc">Total News Paper</div>
+        <button
+          style="border: none; margin-left: 7px"
+          class="bg-white ai-box"
+          (click)="ActivePaper(true)"
+        >
+          Active {{ dashboardInfo.activePaper }}</button
+        >&nbsp; &nbsp;
+        <button
+          style="border: none"
+          class="bg-red-haze bg-font-red-haze ai-box"
+          (click)="ActivePaper(false)"
+        >
+          Inactive {{ dashboardInfo.inActivePaper }}
+        </button>
       </div>
-      <a class="more" href="javascript:;" (click)="ActivePaper(true)"> View more
+      <a class="more" href="javascript:;" (click)="ActivePaper(true)">
+        View more
         <i class="m-icon-swapright m-icon-white"></i>
       </a>
     </div>
@@ -76,13 +105,21 @@
       </div>
       <div class="details">
         <div class="number">
-          <span data-counter="counterup">{{dashboardInfo.totalProperty}}</span>
+          <span data-counter="counterup">{{
+            dashboardInfo.totalProperty
+          }}</span>
         </div>
-        <div class="desc"> Total Users Plots </div>
-        <span class="bg-white ai-box">Active {{dashboardInfo.activeProperty}}</span> &nbsp; &nbsp;
-        <span class="bg-red-haze bg-font-red-haze ai-box">Inactive {{dashboardInfo.inActiveProperty}}</span>
+        <div class="desc">Total Users Plots</div>
+        <span class="bg-white ai-box"
+          >Active {{ dashboardInfo.activeProperty }}</span
+        >
+        &nbsp; &nbsp;
+        <span class="bg-red-haze bg-font-red-haze ai-box"
+          >Inactive {{ dashboardInfo.inActiveProperty }}</span
+        >
       </div>
-      <a class="more" href="javascript:;"> View more
+      <a class="more" href="javascript:;">
+        View more
         <i class="m-icon-swapright m-icon-white"></i>
       </a>
     </div>
@@ -94,15 +131,28 @@
       </div>
       <div class="details">
         <div class="number">
-          <span data-counter="counterup">{{dashboardInfo.totalAdBanner}}</span>
+          <span data-counter="counterup">{{
+            dashboardInfo.totalAdBanner
+          }}</span>
         </div>
-        <div class="desc"> Total Ads Banner</div>
-        <button style="border:none;margin-left:7px;" class="bg-white ai-box" (click)="viewAdsBanner()">Active
-          {{dashboardInfo.activeAdBanner}}</button>&nbsp; &nbsp;
-        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box" (click)="viewAdsBanner()">Inactive
-          {{dashboardInfo.inActiveAdBanner}}</button>
+        <div class="desc">Total Ads Banner</div>
+        <button
+          style="border: none; margin-left: 7px"
+          class="bg-white ai-box"
+          (click)="viewAdsBanner()"
+        >
+          Active {{ dashboardInfo.activeAdBanner }}</button
+        >&nbsp; &nbsp;
+        <button
+          style="border: none"
+          class="bg-red-haze bg-font-red-haze ai-box"
+          (click)="viewAdsBanner()"
+        >
+          Inactive {{ dashboardInfo.inActiveAdBanner }}
+        </button>
       </div>
-      <a class="more" (click)="viewAdsBanner()"> View more
+      <a class="more" (click)="viewAdsBanner()">
+        View more
         <i class="m-icon-swapright m-icon-white"></i>
       </a>
     </div>
@@ -115,21 +165,30 @@
       </div>
       <div class="details">
         <div class="number">
-          <span data-counter="counterup">{{dashboardInfo.totalNotice}}</span>
+          <span data-counter="counterup">{{ dashboardInfo.totalNotice }}</span>
         </div>
-        <div class="desc"> Total Notices </div>
-        <button style="border:none;" class="bg-white ai-box" (click)="viewNotice()">Active
-          {{dashboardInfo.activeNotice}}</button>&nbsp; &nbsp;
-        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box" (click)="viewNotice()">Inactive
-          {{dashboardInfo.inActiveNotice}}</button>
+        <div class="desc">Total Notices</div>
+        <button
+          style="border: none"
+          class="bg-white ai-box"
+          (click)="viewNotice()"
+        >
+          Active {{ dashboardInfo.activeNotice }}</button
+        >&nbsp; &nbsp;
+        <button
+          style="border: none"
+          class="bg-red-haze bg-font-red-haze ai-box"
+          (click)="viewNotice()"
+        >
+          Inactive {{ dashboardInfo.inActiveNotice }}
+        </button>
       </div>
-      <a class="more" (click)="viewNotice()"> View more
+      <a class="more" (click)="viewNotice()">
+        View more
         <i class="m-icon-swapright m-icon-white"></i>
       </a>
     </div>
   </div>
-
-
 
   <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
     <div class="dashboard-stat red gradient">
@@ -138,16 +197,28 @@
       </div>
       <div class="details">
         <div class="number">
-          <span data-counter="counterup">{{dashboardInfo.totalOrganisations}}</span>
+          <span data-counter="counterup">{{
+            dashboardInfo.totalOrganisations
+          }}</span>
         </div>
-        <div class="desc"> Total Organizations </div>
-        <button style="border:none;margin-left:40px;" class="bg-white ai-box" (click)="ActiveOrganistion(true)">Active
-          {{dashboardInfo.activeOrganisations}}</button>&nbsp; &nbsp;
-        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box"
-          (click)="ActiveOrganistion(false)">Inactive
-          {{dashboardInfo.inActiveOrganisations}}</button>
+        <div class="desc">Total Organizations</div>
+        <button
+          style="border: none; margin-left: 40px"
+          class="bg-white ai-box"
+          (click)="ActiveOrganistion(true)"
+        >
+          Active {{ dashboardInfo.activeOrganisations }}</button
+        >&nbsp; &nbsp;
+        <button
+          style="border: none"
+          class="bg-red-haze bg-font-red-haze ai-box"
+          (click)="ActiveOrganistion(false)"
+        >
+          Inactive {{ dashboardInfo.inActiveOrganisations }}
+        </button>
       </div>
-      <a class="more" (click)=ActiveOrganistion(true)> View more
+      <a class="more" (click)="ActiveOrganistion(true)">
+        View more
         <i class="m-icon-swapright m-icon-white"></i>
       </a>
     </div>
@@ -160,46 +231,61 @@
       </div>
       <div class="details">
         <div class="number">
-          <span data-counter="counterup">{{dashboardInfo.totalOrgUser}}</span>
+          <span data-counter="counterup">{{ dashboardInfo.totalOrgUser }}</span>
         </div>
-        <div class="desc"> Total Organization Users</div>
-        <button style="border:none; margin-left:59px;" class="bg-white ai-box" (click)="ActiveOrgUsers(true)">Active
-          {{dashboardInfo.activeOrgUser}}</button>&nbsp; &nbsp;
-        <button style="border:none;" class="bg-red-haze bg-font-red-haze ai-box"
-          (click)="ActiveOrgUsers(false)">Inactive
-          {{dashboardInfo.inactiveOrgUser}}</button>
+        <div class="desc">Total Organization Users</div>
+        <button
+          style="border: none; margin-left: 59px"
+          class="bg-white ai-box"
+          (click)="ActiveOrgUsers(true)"
+        >
+          Active {{ dashboardInfo.activeOrgUser }}</button
+        >&nbsp; &nbsp;
+        <button
+          style="border: none"
+          class="bg-red-haze bg-font-red-haze ai-box"
+          (click)="ActiveOrgUsers(false)"
+        >
+          Inactive {{ dashboardInfo.inactiveOrgUser }}
+        </button>
       </div>
-      <a class="more" (click)="ActiveOrgUsers(true)"> View more
+      <a class="more" (click)="ActiveOrgUsers(true)">
+        View more
         <i class="m-icon-swapright m-icon-white"></i>
       </a>
     </div>
   </div>
-
 </div>
-
-
-
-
-
-
 
 <!-- 
  Pop Ups -->
 <div class="modal fade" id="add-mode-modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
-    <ng-container *ngIf="this.tablename=='Organisation'">
+    <ng-container *ngIf="this.tablename == 'Organisation'">
       <div class="modal-content">
-
         <div class="modal-header modal-header-c">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          >
+            X
+          </button>
           <h4 class="modal-title modal-title-c">Organizations</h4>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="row">
               <div class="col-sm-12 text-right">
-                <span (click)="exportOrgXLSX()" style="color:green!important;" tooltip="Export to Excel" placement="top"
-                  show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+                <span
+                  (click)="exportOrgXLSX()"
+                  style="color: green !important"
+                  tooltip="Export to Excel"
+                  placement="top"
+                  show-delay="500"
+                  ><i class="fa fa-file-excel-o fa-lg"></i
+                ></span>
               </div>
             </div>
             <div class="row">
@@ -220,36 +306,49 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngIf="!isShowLoader && tbldata== null" class="no-records">
+                        <tr
+                          *ngIf="!isShowLoader && tbldata == null"
+                          class="no-records"
+                        >
                           <td colspan="10">No Records Found</td>
                         </tr>
                         <tr *ngFor="let item of tbldata">
-                          <td>{{item.name}}</td>
-                          <td>{{item.displayName}}</td>
-                          <td>{{item.address}}</td>
+                          <td>{{ item.name }}</td>
+                          <td>{{ item.displayName }}</td>
+                          <td>{{ item.address }}</td>
                           <td>
-                            <div id="div1" *ngIf="item.isActive==true"><span class="badge badge-success">Active</span>
+                            <div id="div1" *ngIf="item.isActive == true">
+                              <span class="badge badge-success">Active</span>
                             </div>
-                            <div id="div2" *ngIf="item.isActive==false"><span class="badge badge-danger">InActive</span>
+                            <div id="div2" *ngIf="item.isActive == false">
+                              <span class="badge badge-danger">InActive</span>
                             </div>
                           </td>
                         </tr>
                       </tbody>
                     </table>
                     <div class="paginator-container">
-                      <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;"
-                        class="paginator-message">
-                        Total items: {{this.tbldataLength}}
+                      <span
+                        id="paginator-message1"
+                        style="color: rgba(0, 0, 0, 0.54); font-size: 13px"
+                        class="paginator-message"
+                      >
+                        Total items: {{ this.tbldataLength }}
                       </span>
-                      <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;"
-                        class="paginator-message">
+                      <span
+                        id="paginator-message2"
+                        style="color: rgba(0, 0, 0, 0.54); font-size: 13px"
+                        class="paginator-message"
+                      >
                         Items per page: 25
                       </span>
-                      <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1"
+                      <mat-paginator
+                        [pageIndex]="page"
+                        [length]="tbldataLength"
+                        [pageSize]="1"
                         (page)="onChangePage($event)"
-                        aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
-
-
+                        aria-describedby="paginator-message1 paginator-message2"
+                      ></mat-paginator>
                     </div>
                     <!-- <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="25"
                       (page)="onChangePage($event)"></mat-paginator> -->
@@ -263,25 +362,38 @@
     </ng-container>
 
     <!-- Pop Up -->
-    <ng-container *ngIf="this.tablename=='User'">
+    <ng-container *ngIf="this.tablename == 'User'">
       <div class="modal-content">
         <div class="modal-header modal-header-c">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          ></button>
           <h4 class="modal-title modal-title-c">Users</h4>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="row">
               <div class="col-sm-12 text-right">
-                <span (click)="exportUserXLSX()" style="color:green!important;" tooltip="Export to Excel"
-                  placement="top" show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+                <span
+                  (click)="exportUserXLSX()"
+                  style="color: green !important"
+                  tooltip="Export to Excel"
+                  placement="top"
+                  show-delay="500"
+                  ><i class="fa fa-file-excel-o fa-lg"></i
+                ></span>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-12">
                 <div class="">
                   <div class="table-responsive">
-                    <table class="table table-striped table-hover table-responsive">
+                    <table
+                      class="table table-striped table-hover table-responsive"
+                    >
                       <thead>
                         <tr>
                           <th>First Name</th>
@@ -292,35 +404,48 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngIf="!isShowLoader && tbldata==null" class="no-records">
+                        <tr
+                          *ngIf="!isShowLoader && tbldata == null"
+                          class="no-records"
+                        >
                           <td colspan="10">No Records Found</td>
                         </tr>
                         <tr *ngFor="let users of tbldata">
-                          <td scope="col">{{users.firstName}}</td>
-                          <td scope="col">{{users.lastName}}</td>
-                          <td scope="col">{{users.phone}}</td>
-                          <td scope="col">{{users.email}}</td>
-                          <td scope="col" *ngIf="users.isActive==true"><span class="badge badge-success">Active</span>
+                          <td scope="col">{{ users.firstName }}</td>
+                          <td scope="col">{{ users.lastName }}</td>
+                          <td scope="col">{{ users.phone }}</td>
+                          <td scope="col">{{ users.email }}</td>
+                          <td scope="col" *ngIf="users.isActive == true">
+                            <span class="badge badge-success">Active</span>
                           </td>
-                          <td scope="col" *ngIf="users.isActive==false"><span class="badge badge-danger">InActive</span>
+                          <td scope="col" *ngIf="users.isActive == false">
+                            <span class="badge badge-danger">InActive</span>
                           </td>
                         </tr>
                       </tbody>
                     </table>
                     <div class="paginator-container">
-                      <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;"
-                        class="paginator-message">
-                        Total items: {{this.tbldataLength}}
+                      <span
+                        id="paginator-message1"
+                        style="color: rgba(0, 0, 0, 0.54); font-size: 13px"
+                        class="paginator-message"
+                      >
+                        Total items: {{ this.tbldataLength }}
                       </span>
-                      <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;"
-                        class="paginator-message">
+                      <span
+                        id="paginator-message2"
+                        style="color: rgba(0, 0, 0, 0.54); font-size: 13px"
+                        class="paginator-message"
+                      >
                         Items per page: 25
                       </span>
-                      <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1"
+                      <mat-paginator
+                        [pageIndex]="page"
+                        [length]="tbldataLength"
+                        [pageSize]="1"
                         (page)="onChangePage($event)"
-                        aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
-
-
+                        aria-describedby="paginator-message1 paginator-message2"
+                      ></mat-paginator>
                     </div>
                     <!-- <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="25"
                       (page)="onChangePage($event)"></mat-paginator> -->
@@ -333,60 +458,107 @@
       </div>
     </ng-container>
 
-    <ng-container *ngIf="this.tablename=='Paper' || this.tablename=='LandCategory'">
+    <ng-container
+      *ngIf="this.tablename == 'Paper' || this.tablename == 'LandCategory'"
+    >
       <div class="modal-content">
         <div class="modal-header modal-header-c">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-          <h4 class="modal-title modal-title-c" *ngIf="this.tablename=='Paper'">Paper</h4>
-          <h4 class="modal-title modal-title-c" *ngIf="this.tablename=='LandCategory'">Land Category</h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          ></button>
+          <h4
+            class="modal-title modal-title-c"
+            *ngIf="this.tablename == 'Paper'"
+          >
+            Paper
+          </h4>
+          <h4
+            class="modal-title modal-title-c"
+            *ngIf="this.tablename == 'LandCategory'"
+          >
+            Land Category
+          </h4>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="row">
-              <div class="col-sm-12 text-right" style="margin-top:28px">
-                <span (click)="exportpaperlandXLSX()" style="color:green!important;" tooltip="Export to Excel"
-                  placement="top" show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+              <div class="col-sm-12 text-right" style="margin-top: 28px">
+                <span
+                  (click)="exportpaperlandXLSX()"
+                  style="color: green !important"
+                  tooltip="Export to Excel"
+                  placement="top"
+                  show-delay="500"
+                  ><i class="fa fa-file-excel-o fa-lg"></i
+                ></span>
               </div>
             </div>
             <div class="row">
               <div class="col-lg-12">
                 <div class="">
                   <div class="table-responsive">
-                    <table class="table table-striped table-hover table-responsive">
+                    <table
+                      class="table table-striped table-hover table-responsive"
+                    >
                       <thead>
                         <tr>
                           <th>Name</th>
-                          <th *ngIf="this.tablename=='LandCategory'">Display Name</th>
+                          <th *ngIf="this.tablename == 'LandCategory'">
+                            Display Name
+                          </th>
                           <th>Status</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngIf="!isShowLoader && tbldata==null" class="no-records">
+                        <tr
+                          *ngIf="!isShowLoader && tbldata == null"
+                          class="no-records"
+                        >
                           <td colspan="10">No Records Found</td>
                         </tr>
                         <tr *ngFor="let item of tbldata">
-                          <td scope="col">{{item.name}}</td>
-                          <td *ngIf="this.tablename=='LandCategory'" scope="col">{{item.displayName}}</td>
-                          <td scope="col" *ngIf="item.isActive==true"><span class="badge badge-success">Active</span>
+                          <td scope="col">{{ item.name }}</td>
+                          <td
+                            *ngIf="this.tablename == 'LandCategory'"
+                            scope="col"
+                          >
+                            {{ item.displayName }}
                           </td>
-                          <td scope="col" *ngIf="item.isActive==false"><span class="badge badge-danger">InActive</span>
+                          <td scope="col" *ngIf="item.isActive == true">
+                            <span class="badge badge-success">Active</span>
+                          </td>
+                          <td scope="col" *ngIf="item.isActive == false">
+                            <span class="badge badge-danger">InActive</span>
                           </td>
                         </tr>
+                      </tbody>
                     </table>
+
                     <div class="paginator-container">
-                      <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;"
-                        class="paginator-message">
-                        Total items: {{this.tbldataLength}}
+                      <span
+                        id="paginator-message1"
+                        style="color: rgba(0, 0, 0, 0.54); font-size: 13px"
+                        class="paginator-message"
+                      >
+                        Total items: {{ this.tbldataLength }}
                       </span>
-                      <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;"
-                        class="paginator-message">
+                      <span
+                        id="paginator-message2"
+                        style="color: rgba(0, 0, 0, 0.54); font-size: 13px"
+                        class="paginator-message"
+                      >
                         Items per page: 25
                       </span>
-                      <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1"
+                      <mat-paginator
+                        [pageIndex]="page"
+                        [length]="tbldataLength"
+                        [pageSize]="1"
                         (page)="onChangePage($event)"
-                        aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
-
-
+                        aria-describedby="paginator-message1 paginator-message2"
+                      ></mat-paginator>
                     </div>
                     <!-- <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="25"
                       (page)="onChangePage($event)"></mat-paginator> -->
@@ -399,38 +571,59 @@
       </div>
     </ng-container>
 
-
-    <ng-container *ngIf="this.tablename=='Organisation User'">
+    <ng-container *ngIf="this.tablename == 'Organisation User'">
       <div class="modal-content">
         <div class="modal-header modal-header-c">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+          ></button>
           <h4 class="modal-title modal-title-c">Organizations User</h4>
         </div>
         <div class="modal-body">
           <div class="container">
             <div class="row">
-              <div class="col-sm-10 text-right" style="margin-top:28px">
-                <span (click)="exportAsXLSX()" style="color:green!important;" tooltip="Export to Excel" placement="top"
-                  show-delay="500"><i class="fa fa-file-excel-o fa-lg"></i></span>
+              <div class="col-sm-10 text-right" style="margin-top: 28px">
+                <span
+                  (click)="exportAsXLSX()"
+                  style="color: green !important"
+                  tooltip="Export to Excel"
+                  placement="top"
+                  show-delay="500"
+                  ><i class="fa fa-file-excel-o fa-lg"></i
+                ></span>
               </div>
-              <div class="col-sm-2" *ngIf="loggedInUserRole=='SuperAdmin'">
-                <label class="dg-lable" for="organisation"> Organization : </label>
-                <select name="as-organisation" (change)="onSelectedOrg($event)" class="form-control input-sm"
-                  name="userOrganisation">
+              <div class="col-sm-2" *ngIf="loggedInUserRole == 'SuperAdmin'">
+                <label class="dg-lable" for="organisation">
+                  Organization :
+                </label>
+                <select
+                  name="as-organisation"
+                  (change)="onSelectedOrg($event)"
+                  class="form-control input-sm"
+                  name="userOrganisation"
+                >
                   <option value="" selected>Please Select Organization</option>
                   <option value="0" selected>All</option>
-                  <option *ngFor="let organisations of OrganisationList" [value]="organisations.orgId">
-                    {{organisations.name}}
+                  <option
+                    *ngFor="let organisations of OrganisationList"
+                    [value]="organisations.orgId"
+                  >
+                    {{ organisations.name }}
                   </option>
                 </select>
               </div>
             </div>
-            <br>
+            <br />
             <div class="row">
               <div class="col-lg-12">
                 <div class="">
                   <div class="table-responsive">
-                    <table class="table table-striped table-hover table-responsive">
+                    <table
+                      class="table table-striped table-hover table-responsive"
+                    >
                       <thead>
                         <tr>
                           <th>First Name</th>
@@ -442,38 +635,51 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngIf="!isShowLoader && tbldata==null" class="no-records">
+                        <tr
+                          *ngIf="!isShowLoader && tbldata == null"
+                          class="no-records"
+                        >
                           <td colspan="10">No Records Found</td>
                         </tr>
                         <tr *ngFor="let item of tbldata">
-                          <td>{{item.firstName}}</td>
-                          <td>{{item.lastName}}</td>
-                          <td>{{item.email}}</td>
-                          <td>{{item.role}}</td>
-                          <td>{{item.organisationName}}</td>
+                          <td>{{ item.firstName }}</td>
+                          <td>{{ item.lastName }}</td>
+                          <td>{{ item.email }}</td>
+                          <td>{{ item.role }}</td>
+                          <td>{{ item.organisationName }}</td>
                           <td>
-                            <div id="div1" *ngIf="item.isActive==true"><span class="badge badge-success">Active</span>
+                            <div id="div1" *ngIf="item.isActive == true">
+                              <span class="badge badge-success">Active</span>
                             </div>
-                            <div id="div2" *ngIf="item.isActive==false"><span class="badge badge-danger">InActive</span>
+                            <div id="div2" *ngIf="item.isActive == false">
+                              <span class="badge badge-danger">InActive</span>
                             </div>
                           </td>
                         </tr>
                       </tbody>
                     </table>
                     <div class="paginator-container">
-                      <span id="paginator-message1" style="color:rgba(0,0,0,.54);font-size: 13px;"
-                        class="paginator-message">
-                        Total items: {{this.tbldataLength}}
+                      <span
+                        id="paginator-message1"
+                        style="color: rgba(0, 0, 0, 0.54); font-size: 13px"
+                        class="paginator-message"
+                      >
+                        Total items: {{ this.tbldataLength }}
                       </span>
-                      <span id="paginator-message2" style="color:rgba(0,0,0,.54);font-size: 13px;"
-                        class="paginator-message">
+                      <span
+                        id="paginator-message2"
+                        style="color: rgba(0, 0, 0, 0.54); font-size: 13px"
+                        class="paginator-message"
+                      >
                         Items per page: 25
                       </span>
-                      <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="1"
+                      <mat-paginator
+                        [pageIndex]="page"
+                        [length]="tbldataLength"
+                        [pageSize]="1"
                         (page)="onChangePage($event)"
-                        aria-describedby="paginator-message1 paginator-message2"></mat-paginator>
-
-
+                        aria-describedby="paginator-message1 paginator-message2"
+                      ></mat-paginator>
                     </div>
                     <!-- <mat-paginator [pageIndex]="page" [length]="tbldataLength" [pageSize]="25"
                       (page)="onChangePage($event)"></mat-paginator> -->
@@ -488,66 +694,120 @@
   </div>
 </div>
 
-
 <!-- Pie Chart and line Chart -->
 <div class="animated fadeIn">
-
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6  col-sm-6">
           <div style="display: block">
             <div class="col-sm-5">
-              <h4 style="white-space: nowrap;" class="card-title mb-0">Last 15 days Notices
+              <h4 style="white-space: nowrap" class="card-title mb-0">
+                Last 15 days Notices
                 <span>
                   <ng-template #last30daysresponderTemplate>
-                    <div style="font-style:italic;">
+                    <div style="font-style: italic">
                       The Notices in last 15 days.
                     </div>
                   </ng-template>
-                  <sup style="position:unset!important; vertical-align: super!important;">
+                  <sup
+                    style="
+                      position: unset !important;
+                      vertical-align: super !important;
+                    "
+                  >
                     <!-- <button type="button" class="fa fa-info-circle graph" placement="bottom" html="true"
                       triggers="focus" [popover]="last30daysresponderTemplate"
                       style="background: transparent!important;border: 0px!important;"
                       popoverTitle="Last 15 days Notices">
                     </button> -->
-                    <button type="button" class="fa fa-info-circle graph" placement="top" html="true"
-                      style="background: transparent!important;border: 0px!important;" title="Last 15 days Notices">
-                    </button>
+                    <button
+                      type="button"
+                      class="fa fa-info-circle graph"
+                      placement="top"
+                      html="true"
+                      style="
+                        background: transparent !important;
+                        border: 0px !important;
+                      "
+                      	popoverTitle="Popover on top"
+                
+                    
+                    ></button>
 
                   </sup>
                 </span>
               </h4>
             </div>
-            <div class="chart-wrapper" style="height:386px;margin-top:40px;">
-             <!-- <canvas baseChart class="chart" [datasets]="mainChartData" [labels]="mainChartLabels"
+            <div class="chart-wrapper" style="height: 386px; margin-top: 40px">
+              <div class="chart-container">
+                <canvas
+                  baseChart
+                  [datasets]="mainChartData"
+                  [labels]="mainChartLabels"
+                  [options]="mainChartOptions"
+                  [type]="'line'"
+                  [legend]="mainChartLegend"
+                >
+                </canvas>
+              </div>
+              <!-- <canvas baseChart class="chart" [datasets]="mainChartData" [labels]="mainChartLabels"
                 [options]="mainChartOptions" [colors]="mainChartColours" [legend]="mainChartLegend"
                 [chartType]="mainChartType"></canvas> -->
             </div>
           </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-6">
           <div class="card">
             <div class="card-body">
               <div style="display: block">
                 <div class="col-sm-5">
-                  <h4 style="white-space: nowrap;" class="card-title mb-0">Last 12 Month Notices
+                  <h4 style="white-space: nowrap" class="card-title mb-0">
+                    Last 12 Month Notices
                     <span>
                       <ng-template #last30daysempanalysisTemplate>
-                        <div style="font-style:italic;">
+                        <div style="font-style: italic">
                           Last 12 Month Notices
                         </div>
                       </ng-template>
-                      <sup style="position:unset!important; vertical-align: super!important;">
-                        <button type="button" class="fa fa-info-circle graph" placement="top" html="true"
-                          style="background: transparent!important;border: 0px!important;"
-                          title="Last 12 Month Notices">
-                        </button>
+                      <sup
+                        style="
+                          position: unset !important;
+                          vertical-align: super !important;
+                        "
+                      >
+                        <button
+                          type="button"
+                          class="fa fa-info-circle graph"
+                          placement="top"
+                          html="true"
+                          style="
+                            background: transparent !important;
+                            border: 0px !important;
+                          "
+                          title="Last 12 Month Notices"
+                        ></button>
                       </sup>
                     </span>
                   </h4>
                 </div>
-                <div class="chart-wrapper" style="height:400px;margin-top:40px;">
+                <div
+                  class="chart-wrapper"
+                  style="height: 400px; margin-top: 40px"
+                >
+                  <div class="chart-container">
+                    <canvas
+                      baseChart
+                      #myCanvas
+                      id="canvas"
+                      [datasets]="mainChartDataEMPAnalaysis"
+                      [labels]="mainChartLabelsEMPAnalaysis"
+                      [options]="mainChartOptionsEMPAnalaysis"
+                      [type]="'bar'"
+                      [legend]="false"
+                    >
+                    </canvas>
+                  </div>
                   <!-- <canvas #myCanvas id="canvas" baseChart class="chart" [datasets]="mainChartDataEMPAnalaysis"
                     [labels]="mainChartLabelsEMPAnalaysis" [options]="mainChartOptionsEMPAnalaysis"
                     [colors]="mainChartColoursEMPAnalaysis" [legend]="true" chartType="bar">
@@ -556,7 +816,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

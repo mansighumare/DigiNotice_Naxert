@@ -5,9 +5,9 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AppConfig } from 'src/app/services/config.service';
 import { LoginModel, ChangePasswordModel, LoggedInUser, ForgotPasswordModel, ResetPasswordModel } from 'src/app/models/account.model';
 import { ProfileInfo } from 'src/app/models';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $;
-declare var toastr;
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,8 @@ export class AccountService {
   constructor(
     private authService: AuthenticationService,
     private appConfig: AppConfig,
-    private http: HttpClient) {
+    private http: HttpClient,
+    public toastr: ToastrService) {
     this.apiUrl = this.appConfig.apiUrl;
     this.authUrl = this.appConfig.authUrl;
     let loggedInUserString: any = localStorage.getItem("LoggedInUser");
@@ -96,7 +97,7 @@ export class AccountService {
             console.error(error);
           });
     }).fail((jqXHR, textStatus, errorThrown) => {
-      toastr.error(textStatus, "Error");
+      this.toastr.error(textStatus, "Error");
     });
   }
 

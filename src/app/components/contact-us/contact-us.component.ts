@@ -4,8 +4,9 @@ import { ContactUsModel } from 'src/app/models/contact-us.model';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { SharedModelService } from 'src/app/services';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
-declare var toastr;
+
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
@@ -16,7 +17,8 @@ export class ContactUsComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
     private adminService: AdminService,
     public sharedModel: SharedModelService,
-    public router:Router) { }
+    public router:Router,
+    public toastr: ToastrService) { }
 
   ngOnInit() {
   
@@ -94,17 +96,17 @@ export class ContactUsComponent implements OnInit {
     }
 
     if (this.contactUsForm.controls.phone.hasError("minlength") || this.contactUsForm.controls.phone.hasError("maxlength")) {
-      toastr.error("Invalid Phone number.", "Error");
+      this.toastr.error("Invalid Phone number.", "Error");
       isValid = false;
     }
     if (this.contactUsForm.controls.email.hasError("email")) {
-      toastr.error("Invalid email address.", "Error");
+      this.toastr.error("Invalid email address.", "Error");
       isValid = false;
     }
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -134,11 +136,11 @@ export class ContactUsComponent implements OnInit {
         this.contactUsForm.reset();
         this.contactUsForm.controls['contactMeType'].setValue("email");
         this.isShowLoader = false;
-        toastr.success('Mail sent successfully!', "Success");
+        this.toastr.success('Mail sent successfully!', "Success");
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed to Send Mail.', "Error");
+          this.toastr.error('Failed to Send Mail.', "Error");
         });
   }
 

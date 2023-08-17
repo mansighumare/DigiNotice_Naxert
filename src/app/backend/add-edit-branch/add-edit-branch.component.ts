@@ -5,9 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ExcelService } from 'src/app/services/excel.service';
 import { Location } from '@angular/common';
 import { FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $;
-declare var toastr;
+
 @Component({
   selector: 'app-add-edit-branch',
   templateUrl: './add-edit-branch.component.html',
@@ -21,6 +22,7 @@ export class AddEditBranchComponent implements OnInit {
     private excelService: ExcelService,
     private router: Router, private route: ActivatedRoute,
     private location: Location,
+    public toastr: ToastrService
   ) { }
 
   // @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -111,7 +113,7 @@ export class AddEditBranchComponent implements OnInit {
         validationErrors.push(" Organization");
       if (validationErrors.length > 0) {
         validationMessage += validationErrors.join(", ");
-        toastr.error(validationMessage, "Validation Error");
+        this.toastr.error(validationMessage, "Validation Error");
         isValid = false;
       }
     }
@@ -280,7 +282,7 @@ export class AddEditBranchComponent implements OnInit {
       validationErrors.push("Parent Branch");
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -297,14 +299,14 @@ export class AddEditBranchComponent implements OnInit {
       this.masterDataService.addBranch(this.addOrganisationModel)
         .subscribe((addedRow: any) => {
           let message = addedRow[0].message;
-          toastr.success(message, "Success");
+          this.toastr.success(message, "Success");
           $("#add-mode-modal").modal('hide');
           this.isShowLoader = false;
           this.getBranches()
         },
           error => {
             this.isShowLoader = false;
-            toastr.error('Failed to create User!', "Error");
+            this.toastr.error('Failed to create User!', "Error");
           });
     }
   }
@@ -394,13 +396,13 @@ export class AddEditBranchComponent implements OnInit {
     ).subscribe(
       (addedRow: any) => {
         let message = addedRow[0].message;
-        toastr.success(message, "Success");
+        this.toastr.success(message, "Success");
         this.getBranches();
         this.isShowLoader = false;
       },
       (error) => {
         this.isShowLoader = false;
-        toastr.error("Failed to Update User!", "Error");
+        this.toastr.error("Failed to Update User!", "Error");
       }
     );
   }

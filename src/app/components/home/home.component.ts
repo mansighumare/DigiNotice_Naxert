@@ -5,10 +5,11 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AdminService } from 'src/app/services/admin.service';
 import { ContactUsModel } from 'src/app/models/contact-us.model';
+import { ToastrService } from 'ngx-toastr';
 // import "src/app/assets/js/init.js";
 
 declare var $;
-declare var toastr;
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public noticeService: NoticeService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    public toastr: ToastrService
   ) {
     this.innerWidth = window.innerWidth;
     if (this.innerWidth >= 933)
@@ -233,13 +235,13 @@ export class HomeComponent implements OnInit {
       isValid = false;
     }
     if (this.contactUsForm.controls.email.hasError("email")) {
-      toastr.error("Invalid email address.", "Error");
+      this.toastr.error("Invalid email address.", "Error");
       isValid = false;
     }
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -263,11 +265,11 @@ export class HomeComponent implements OnInit {
         this.contactUsForm.reset();
         this.contactUsForm.controls['contactMeType'].setValue("email");
         this.isShowLoader = false;
-        toastr.success('Mail sent successfully!', "Success");
+        this.toastr.success('Mail sent successfully!', "Success");
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed to Send Mail.', "Error");
+          this.toastr.error('Failed to Send Mail.', "Error");
         });
   }
 

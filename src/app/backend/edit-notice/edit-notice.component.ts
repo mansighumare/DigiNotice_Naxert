@@ -7,7 +7,8 @@ import { FormControl } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import * as $ from 'jquery';
 import { Subscription, debounceTime, of, startWith, switchMap } from 'rxjs';
-declare var toastr;
+import { ToastrService } from 'ngx-toastr';
+
 // declare var _initDropZone;
 declare var ui_multi_add_file;
 declare var ui_multi_update_file_status;
@@ -33,7 +34,8 @@ export class EditNoticeComponent implements OnInit {
     private appConfig: AppConfig,
     public lookupService: LookupService,
     public router: Router,
-    public http: HttpClient) { }
+    public http: HttpClient,
+    public toastr: ToastrService) { }
 
   $imagePreviewEle: any = null;
   //isBanking:boolean;
@@ -205,7 +207,7 @@ export class EditNoticeComponent implements OnInit {
   count:number;
   onAddNotice():any {
     if (this.editNoticeModel.noticeImage == null) {
-      toastr.info('Please select notice image!', "Info");
+      this.toastr.info('Please select notice image!', "Info");
       return false;
     }
     if (this.editNoticeModel.noticeDetailList.length == 0) {
@@ -235,12 +237,12 @@ export class EditNoticeComponent implements OnInit {
 
     this.noticeService.addNotice(this.editNoticeModel)
       .subscribe((addedRow: any) => {
-        toastr.success('Notice Added Successsfully!', "Success");
+        this.toastr.success('Notice Added Successsfully!', "Success");
         this.isShowLoader = false;
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed to create notice!', "Error");
+          this.toastr.error('Failed to create notice!', "Error");
         });
   }
 
@@ -307,7 +309,7 @@ export class EditNoticeComponent implements OnInit {
   addNoticeDetail:any = new NoticeDetail();
   onAddNoticeDetail() {
     if (this.addNoticeDetail.surveyNumber.trim() == "" && this.addNoticeDetail.gatNumber.trim() == "" && this.addNoticeDetail.plotNumber.trim() == "") {
-      toastr.error("Please enter Survey/Gat/Plot Number", "Info");
+      this.toastr.error("Please enter Survey/Gat/Plot Number", "Info");
       return false;
     }
 
@@ -367,7 +369,7 @@ export class EditNoticeComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -383,7 +385,7 @@ export class EditNoticeComponent implements OnInit {
     }
 
     if (this.editNoticeModel.noticeImage == null) {
-      toastr.error('Please select notice image!', "Error");
+      this.toastr.error('Please select notice image!', "Error");
       return false;
     }
     var $dateField = $('#txtNoticeDate');
@@ -445,7 +447,7 @@ export class EditNoticeComponent implements OnInit {
 
         this.noticeService.updateNotice(this.editNoticeModel)
           .subscribe((updatedNotice: AddNoticeModel) => {
-            toastr.success('Notice Updated Successsfully!', "Success");
+            this.toastr.success('Notice Updated Successsfully!', "Success");
             this.isShowLoader = false;
             // this.editNoticeModel = new AddNoticeModel();
             $("#edit-notice-popup").modal('hide');
@@ -454,11 +456,11 @@ export class EditNoticeComponent implements OnInit {
           },
             error => {
               this.isShowLoader = false;
-              toastr.error('Failed to Update Notice!', "Error");
+              this.toastr.error('Failed to Update Notice!', "Error");
             });
       },
         error => {
-          toastr.error('Failed to upload notice image!', "Error");
+          this.toastr.error('Failed to upload notice image!', "Error");
         });
   }
 

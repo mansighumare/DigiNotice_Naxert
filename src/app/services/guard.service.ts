@@ -5,8 +5,9 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable, of as observableOf } from 'rxjs';
 import { CookieOptionsArgs, ICurrentUser } from '../interfaces/user';
 import { AuthenticationService } from '../services/authentication.service';
+import { ToastrService } from 'ngx-toastr';
 
-declare var toastr;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +17,8 @@ export class GuardService implements CanActivate {
   //jwtHelper: JwtHelper = new JwtHelper();
   _cookieOptionsArgs: CookieOptionsArgs;
   
-  constructor(private authService: AuthenticationService,private router: Router) {
+  constructor(private authService: AuthenticationService,private router: Router,
+    public toastr: ToastrService) {
     this.currentUser = this.initializeUser();
    }
 

@@ -4,10 +4,11 @@ import { MappingService, MasterDataService } from '../../services';
 import { PagerService } from 'src/app/services/pager.service';
 import { Router } from '@angular/router';
 import {MatPaginator} from '@angular/material/paginator';
+import { ToastrService } from 'ngx-toastr';
 
 declare var jQuery;
 declare var $;
-declare var toastr;
+
 // toastr.success('Notice Added Successsfully!', "Success");
 // toastr.error('Failed to create notice!', "Error");
 @Component({
@@ -21,8 +22,8 @@ export class MasterDataFormsComponent implements OnInit {
     private ms: MappingService,
     private masterDataService: MasterDataService,
     private pagerService: PagerService,
-    private router:Router
-    
+    private router:Router,
+    public toastr: ToastrService
   ) { }
 
   // tableColumns: Array<TableColumn> = null;
@@ -80,11 +81,11 @@ export class MasterDataFormsComponent implements OnInit {
         if (currentRow != null)
           currentRow = row;
 
-        toastr.success('Row Updated Successsfully!', "Success");
+        this.toastr.success('Row Updated Successsfully!', "Success");
       },
       error => {
         this.isShowLoader = false;
-        toastr.error('Failed To Updated Row!', "Error");
+        this.toastr.error('Failed To Updated Row!', "Error");
         console.log(error);
       });
   }
@@ -101,11 +102,11 @@ export class MasterDataFormsComponent implements OnInit {
         if (currentRow != null)
           currentRow = row;
 
-        toastr.success('Row Updated Successsfully!', "Success");
+        this.toastr.success('Row Updated Successsfully!', "Success");
       },
       error => {
         this.isShowLoader = false;
-        toastr.error('Failed To Updated Row!', "Error");
+        this.toastr.error('Failed To Updated Row!', "Error");
         console.log(error);
       });
   }
@@ -117,7 +118,7 @@ export class MasterDataFormsComponent implements OnInit {
       .subscribe((addedRow:any):any => {
         this.isDataLoaded = true;
         if (addedRow.isExist) {
-          toastr.error('Entry already exists!', "Error");
+          this.toastr.error('Entry already exists!', "Error");
           return false;
         }
         this.getRows();

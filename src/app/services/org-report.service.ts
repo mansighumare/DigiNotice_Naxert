@@ -25,6 +25,15 @@ export class OrgReportService {
           catchError(this._helper.handleError) // then handle the error
       );
   }
+  get_Last30daysMatchedNoticesReport(userId:string,roleGuid:string,orgId:number,branchId:number)
+  {
+      var getLast30DaysAssets={userId,roleGuid,orgId,branchId}
+      var url = this.appConfig.getApiPath("OrgReport", "GetLast30DaysMatchedNoticesReport")
+      return this.http.post(url,getLast30DaysAssets).pipe(
+          retry(3), // retry a failed request up to 3 times
+          catchError(this._helper.handleError) // then handle the error
+      );
+  }
 
 
   get_Last12Months_Assets_Report(userId:string,roleGuid:string,orgId:number,branchId:number)

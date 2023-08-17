@@ -2,8 +2,9 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AddPropertyModel } from '../../../models';
 import { SharedModelService, AssetManagerService, LookupService, AppConfig } from 'src/app/services';
 import { AssetImage } from 'src/app/models/asset-manager';
+import { ToastrService } from 'ngx-toastr';
 
-declare var toastr;
+
 declare var $;
 // declare var _initDropZone;
 declare var ui_multi_add_file;
@@ -26,7 +27,8 @@ export class AddPropertyComponent implements OnInit {
     public sharedModel: SharedModelService,
     public assetManagerService: AssetManagerService,
     private appConfig: AppConfig,
-    public lookupService: LookupService) {
+    public lookupService: LookupService,
+    public toastr: ToastrService) {
   }
 
   public is_add_other_details: boolean = false;
@@ -182,7 +184,7 @@ export class AddPropertyComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -215,7 +217,7 @@ export class AddPropertyComponent implements OnInit {
         this.addPropertyModel.assetImages.push(assetImage);
         this.assetManagerService.addProperty(this.addPropertyModel)
           .subscribe((createdProperty: any) => {
-            toastr.success('Property Added Successsfully!', "Success");
+            this.toastr.success('Property Added Successsfully!', "Success");
             this.isSaving = false;
             this.addPropertyModel = new AddPropertyModel();
             $("#add-property-modal").modal('hide');
@@ -224,12 +226,12 @@ export class AddPropertyComponent implements OnInit {
           },
             error => {
               this.isSaving = false;
-              toastr.error('Failed to create property!', "Error");
+              this.toastr.error('Failed to create property!', "Error");
               this.isShowLoader = false;
             });
       },
         error => {
-          toastr.error('Failed to Upload Property Image!', "Error");
+          this.toastr.error('Failed to Upload Property Image!', "Error");
         });
   }
 

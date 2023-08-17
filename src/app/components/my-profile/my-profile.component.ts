@@ -6,8 +6,9 @@ import { AuthenticationService, SharedModelService, AppConfig, MasterDataService
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProfileImage } from 'src/app/models/profile-info';
+import { ToastrService } from 'ngx-toastr';
 
-declare var toastr;
+
 declare var $;
 @Component({
   selector: 'app-my-profile',
@@ -29,6 +30,7 @@ export class MyProfileComponent implements OnInit {
     private masterDataService: MasterDataService,
     public router: Router,
     public appConfig: AppConfig,
+    public toastr: ToastrService
   ) { }
   isActive: boolean = true
   isShowLoader: boolean = false;
@@ -225,7 +227,7 @@ export class MyProfileComponent implements OnInit {
     if (validationErrors.length > 0) {
 
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -243,10 +245,10 @@ export class MyProfileComponent implements OnInit {
           this.authService.loggedInUser.lastName = this.profileInfo.lastName;
           this.authService.setLoggedInUserInLocalStorage();
           this.changeDetectorRef.detectChanges();
-          toastr.success("Profile Updated Successfully.", "Success");
+          this.toastr.success("Profile Updated Successfully.", "Success");
         }
         else
-          toastr.error("Faied To Update Profile.", "Error");
+          this.toastr.error("Faied To Update Profile.", "Error");
         this.isShowLoader = false;
         this.isProfileEdited = false;
       },
@@ -258,7 +260,7 @@ export class MyProfileComponent implements OnInit {
   uploadProfileImage(profileImage: any) {
    
     if (profileImage.size > 2000000) {//5mb //50kb
-      toastr.error("Maximum Upload Size 1 MB", "Error");
+      this.toastr.error("Maximum Upload Size 1 MB", "Error");
     } else {
      
       this.isShowLoader = true;
@@ -339,7 +341,7 @@ export class MyProfileComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -360,9 +362,9 @@ export class MyProfileComponent implements OnInit {
       .subscribe((response: any) => {
         this.isShowLoader = false;
         if (response.isSuccess)
-          toastr.success("Password Changed Successfully!", "Success");
+          this.toastr.success("Password Changed Successfully!", "Success");
         else
-          toastr.warning(response.errorMessage, "Warning");
+          this.toastr.warning(response.errorMessage, "Warning");
       }, error => {
         this.isShowLoader = false;
       });

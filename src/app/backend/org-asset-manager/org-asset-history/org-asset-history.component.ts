@@ -1,8 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { OrgAssetManagerService } from 'src/app/services/org-asset-manager.service';
 declare var $;
-declare var toastr
+
 @Component({
   selector: 'app-org-asset-history',
   templateUrl: './org-asset-history.component.html',
@@ -25,7 +26,8 @@ export class OrgAssetHistoryComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public orgAssetManagerService: OrgAssetManagerService
+    public orgAssetManagerService: OrgAssetManagerService,
+    public toastr: ToastrService
   ) {
   }
 

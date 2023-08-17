@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AccountService } from 'src/app/services/account.service';
 import { LoggedInUser, ForgotPasswordModel } from 'src/app/models/account.model';
 import { BlankLayoutComponent } from '../common/layouts/blankLayout.component';
+import { ToastrService } from 'ngx-toastr';
 
-declare var toastr;
 declare var $;
 @Component({
   selector: 'app-forgot-password',
@@ -18,7 +18,8 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    public toastr: ToastrService
   ) { 
     this.innerWidth = window.innerWidth;  
     if(this.innerWidth >= 933)
@@ -38,7 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
     if (this.forgotPasswordForm.valid)
       this.getResetPasswordLink();
     else
-      toastr.error("Please enter valid email", "Error");
+      this.toastr.error("Please enter valid email", "Error");
   }
 
   isShowLoader: boolean = false;
@@ -54,13 +55,13 @@ export class ForgotPasswordComponent implements OnInit {
         this.isShowLoader = false;
         if (forgotPasswordResponse.isSuccess) {
           this.disableGetResetLink = true;
-          toastr.success("Reset password link has emailed to your email address", "Success");
+          this.toastr.success("Reset password link has emailed to your email address", "Success");
         }
         else
-          toastr.error("Failed to Send Reset password link", "Error");
+          this.toastr.error("Failed to Send Reset password link", "Error");
       }, error => {
         this.isShowLoader = false;
-        toastr.error("Failed to Send Reset password link", "Error");
+        this.toastr.error("Failed to Send Reset password link", "Error");
       });
   }
 

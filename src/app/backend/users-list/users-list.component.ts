@@ -6,8 +6,9 @@ import { AuthenticationService } from 'src/app/services';
 import { Router } from '@angular/router';
 import { ExcelService } from 'src/app/services/excel.service';
 import { FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
-declare var toastr;
+
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -23,7 +24,8 @@ export class UsersListComponent implements OnInit {
     private accountService: AccountService,
     private excelService: ExcelService,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    public toastr: ToastrService
   ) { }
   loggedInUsersRole: any;
   loggedInUserRoleGuid: any;
@@ -202,13 +204,13 @@ export class UsersListComponent implements OnInit {
     ).subscribe(
       (addedRow: any) => {
         let message = addedRow[0].message;
-        toastr.success(message, "Success");
+        this.toastr.success(message, "Success");
         this.isShowLoader = false;
         this.getUsers();
       },
       (error) => {
         this.isShowLoader = false;
-        toastr.error("Failed to Update User!", "Error");
+        this.toastr.error("Failed to Update User!", "Error");
       }
     );
   }

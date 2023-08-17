@@ -315,6 +315,11 @@
               </h4>
             </div>
             <div class="chart-wrapper" style="height:386px;margin-top:40px;">
+              <div class="chart-container">
+                <canvas baseChart [datasets]="mainChartData" [labels]="mainChartLabels" [options]="mainChartOptions"
+                  [type]="'line'" [legend]="mainChartLegend">
+                </canvas>
+              </div>
               <!-- <canvas baseChart class="chart" [datasets]="mainChartData" [labels]="mainChartLabels"
                 [options]="mainChartOptions" [colors]="mainChartColours" [legend]="mainChartLegend"
                 [chartType]="mainChartType"></canvas> -->
@@ -343,6 +348,11 @@
                   </h4>
                 </div>
                 <div class="chart-wrapper" style="height:400px;margin-top:40px;">
+                  <div class="chart-container">
+                    <canvas baseChart #myCanvas id="canvas" [datasets]="mainChartDataEMPAnalaysis"
+                      [labels]="mainChartLabelsEMPAnalaysis" [options]="mainChartOptionsEMPAnalaysis" [type]="'bar'"
+                      [legend]="false">
+                    </canvas>
                   <!-- <canvas #myCanvas id="canvas" baseChart class="chart" [datasets]="mainChartDataEMPAnalaysis"
                     [labels]="mainChartLabelsEMPAnalaysis" [options]="mainChartOptionsEMPAnalaysis"
                     [colors]="mainChartColoursEMPAnalaysis" [legend]="true" chartType="bar">
@@ -356,4 +366,47 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div style="display: block">
+      <div class="col-sm-5">
+        <h4 style="white-space: nowrap;" class="card-title mb-0">Last 30 days Matched Notices
+          <span>
+            <ng-template #last30daysresponderTemplate>
+              <div style="font-style:italic;">
+                Last 30 days Matched Notices
+              </div>
+            </ng-template>
+            <sup style="position:unset!important; vertical-align: super!important;">
+              <!-- <button type="button" class="fa fa-info-circle graph" placement="bottom" html="true"
+                triggers="focus" [popover]="last30daysresponderTemplate"
+                style="background: transparent!important;border: 0px!important;"
+                popoverTitle="Last 15 days Notices">
+              </button> -->
+              <button type="button" class="fa fa-info-circle graph" placement="top" html="true" triggers="focus"
+                
+                style="background: transparent!important;border: 0px!important;"
+                popoverTitle="Last 30 days Matched Notices">
+              </button>
+
+            </sup>
+          </span>
+        </h4>
+      </div>
+      <div class="chart-wrapper" style="height:386px;margin-top:40px;">
+        <div style="display: block">
+          <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [legend]="barChartLegend"
+                  [type]="'bar'"
+                  ></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>

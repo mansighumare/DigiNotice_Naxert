@@ -5,7 +5,8 @@ import { TableColumn, TableConfig, SortEnum } from '../../models';
 import { AddOrganisationModel, NoticeType } from 'src/app/models/column';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MasterDataFormsComponent } from 'src/app/backend/master-data-forms/master-data-forms.component';
-declare var toastr;
+import { ToastrService } from 'ngx-toastr';
+
 declare var $;
 
 @Component({
@@ -21,7 +22,8 @@ export class TableComponent implements OnInit {
     private masterDataService: MasterDataService,
     private router: Router,
     private route: ActivatedRoute,
-    private compOne: MasterDataFormsComponent
+    private compOne: MasterDataFormsComponent,
+    public toastr: ToastrService
   ) { }
 
   someSubscription: any;
@@ -205,7 +207,7 @@ export class TableComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -221,7 +223,7 @@ export class TableComponent implements OnInit {
         .subscribe((addedRow: any) => {
           let message = addedRow[0].message;
 
-          toastr.success(message, "Success");
+          this.toastr.success(message, "Success");
           this.isShowLoader = false;
           this.isDataLoaded = true;
           this.masterDataService.getNoticeType();
@@ -235,7 +237,7 @@ export class TableComponent implements OnInit {
         },
           error => {
             this.isShowLoader = false;
-            toastr.error('Failed to create NoticeType!', "Error");
+            this.toastr.error('Failed to create NoticeType!', "Error");
           });
     }
   }
@@ -258,7 +260,7 @@ export class TableComponent implements OnInit {
 
           let message = addedRow[0].message;
 
-          toastr.success(message, "Success");
+          this.toastr.success(message, "Success");
           this.isShowLoader = false;
           this.isDataLoaded = true;
           this.compOne.onTableChange("Branch");
@@ -266,7 +268,7 @@ export class TableComponent implements OnInit {
         },
           error => {
             this.isShowLoader = false;
-            toastr.error('Failed to create Branch!', "Error");
+            this.toastr.error('Failed to create Branch!', "Error");
           });
 
       if (this.BranchId == undefined) {
@@ -298,7 +300,7 @@ export class TableComponent implements OnInit {
 
           let message = addedRow[0].message;
 
-          toastr.success(message, "Success");
+          this.toastr.success(message, "Success");
           this.isShowLoader = false;
           this.isDataLoaded = true;
           this.compOne.onTableChange("Organisations");
@@ -306,7 +308,7 @@ export class TableComponent implements OnInit {
         },
           error => {
             this.isShowLoader = false;
-            toastr.error('Failed to create Organisation!', "Error");
+            this.toastr.error('Failed to create Organisation!', "Error");
           });
       if (this.OrgId == "null") {
         this.onPopupAction.emit('onHideModal');
@@ -367,7 +369,7 @@ export class TableComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -427,7 +429,7 @@ export class TableComponent implements OnInit {
   Branchstatus(isActive, branchId) {
     this.masterDataService.Branchstatus(isActive, branchId)
       .subscribe(message => {
-        toastr.success("Branch Updated Successfully", "Success");
+        this.toastr.success("Branch Updated Successfully", "Success");
         this.compOne.onTableChange("Branch");
       });
   }
@@ -435,7 +437,7 @@ export class TableComponent implements OnInit {
   Organisationstatus(isActive, orgId) {
     this.masterDataService.Organisationstatus(isActive, orgId)
       .subscribe(message => {
-        toastr.success("Organisation Updated Successfully", "Success");
+        this.toastr.success("Organisation Updated Successfully", "Success");
         this.compOne.onTableChange("Organisations");
       });
   }
@@ -468,11 +470,11 @@ export class TableComponent implements OnInit {
           if (currentRow != null)
             currentRow = row;
 
-          toastr.success("Row Updated Successfully", "Success");
+          this.toastr.success("Row Updated Successfully", "Success");
         },
           error => {
             this.isShowLoader = false;
-            toastr.error('Failed To Updated Row!', "Error");
+            this.toastr.error('Failed To Updated Row!', "Error");
             console.log(error);
           });
     }

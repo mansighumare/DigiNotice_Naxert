@@ -5,8 +5,9 @@ import { AccountService } from 'src/app/services/account.service';
 import { SignUpModel, LoginModel } from 'src/app/models/account.model';
 import { AuthenticationService, SharedModelService } from 'src/app/services';
 import * as $ from 'jquery'
+import { ToastrService } from 'ngx-toastr';
 
-declare var toastr;
+
 
 @Component({
   selector: 'app-signup',
@@ -30,7 +31,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     private accountService: AccountService,
     private router: Router,
     public sharedModel: SharedModelService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    public toastr: ToastrService
   ) {
     this.innerWidth = window.innerWidth;
     if(this.innerWidth >= 933)
@@ -172,7 +174,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   validateForm(registrationForm: FormGroup) {
     let isValid: boolean = true;
     if (registrationForm.controls['password'].hasError("required") || registrationForm.controls['confirmPassword'].hasError("required")) {
-      toastr.error("Password and confirm password required.", "Error");
+      this.toastr.error("Password and confirm password required.", "Error");
       isValid = false;
     }
     return isValid;
@@ -208,7 +210,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       
       if (resp.status=='Success') {
         
-        toastr.success(resp.message, "Success");
+        this.toastr.success(resp.message, "Success");
         let loginModel: LoginModel = new LoginModel();
         loginModel.email = registrationForm.email;
         loginModel.password = registrationForm.password;
@@ -217,10 +219,10 @@ export class SignupComponent implements OnInit, OnDestroy {
         this.isShowLoader = false;
       } else {
         this.isShowLoader = false;
-        toastr.error(resp.message, "Error");
+        this.toastr.error(resp.message, "Error");
       }
     }).fail((jqXHR, textStatus, errorThrown) => {
-      toastr.error(textStatus, "Error");
+      this.toastr.error(textStatus, "Error");
       this.isShowLoader = false;
     });
   }

@@ -14,7 +14,7 @@ import { FormControl } from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
 
 declare var $;
-declare var CityId
+
 
 @Component({
   selector: "app-organisation-user-list",
@@ -341,7 +341,7 @@ export class OrganisationUserListComponent implements OnInit {
 
 
   registerUser():any {
-
+debugger;
     if (this.loggedInUserRole == "SuperAdmin") {
       this.organisationUserModel.orgIntID = this.selectedOrganisationId;
     }

@@ -3,9 +3,10 @@ import { NoticeInfoModel } from 'src/app/models';
 import { SharedModelService, NoticeService, AppConfig, AuthenticationService } from 'src/app/services';
 import { NoticeDetail } from 'src/app/models/notice-info';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $;
-declare var toastr;
+
 @Component({
   selector: 'app-notice-card',
   templateUrl: './notice-card.component.html',
@@ -31,7 +32,8 @@ export class NoticeCardComponent implements OnInit {
     private noticeService: NoticeService,
     public authService: AuthenticationService,
     public appConfig: AppConfig,
-    public sharedModel: SharedModelService) {
+    public sharedModel: SharedModelService,
+    public toastr: ToastrService) {
       var loggedInUserString = JSON.parse(localStorage.getItem("LoggedInUser"));
     if (loggedInUserString != null) {
       

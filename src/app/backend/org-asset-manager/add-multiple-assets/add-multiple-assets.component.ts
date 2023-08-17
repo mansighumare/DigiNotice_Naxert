@@ -4,8 +4,9 @@ import * as XLSX from 'xlsx';
 import { OrgAssetManagerComponent } from '../org-asset-manager.component';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 declare var $;
-declare var toastr
+
 @Component({
   selector: 'app-add-multiple-assets',
   templateUrl: './add-multiple-assets.component.html',
@@ -27,7 +28,8 @@ export class AddMultipleAssetsComponent implements OnInit {
   searchControl: FormControl = new FormControl();
   constructor(
     public orgAssetManagerService: OrgAssetManagerService,
-    private router: Router
+    private router: Router,
+    public toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -111,7 +113,7 @@ export class AddMultipleAssetsComponent implements OnInit {
 
           this.orgAssetManagerService.addMultipleAssets(uniqueDataArray)
             .subscribe((addedRow: any) => {
-              toastr.success('Property Added Successfully!', "Success");
+              this.toastr.success('Property Added Successfully!', "Success");
               $("#add-multiple-property").modal('hide');
               this.isShowLoader = false;
               this.jsonData = new Array;
@@ -120,11 +122,11 @@ export class AddMultipleAssetsComponent implements OnInit {
             },
               error => {
                 this.isShowLoader = false;
-                toastr.error('Failed to Create Property!', "Error");
+                this.toastr.error('Failed to Create Property!', "Error");
               });
         },
           error => {
-            toastr.error('Failed to Upload Property Image!', "Error");
+            this.toastr.error('Failed to Upload Property Image!', "Error");
             this.isShowLoader = false;
           });
     }
@@ -155,7 +157,7 @@ export class AddMultipleAssetsComponent implements OnInit {
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;

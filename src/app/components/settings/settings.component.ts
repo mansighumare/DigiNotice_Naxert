@@ -3,9 +3,10 @@ import { NotificationPreferenceEnum, NotificationPreferenceDto } from 'src/app/m
 import { NoticeService, AuthenticationService, LookupService } from 'src/app/services';
 import { City } from 'src/app/models';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $;
-declare var toastr;
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -17,7 +18,8 @@ export class SettingsComponent implements OnInit {
     private authService: AuthenticationService,
     private noticeService: NoticeService,
     private lookupService: LookupService,
-    private router:Router
+    private router:Router,
+    public toastr: ToastrService
 
   ) { }
 
@@ -103,11 +105,11 @@ export class SettingsComponent implements OnInit {
     this.noticeService.saveUserNotificationSetting(this.notificationPreferenceList)
       .subscribe((resp: Array<NotificationPreferenceDto>) => {
         this.isShowLoader = false;
-        toastr.success('Your Preferences Saved Successfully!', "Success");
+        this.toastr.success('Your Preferences Saved Successfully!', "Success");
       },
       error => {
         this.isShowLoader = false;
-        toastr.error('Failed To Save!', "Error");
+        this.toastr.error('Failed To Save!', "Error");
       });
   }
 
@@ -146,11 +148,11 @@ export class SettingsComponent implements OnInit {
     this.noticeService.addUserPreferenceCity(interedCityList,loggedInUserString.userId)
       .subscribe((response: any) => {
         this.isShowLoader = false;
-        toastr.success('Successsfully Saved Interested Cities', "Success");
+        this.toastr.success('Successsfully Saved Interested Cities', "Success");
       },
       error => {
         this.isShowLoader = false;
-        toastr.error('Failed To Save Interested Cities', "Error");
+        this.toastr.error('Failed To Save Interested Cities', "Error");
       });
   }
 

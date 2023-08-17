@@ -4,8 +4,9 @@ import { AppConfig, NoticeService } from 'src/app/services';
 import { Router } from '@angular/router';
 import { AssetImage, EditPropertyModel, LandCategoryEnum } from 'src/app/models/asset-manager';
 import { EditOrgPropertyModel } from 'src/app/models/org-asset-manager';
+import { ToastrService } from 'ngx-toastr';
 declare var $;
-declare var toastr
+
 
 @Component({
   selector: 'app-org-matched-notice',
@@ -16,7 +17,8 @@ export class OrgMatchedNoticeComponent implements OnInit {
 
   constructor(private noticeService: NoticeService,
     private router: Router,
-    private appConfig: AppConfig) { }
+    private appConfig: AppConfig,
+    public toastr: ToastrService) { }
   Plots: LandCategoryEnum = LandCategoryEnum.Plots;
   ConstructedProperty: LandCategoryEnum = LandCategoryEnum.ConstructedProperty;
   AgriculturalLand: LandCategoryEnum = LandCategoryEnum.AgriculturalLand;

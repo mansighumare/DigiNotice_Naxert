@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SharedModelService, AssetManagerService, AppConfig } from '../../services';
 import { PropertyImg, EditPropertyModel, AssetImage, AddPropertyModel } from 'src/app/models/asset-manager';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $;
-declare var toastr
 
 @Component({
   selector: 'app-asset-manager',
@@ -17,7 +17,8 @@ export class AssetManagerComponent implements OnInit {
     private appConfig: AppConfig,
     public assetManagerService: AssetManagerService,
     public sharedModelService: SharedModelService,
-    private router: Router) { }
+    private router: Router,
+    public toastr: ToastrService) { }
     @Input() editPropertyModel: EditPropertyModel = null;
 
   propertyList: Array<EditPropertyModel> = new Array<EditPropertyModel>();
@@ -60,7 +61,7 @@ export class AssetManagerComponent implements OnInit {
     this.assetManagerService.deleteProperty(id)
       .subscribe((property: EditPropertyModel) => {
         this.isShowLoader = false;
-        toastr.success('Property Deleted Successsfully!', "Success");
+        this.toastr.success('Property Deleted Successsfully!', "Success");
         // this.propertyList.splice(editPropertyModel.propertyIndex, 1);
         this.getProperties();
       },

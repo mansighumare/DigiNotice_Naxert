@@ -3,8 +3,9 @@ import { NoticeInfoModel } from 'src/app/models';
 import { AppConfig, NoticeService } from 'src/app/services';
 import { Router } from '@angular/router';
 import { AssetImage, EditPropertyModel, LandCategoryEnum } from 'src/app/models/asset-manager';
+import { ToastrService } from 'ngx-toastr';
 declare var $;
-declare var toastr
+
 @Component({
   selector: 'app-matched-notice',
   templateUrl: './matched-notice.component.html',
@@ -13,6 +14,7 @@ declare var toastr
 export class MatchedNoticeComponent implements OnInit {
 
   constructor(private noticeService: NoticeService,
+    public toastr: ToastrService,
     private router:Router,
     private appConfig: AppConfig) { }
     Plots: LandCategoryEnum = LandCategoryEnum.Plots;

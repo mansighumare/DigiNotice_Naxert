@@ -8,8 +8,9 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 declare var $;
-declare var toastr;
+
 
 @Component({
   selector: 'app-delete-assets',
@@ -17,6 +18,9 @@ declare var toastr;
   styleUrls: ['./delete-assets.component.scss']
 })
 export class DeleteAssetsComponent implements OnInit {
+
+
+  
   propertyList: any = [];
   isShowLoader: boolean = false;
   loggedInUserRole: any;
@@ -38,7 +42,8 @@ export class DeleteAssetsComponent implements OnInit {
   selection = new SelectionModel<Element>(true, []);
   constructor(public orgAssetManagerService: OrgAssetManagerService,
     private router: Router, public dialog: MatDialog,
-    private excelService: ExcelService,) {
+    private excelService: ExcelService,
+    public toastr: ToastrService) {
   }
   ngOnInit() {
 
@@ -85,7 +90,7 @@ export class DeleteAssetsComponent implements OnInit {
       this.orgAssetManagerService.deleteOrgProperty(selectedIds,this.loggedInUserId)
         .subscribe((r) => {
           this.isShowLoader = false;
-          toastr.success('Property Deleted Successsfully!', "Success");
+          this.toastr.success('Property Deleted Successsfully!', "Success");
           // this.propertyList.splice(editPropertyModel.propertyIndex, 1);
           this.getProperties();
         },

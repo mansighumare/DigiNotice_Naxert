@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { EditPropertyModel, AssetImage } from 'src/app/models/asset-manager';
 import { LookupService, AppConfig, AssetManagerService } from 'src/app/services';
 
-declare var toastr;
+
 declare var $;
 // declare var _initDropZone;
 declare var ui_multi_add_file;
@@ -23,7 +24,8 @@ export class EditPropertyComponent implements OnInit {
   constructor(
     public appConfig: AppConfig,
     public assetManagerService: AssetManagerService,
-    public lookupService: LookupService) {
+    public lookupService: LookupService,
+    public toastr: ToastrService) {
 
   }
   public is_add_other_details:boolean=false;
@@ -82,7 +84,7 @@ export class EditPropertyComponent implements OnInit {
       let file = e.currentTarget.files[0];
 
       if (_self.editPropertyModel.assetImages.length >= 4) {
-        toastr.info('You can add maximum 4 property images.', "Error");
+        this.toastr.info('You can add maximum 4 property images.', "Error");
         return false;
       }
 
@@ -115,7 +117,7 @@ export class EditPropertyComponent implements OnInit {
         this.editPropertyModel.assetImages.push(assetImage);
       },
       error => {
-        toastr.error('Failed to upload assest image!', "Error");
+        this.toastr.error('Failed to upload assest image!', "Error");
       });
   }
 
@@ -184,7 +186,7 @@ onPropertyTypeChange(e){
 
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -198,14 +200,14 @@ onPropertyTypeChange(e){
     this.isSaving = true; 
     this.assetManagerService.updateProperty(this.editPropertyModel)
       .subscribe((updatedProperty: any) => {
-        toastr.success('Property Updated Successsfully!', "Success");
+        this.toastr.success('Property Updated Successsfully!', "Success");
         this.isSaving = false;
         this.editPropertyModel = new EditPropertyModel();
         $("#edit-property-popup").modal('hide');
       },
       error => {
         this.isSaving = false;
-        toastr.error('Failed to update property!', "Error");
+        this.toastr.error('Failed to update property!', "Error");
       });
   }
 }

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { SearchModel, NoticeInfoModel } from 'src/app/models';
 import { NoticeAdvocateModel } from 'src/app/models/notice-info';
 import { AuthenticationService, NoticeService, LookupService } from 'src/app/services';
 import { AccountService } from 'src/app/services/account.service';
 import { ReportService } from 'src/app/services/report.service';
 declare var $;
-declare var moment;
-declare var toastr;
+
+
 @Component({
   selector: 'app-organisation-notices',
   templateUrl: './organisation-notices.component.html',
@@ -21,14 +22,17 @@ export class OrganisationNoticesComponent implements OnInit {
   NoticeType: any = [];
   city:any;
   is_add_other_details:any;
-  
+  startDate:string='';
+  endDate:string='';
+
   constructor(
     public authService: AuthenticationService,
     public noticeService: NoticeService,
     public reportService: ReportService,
     public lookupService: LookupService,
     private router: Router,
-    private accoutService: AccountService) {
+    private accoutService: AccountService,
+    public toastr: ToastrService) {
     this.isDashboard = location.hash.indexOf('dashboard') >= 0;
   }
   loggedInUserRole: string = this.authService.loggedInUser.role;
@@ -36,7 +40,8 @@ export class OrganisationNoticesComponent implements OnInit {
   noticeInfoList: Array<NoticeInfoModel> = new Array<NoticeInfoModel>();
   loggedInUserRoleGuid:any;
   ngOnInit() {
-
+this.startDate= this.getDefaultStartDate();
+    this.endDate=this.getDefaultStartDate();
     let loggedInUserString: any = localStorage.getItem("LoggedInUser");
     loggedInUserString = JSON.parse(loggedInUserString);
     this.loggedInUserRoleGuid = loggedInUserString.role_guid;
@@ -62,7 +67,10 @@ export class OrganisationNoticesComponent implements OnInit {
       this.router.navigate(["./login"]);
     }
   }
-
+  getDefaultStartDate(): string {
+    const defaultDate = new Date(); // You can set this to any desired default date
+    return defaultDate.toISOString().substr(0, 10); // Convert to YYYY-MM-DD format
+  }
   isGetRecentNotices: boolean = true;
   getRecentNotices() {
     this.isShowLoader = true;
@@ -185,35 +193,35 @@ export class OrganisationNoticesComponent implements OnInit {
   initDateRangePicker() {
     $('#txtSearchDateRange').daterangepicker(
       {
-        startDate: moment(),
-        endDate: moment(),
-        //  dateLimit: { days: 3650 },
-        showDropdowns: true,
-        showWeekNumbers: true,
-        ranges: {
-          'Today': [moment(), moment()],
-          'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-          'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-          'This Month': [moment().startOf('month'), moment().endOf('month')],
-          'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-        },
-        opens: 'left',
-        buttonClasses: ['btn btn-default'],
-        applyClass: 'btn-small btn-primary',
-        cancelClass: 'btn-small',
+        // startDate: moment(),
+        // endDate: moment(),
+        // //  dateLimit: { days: 3650 },
+        // showDropdowns: true,
+        // showWeekNumbers: true,
+        // ranges: {
+        //   'Today': [moment(), moment()],
+        //   'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+        //   'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+        //   'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+        //   'This Month': [moment().startOf('month'), moment().endOf('month')],
+        //   'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        // },
+        // opens: 'left',
+        // buttonClasses: ['btn btn-default'],
+        // applyClass: 'btn-small btn-primary',
+        // cancelClass: 'btn-small',
 
-        separator: ' to ',
-        locale: {
-          format: 'DD/MM/YYYY',
-          applyLabel: 'Submit',
-          fromLabel: 'From',
-          toLabel: 'To',
-          customRangeLabel: 'Custom Range',
-          daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
-          monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          firstDay: 1
-        }
+        // separator: ' to ',
+        // locale: {
+        //   format: 'DD/MM/YYYY',
+        //   applyLabel: 'Submit',
+        //   fromLabel: 'From',
+        //   toLabel: 'To',
+        //   customRangeLabel: 'Custom Range',
+        //   daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+        //   monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        //   firstDay: 1
+        // }
       }
     );
   }
@@ -323,8 +331,8 @@ export class OrganisationNoticesComponent implements OnInit {
     }
     if(this.tabName!="search-by-name"){
     var $dateField = $('#txtSearchDateRange');
-    this.searchModel.startDate = $dateField.data('daterangepicker').startDate._d;
-    this.searchModel.endDate = $dateField.data('daterangepicker').endDate._d;
+    this.searchModel.startDate = new Date(this.startDate);
+    this.searchModel.endDate = new Date(this.endDate);
     }
    
     this.isShowLoader = true;
@@ -399,11 +407,11 @@ export class OrganisationNoticesComponent implements OnInit {
         this.isShowLoader = false;
         this.noticeInfoList = [];
         this.getRecentNotices();
-        toastr.success('Successsfully Saved Interested Cities', "Success");
+        this.toastr.success('Successsfully Saved Interested Cities', "Success");
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed To Save Interested Cities', "Error");
+          this.toastr.error('Failed To Save Interested Cities', "Error");
         });
   }
   getRecentNoticesBtn() {

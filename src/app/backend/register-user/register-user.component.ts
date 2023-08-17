@@ -5,8 +5,9 @@ import { AccountService } from 'src/app/services/account.service';
 import { BackendUserModel, LoginModel } from 'src/app/models/account.model';
 import { AuthenticationService } from 'src/app/services';
 import { BackendUserService } from 'src/app/services/backend-user.service';
+import { ToastrService } from 'ngx-toastr';
 declare var $;
-declare var toastr;
+
 @Component({
   selector: 'app-register-user',
   templateUrl: './register-user.component.html',
@@ -16,6 +17,7 @@ export class RegisterUserComponent implements OnInit {
   constructor(
     private router: Router,
     private AddEditBackendUserService: BackendUserService,
+    public toastr: ToastrService
   ) { }
   backendUserModel: BackendUserModel = new BackendUserModel();
   loggedInUserRole: any;
@@ -110,7 +112,7 @@ if(this.selectedRoleId!=1){
     
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -130,14 +132,14 @@ if(this.selectedRoleId!=1){
           
           let message = addedRow[0].message;
 
-          toastr.success(message, "Success");
+          this.toastr.success(message, "Success");
           this.isShowLoader = false;
         
 
         },
           error => {
             this.isShowLoader = false;
-            toastr.error('Failed to create User!', "Error");
+            this.toastr.error('Failed to create User!', "Error");
           });
 
   }

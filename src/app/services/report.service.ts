@@ -6,16 +6,18 @@ import { NoticeInfoModel } from '../models';
 import { catchError, retry } from 'rxjs/operators';
 import { ResponseHelperService } from './response-helper.service';
 import { OwnerInfo } from '../models/account.model';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $;
-declare var toastr;
+
 @Injectable({ providedIn: 'root' })
 export class ReportService {
 
     constructor(
         private http: HttpClient,
         private appConfig: AppConfig,
-        private _helper: ResponseHelperService
+        private _helper: ResponseHelperService,
+        public toastr: ToastrService
         // private authService: AuthenticationService,
     ) {
     }
@@ -173,10 +175,10 @@ export class ReportService {
                 var url = this.appConfig.pdfPath + pdfFileName;
                 this.downloadFile(url, pdfFileName);
                 this.isShowDownloadLoader = false;
-                toastr.success('Notice Report exported successfully.', "Success");
+                this.toastr.success('Notice Report exported successfully.', "Success");
             }, error => {
                 this.isShowDownloadLoader = false;
-                toastr.error('Failed To Download Notice Report.', "Error");
+                this.toastr.error('Failed To Download Notice Report.', "Error");
             });
     }
 

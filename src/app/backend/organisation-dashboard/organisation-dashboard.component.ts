@@ -7,8 +7,9 @@ import { OrganisationUser } from "src/app/models/organisation.model";
 import { MasterDataService } from "src/app/services";
 import { OrganisationService } from "src/app/services/organisation.service";
 import { OrgReportService } from 'src/app/services/org-report.service';
+import { ToastrService } from 'ngx-toastr';
 
-declare var toastr;
+
 declare var $;
 @Component({
   selector: 'app-organisation-dashboard',
@@ -48,34 +49,52 @@ export class OrganisationDashboardComponent implements OnInit {
     },
     responsive: true,
     responsiveAnimationDuration: 0,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
+    // scales: {
+    //   x: [{
+    //     gridLines: {
+    //       drawOnChartArea: false,
+    //     },
+    //     ticks: {
+    //       callback: function (value: any) {
+    //         return value.substring(6, 10).replace("-", "/");
+    //       }
+    //     }
+    //   }],
+    //   y: [{
+    //     ticks: {
+    //       beginAtZero: true,
+    //       maxTicksLimit: 5,
+    //     }
+    //   }]
+    // },
     scales: {
-      xAxes: [{
-        gridLines: {
-          drawOnChartArea: false,
-        },
-        ticks: {
-          callback: function (value: any) {
-            return value.substring(6, 10).replace("-", "/");
-          }
+      x: {
+        display: true, // Display x-axis
+        grid: {
+          display: false // Hide x-axis grid lines
         }
-      }],
-      yAxes: [{
+      },
+      y: {
+        display: true, // Display y-axis
         ticks: {
-          beginAtZero: true,
-          maxTicksLimit: 5,
+          maxTicksLimit: 5 // Set maximum number of y-axis tick marks
         }
-      }]
+      }
     },
     elements: {
       line: {
-        borderWidth: 2
+        borderWidth: 1,
+        hoverBackgroundColor: 'rgb(0, 165, 224)',
+        hoverBorderColor: 'rgb(0, 165, 224)'
       },
       point: {
         radius: 0,
         hitRadius: 10,
         hoverRadius: 4,
         hoverBorderWidth: 3,
+        hoverBackgroundColor: 'rgb(0, 165, 224)',
+        hoverBorderColor: 'rgb(0, 165, 224)'
       }
     },
     legend: {
@@ -122,7 +141,7 @@ export class OrganisationDashboardComponent implements OnInit {
     },
     responsive: true,
     responsiveAnimationDuration: 0,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     scales: {
       x: {
         stacked: true,
@@ -139,6 +158,13 @@ export class OrganisationDashboardComponent implements OnInit {
       display: false,
       position: 'bottom'
     }
+    ,
+    datasets: {
+      bar: {
+        hoverBackgroundColor: 'rgb(0, 165, 224)' ,// Set hover background color to blue
+        hoverBorderColor: 'transparent'
+      }
+    }
   };
 
   public mainChartDataEMP1: Array<number> = [];
@@ -149,7 +175,11 @@ export class OrganisationDashboardComponent implements OnInit {
     {
       data: this.mainChartDataEMP1,
       // label: 'High',
-      stack: 'Stack 0'
+      stack: 'Stack 0',
+      backgroundColor: 'rgb(0, 165, 224)',
+      borderColor: 'rgb(0, 165, 224)',
+      borderWidth: 0,
+      pointBackgroundColor: 'rgb(0, 165, 224)',
     },
     // {
     //   data: this.mainChartDataEMP2,
@@ -178,7 +208,7 @@ export class OrganisationDashboardComponent implements OnInit {
     },
     { // brandDanger
       backgroundColor: '#d3d3d3',
-      borderColor:'#d3d3d3',
+      borderColor: '#d3d3d3',
       pointHoverBackgroundColor: '#fff',
       borderWidth: 1,
       borderDash: [8, 5]
@@ -272,7 +302,7 @@ export class OrganisationDashboardComponent implements OnInit {
     public router: Router,
     private AddEditOrganisationService: OrganisationService,
     private masterDataService: MasterDataService,
-
+    public toastr: ToastrService
   ) { }
   page = 1;
   pageSize = 25;
@@ -304,7 +334,7 @@ export class OrganisationDashboardComponent implements OnInit {
       this.getDashboardData();
       this.get_Last30daysAssets();
       this.get_Last12Months_Assets_Report();
-
+      this.get_Last30daysMatchedNoticeReport();
     } else {
       this.router.navigate(["./login"]);
     }
@@ -316,12 +346,22 @@ export class OrganisationDashboardComponent implements OnInit {
 
         reportdata.forEach(element => {
           this.mainChartData1.push(element.assets);
-          this.mainChartLabels.push(element.day);
+          const date = new Date(element.day);
+          const month = date.getMonth() + 1;
+          const day = date.getDate();
+          const formattedDate = `${month}/${day}`;
+          this.mainChartLabels.push(formattedDate);
         });
         this.mainChartData = [
           {
             data: this.mainChartData1,
-            label: 'Notices'
+            label: 'Notices',
+            fill: true,
+            lineTension: 0.5,
+            backgroundColor: 'rgba(0, 165, 224, 0.1)',
+            borderColor: 'rgb(0, 165, 224)',
+            borderWidth: 1,
+            pointBackgroundColor: 'rgb(0, 165, 224)',
           }
         ];
         this.isShowLoader = false;
@@ -345,7 +385,11 @@ export class OrganisationDashboardComponent implements OnInit {
           {
             data: this.mainChartDataEMP1,
             // label: 'High',
-            stack: 'Stack 0'
+            stack: 'Stack 0',
+            backgroundColor: 'rgb(0, 165, 224)',
+            borderColor: 'rgb(0, 165, 224)',
+            borderWidth: 0, 
+            pointBackgroundColor: 'rgb(0, 165, 224)' ,  
           }
         ];
         this.isShowLoader = false;
@@ -480,13 +524,13 @@ export class OrganisationDashboardComponent implements OnInit {
       (addedRow: any) => {
 
         let message = addedRow[0].message;
-        toastr.success(message, "Success");
+        this.toastr.success(message, "Success");
         this.isShowLoader = false;
 
       },
       (error) => {
         this.isShowLoader = false;
-        toastr.error("Failed to Update User!", "Error");
+        this.toastr.error("Failed to Update User!", "Error");
       }
     );
   }
@@ -513,8 +557,42 @@ export class OrganisationDashboardComponent implements OnInit {
 
   }
 
+  public barChartOptions: any = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    scales: {
+      xAxes: [{
+        stacked: true,
+        display: true
+      }],
+      yAxes: [{
+        stacked: true,
+        display: true
+      }]
+    }
+  };
 
+  public barChartLabels: string[];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
 
+  public barChartData: any[] = [
+    { data: [], label: 'Precise Match',stack: 'a'},
+    { data: [], label: 'Partial Match',stack: 'a'}
+  ];
+
+  get_Last30daysMatchedNoticeReport() {
+    this.orgReportService.get_Last30daysMatchedNoticesReport(this.loggedInUserId, this.loggedInUserRoleGuid, this.loggedInUserOrgId, this.loggedInUserBranchId).subscribe(reportdata => {
+      if (reportdata) {
+        this.barChartLabels = reportdata.map(item => item.day);
+        reportdata.forEach((item) => {
+          this.barChartData[0].data.push(item.preciseCount);
+          this.barChartData[1].data.push(item.partialCount);
+        });
+        this.isShowLoader = false;
+      }
+    });
+  }
 }
 
 

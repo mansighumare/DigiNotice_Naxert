@@ -5,9 +5,10 @@ import { NoticeImage, NoticeDetail, NoticeAdvocateModel } from "src/app/models/n
 import { ReportService } from 'src/app/services/report.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 declare var $;
 
-declare var toastr;
+
 @Component({
   selector: 'app-notice-master',
   templateUrl: './notice-master.component.html',
@@ -24,7 +25,8 @@ export class NoticeMasterComponent implements OnInit {
     public reportService: ReportService,
     public lookupService: LookupService,
     public router: Router,
-    public authService: AuthenticationService) {
+    public authService: AuthenticationService,
+    public toastr: ToastrService) {
   }
   public is_add_other_details: boolean = false;
   isShowLoader: boolean = false;
@@ -223,7 +225,7 @@ export class NoticeMasterComponent implements OnInit {
   onSearchNotice(resetPagination: boolean = false) {
  
     if (this.searchModel.plotNumber != "" && this.searchModel.surveyNumber == "") {
-      toastr.error('Please enter either Survey Number or Gat Number!', "Error");
+      this.toastr.error('Please enter either Survey Number or Gat Number!', "Error");
       this.isShowLoader = false;
       return false;
     }
@@ -304,11 +306,11 @@ export class NoticeMasterComponent implements OnInit {
     this.noticeService.markNoticeActiveInactive(noticeList)
       .subscribe((noticeInfoList: Array<NoticeInfoModel>) => {
 
-        toastr.success('Successsfully Marked Notices As ' + status + '!', "Success");
+        this.toastr.success('Successsfully Marked Notices As ' + status + '!', "Success");
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed To Mark Notices As ' + status + '!', "Error");
+          this.toastr.error('Failed To Mark Notices As ' + status + '!', "Error");
         });
   }
 
@@ -323,11 +325,11 @@ export class NoticeMasterComponent implements OnInit {
     this.isShowLoader = true;
     this.noticeService.deleteNotices(noticeList)
       .subscribe((noticeInfoList: Array<NoticeInfoModel>) => {
-        toastr.success("Successsfully Deleted Selected Notices");
+        this.toastr.success("Successsfully Deleted Selected Notices");
       },
         error => {
           this.isShowLoader = false;
-          toastr.error("Failed To Delete Selected Notices");
+          this.toastr.error("Failed To Delete Selected Notices");
         });
   }
 
@@ -366,12 +368,12 @@ export class NoticeMasterComponent implements OnInit {
     this.noticeService.deleteNotice(noticeInfo)
       .subscribe(res => {
         this.isShowLoader = false;
-        toastr.success('Notice Deleted Successsfully!', "Success");
+        this.toastr.success('Notice Deleted Successsfully!', "Success");
         noticeInfo.isDeleted = true;
       },
         error => {
           this.isShowLoader = false;
-          toastr.error("Failed To Delete Notice");
+          this.toastr.error("Failed To Delete Notice");
         });
   }
 

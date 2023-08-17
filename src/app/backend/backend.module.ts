@@ -96,7 +96,7 @@ import { AddsBannerMasterComponent } from './adds-banner-master/adds-banner-mast
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgChartsModule } from 'ng2-charts';
 import { NgbPopoverModule } from '@ng-bootstrap/ng-bootstrap';
-import { ChoosefileComponent } from '../choosefile/choosefile.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -295,7 +295,7 @@ const routes: Routes = [
     AcknowledgeNotificationComponent, 
     AcknowledgedReportComponent, 
     AssetsReportComponent, 
-    OcrAddNoticeComponent, ChoosefileComponent,
+    OcrAddNoticeComponent, 
 
   ],
   imports: [

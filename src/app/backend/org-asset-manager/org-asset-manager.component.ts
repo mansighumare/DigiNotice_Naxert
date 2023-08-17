@@ -9,8 +9,9 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 import { NotificationService } from 'src/app/services/notification.service';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 declare var $;
-declare var toastr
+
 
 @Component({
   selector: 'app-org-asset-manager',
@@ -29,7 +30,8 @@ export class OrgAssetManagerComponent implements OnInit {
     private excelService: ExcelService,
     private AddEditOrganisationService: OrganisationService,
     public dialog: MatDialog,
-    private notificationServices: NotificationService) { }
+    private notificationServices: NotificationService,
+    public toastr: ToastrService) { }
 
   propertyList: Array<EditOrgPropertyModel> = new Array<EditOrgPropertyModel>();
   isShowLoader: boolean = false;
@@ -232,7 +234,7 @@ export class OrgAssetManagerComponent implements OnInit {
     }
     if (validationErrors.length > 0) {
       validationMessage += validationErrors.join(", ");
-      toastr.error(validationMessage, "Validation Error");
+      this.toastr.error(validationMessage, "Validation Error");
       isValid = false;
     }
     return isValid;
@@ -255,7 +257,7 @@ export class OrgAssetManagerComponent implements OnInit {
       .subscribe((addedRow: any) => {
 
         var message = addedRow.message;
-        toastr.success(message, "Success");
+        this.toastr.success(message, "Success");
         $("#add-property-modal").modal('hide');
         this.isShowLoader = false;
         this.clearForm();
@@ -265,7 +267,7 @@ export class OrgAssetManagerComponent implements OnInit {
       },
         error => {
           this.isShowLoader = false;
-          toastr.error('Failed to Create Property!', "Error");
+          this.toastr.error('Failed to Create Property!', "Error");
         });
   }
 
@@ -281,7 +283,7 @@ export class OrgAssetManagerComponent implements OnInit {
         }
       },
         error => {
-          toastr.error('Failed to Upload Property Image!', "Error");
+          this.toastr.error('Failed to Upload Property Image!', "Error");
         });
   }
 
@@ -560,7 +562,7 @@ export class OrgAssetManagerComponent implements OnInit {
 
           this.isShowLoader = false;
           var message = r;
-          toastr.success(message, "Success");
+          this.toastr.success(message, "Success");
           // this.propertyList.splice(editPropertyModel.propertyIndex, 1);
           this.getProperties();
         },

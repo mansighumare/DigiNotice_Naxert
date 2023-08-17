@@ -106,6 +106,7 @@ export class AuthenticationService {
   }
 
   setAuthToken(body: any) {    
+    debugger;
     localStorage.setItem('token', JSON.stringify(body));
     //let _token = this.jwtHelper.decodeToken(body.access_token.trim());
     let _token=atob(body.access_token.trim().split('.')[1]);
@@ -230,6 +231,7 @@ export class AuthenticationService {
   }
 
   login = (username: string, password: string, location: string) => {
+    debugger;
     let headers = new HttpHeaders();
     let tokenURL = this.authUrl + 'TOKEN';
     let requestBody = this.authenticationTokenBody.replace('%%username%%', username).replace('%%password%%', password);

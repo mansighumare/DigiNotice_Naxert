@@ -141,7 +141,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   loginAccount(loginModel: LoginModel) {
-    
+    debugger;
     var $loginCard = $('#login-container');
     $loginCard.addClass('loader');
     this.isShowLoader = true;

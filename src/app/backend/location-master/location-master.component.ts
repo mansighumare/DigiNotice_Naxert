@@ -3,10 +3,11 @@ import {  MasterDataService, MappingService } from 'src/app/services';
 import { Taluka, Village } from 'src/app/models';
 import { Router } from '@angular/router';
 import { LocationMasterService } from 'src/app/services/location-master.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 declare var $;
-declare var toastr;
+
 @Component({
   selector: 'app-location-master',
   templateUrl: './location-master.component.html',
@@ -21,7 +22,7 @@ export class LocationMasterComponent implements OnInit {
     private masterDataService: MasterDataService,
     private router: Router,
     public locationMasterService:LocationMasterService,
-    
+    public toastr: ToastrService
   ) { }
 
   isShowLoader: boolean = false;
@@ -131,12 +132,12 @@ export class LocationMasterComponent implements OnInit {
     this.masterDataService.updateTaluka(this.editedTaluka)
       .subscribe((updatedRow: any) => {
         this.editedTaluka.name = updatedRow.name;
-        toastr.success('Taluka Updated Successsfully!', "Success");
+        this.toastr.success('Taluka Updated Successsfully!', "Success");
         this.isDataLoaded = true;
         this.locationMasterService.getTalukas(this.cityId, this.isActiveOnly);
       },
         error => {
-          toastr.error('Failed to Update Taluka!', "Error");
+          this.toastr.error('Failed to Update Taluka!', "Error");
           this.isDataLoaded = true;
         });
   }
@@ -150,12 +151,12 @@ export class LocationMasterComponent implements OnInit {
     this.masterDataService.updateDistrict(this.editDistrict)
       .subscribe((updatedRow: any) => {
         this.editDistrict.name = updatedRow.name;
-        toastr.success('District Updated Successsfully!', "Success");
+        this.toastr.success('District Updated Successsfully!', "Success");
         this.isDataLoaded = true;
         this.getDistrictList();
       },
         error => {
-          toastr.error('Failed to Update District!', "Error");
+          this.toastr.error('Failed to Update District!', "Error");
           this.isDataLoaded = true;
         });
   }
@@ -169,12 +170,12 @@ export class LocationMasterComponent implements OnInit {
       .subscribe((updatedRow: any) => {
         this.isDataLoaded = true;
         this.editedVillage.name = updatedRow.name;
-        toastr.success('Village Updated Successsfully!', "Success");
+        this.toastr.success('Village Updated Successsfully!', "Success");
         this.getVillageList();
       },
         error => {
           this.isDataLoaded = true;
-          toastr.error('Failed to Update Village!', "Error");
+          this.toastr.error('Failed to Update Village!', "Error");
         });
   }
 
@@ -185,9 +186,9 @@ export class LocationMasterComponent implements OnInit {
       .subscribe((addedRow: any) => {
        
         if (addedRow.isExist) {
-          toastr.info('Taluka Name Already Exists!', "Info");
+          this.toastr.info('Taluka Name Already Exists!', "Info");
         } else {
-          toastr.success('Taluka Added Successsfully!', "Success");
+          this.toastr.success('Taluka Added Successsfully!', "Success");
          
           this.masterDataService.getTalukas(this.cityId)
             .subscribe((talukaList: Array<Taluka>) => {
@@ -199,7 +200,7 @@ export class LocationMasterComponent implements OnInit {
         }
       }, error => {
         this.isDataLoaded = true;
-        toastr.error('Failed to Add Taluka!', "Error");
+        this.toastr.error('Failed to Add Taluka!', "Error");
       });
   }
 
@@ -209,9 +210,9 @@ export class LocationMasterComponent implements OnInit {
     this.masterDataService.addDistrict(distictDto)
       .subscribe((addedRow: any) => {
         if (addedRow.isExist) {
-          toastr.info('District Name Already Exists!', "Info");
+          this.toastr.info('District Name Already Exists!', "Info");
         } else {
-          toastr.success('District Added Successsfully!', "Success");
+          this.toastr.success('District Added Successsfully!', "Success");
 
           //  this.stateId= Number(this.addLocationDto.districtId);
 
@@ -219,7 +220,7 @@ export class LocationMasterComponent implements OnInit {
         this.getDistrictList();
       }, error => {
         this.isDataLoaded = true;
-        toastr.error('Failed to Add District!', "Error");
+        this.toastr.error('Failed to Add District!', "Error");
       });
   }
 
@@ -230,14 +231,14 @@ export class LocationMasterComponent implements OnInit {
     this.masterDataService.addVillage(villageDto)
       .subscribe((addedRow: any) => {
         if (addedRow.isExist) {
-          toastr.info('Village Name Already Exists!', "Info");
+          this.toastr.info('Village Name Already Exists!', "Info");
         } else {
-          toastr.success('Village Added Successsfully!', "Success");
+          this.toastr.success('Village Added Successsfully!', "Success");
           this.getVillageList()
         }
       }, error => {
         this.isDataLoaded = true;
-        toastr.error('Failed to Add Village!', "Error");
+        this.toastr.error('Failed to Add Village!', "Error");
       });
   }
 
@@ -287,11 +288,11 @@ export class LocationMasterComponent implements OnInit {
         this.masterDataService.updateDistrict(this.editDistrict)
           .subscribe((updatedRow: any) => {
             var status = updatedRow.isActive ? "Active" : "InActive";
-            toastr.success('Updated District status to ' + status + '!', "Success");
+            this.toastr.success('Updated District status to ' + status + '!', "Success");
             this.getDistrictList();
           },
             error => {
-              toastr.error("Failed to update status");
+              this.toastr.error("Failed to update status");
             });
         break;
       case 'Village':
@@ -299,12 +300,12 @@ export class LocationMasterComponent implements OnInit {
         this.masterDataService.updateVillage(this.editedVillage)
           .subscribe((updatedRow: any) => {
             var status = updatedRow.isActive ? "Active" : "InActive";
-            toastr.success('Updated Village status to ' + status + '!', "Success");
+            this.toastr.success('Updated Village status to ' + status + '!', "Success");
             this.getVillageList();
 
           },
             error => {
-              toastr.error("Failed to update status");
+              this.toastr.error("Failed to update status");
             });
         break;
       case 'Taluka':
@@ -313,11 +314,11 @@ export class LocationMasterComponent implements OnInit {
         this.masterDataService.updateTaluka(this.editedTaluka)
           .subscribe((updatedRow: any) => {
             var status = updatedRow.isActive ? "Active" : "InActive";
-            toastr.success('Updated Taluka status to ' + status + '!', "Success");
+            this.toastr.success('Updated Taluka status to ' + status + '!', "Success");
             this.locationMasterService.getTalukas(this.cityId,this.isActiveOnly);
           },
             error => {
-              toastr.error("Failed to update status");
+              this.toastr.error("Failed to update status");
             });
         break;
     }

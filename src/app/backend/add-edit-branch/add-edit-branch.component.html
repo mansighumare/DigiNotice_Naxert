@@ -101,13 +101,21 @@
                       <td>{{ addOrganisationBranch.orgName }}</td>
                       <td>{{addOrganisationBranch.address }}</td>
                       <td>
+                        <mat-checkbox
+                        (click)="onActiveInActive(addOrganisationBranch)"
+                      
+                        [checked]="addOrganisationBranch.isActive"
+                        class="mat-checkbox"
+                      >
+                      </mat-checkbox>
                         <ng-container *ngIf="
                               loggedInUserRole == 'SuperAdmin' ||
                               loggedInUserId == addOrganisationBranch.parentUserId
                             ">
-                          <span (click)="onActiveInActive(addOrganisationBranch)"
+                          <!-- <span (click)="onActiveInActive(addOrganisationBranch)"
                             [ngClass]="{ checked: addOrganisationBranch.isActive }" class="dg-checkbox"
                             for="isOrganisationBranchActive"></span>
+                              -->
                         </ng-container>
                         <ng-container *ngIf="
                               !(

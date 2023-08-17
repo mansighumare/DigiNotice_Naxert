@@ -103,3 +103,6 @@ table#tbl-users-list{
   .btn-hangup .chk-catlog:checked+i+span {
     display: inline-block;
   }
+  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: rgb(27, 188, 155) !important;
+  }

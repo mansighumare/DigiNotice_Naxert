@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { NoticeImage } from 'src/app/models/notice-info';
 import { EditOrgPropertyModel, AssetImage, AddOrgPropertyModel, PropertyImg } from 'src/app/models/org-asset-manager';
 import { AppConfig, AssetManagerService, LookupService, SharedModelService } from 'src/app/services';
@@ -8,7 +9,7 @@ import { ExcelService } from 'src/app/services/excel.service';
 import { OrgAssetManagerService } from 'src/app/services/org-asset-manager.service';
 import { OrganisationService } from 'src/app/services/organisation.service';
 declare var $;
-declare var toastr
+
 
 @Component({
   selector: 'app-deleted-assets',
@@ -24,7 +25,8 @@ export class DeletedAssetsComponent implements OnInit {
     private router: Router,
     public sharedModel: SharedModelService,
     public lookupService: LookupService,
-    private excelService: ExcelService,) { }
+    private excelService: ExcelService,
+    public toastr: ToastrService) { }
 
   propertyList: Array<EditOrgPropertyModel> = new Array<EditOrgPropertyModel>();
   isShowLoader: boolean = false;

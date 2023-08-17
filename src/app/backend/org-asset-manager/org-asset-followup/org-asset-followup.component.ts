@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { DocumentsModel, EditOrgPropertyModel } from 'src/app/models/org-asset-manager';
 import { OrgAssetManagerService } from 'src/app/services/org-asset-manager.service';
 declare var $;
-declare var toastr
+
 @Component({
   selector: 'app-org-asset-followup',
   templateUrl: './org-asset-followup.component.html',
@@ -21,7 +22,8 @@ export class OrgAssetFollowupComponent implements OnInit {
   loggedInUserRoleGuid: any;
   loggedInUserOrgId: any;
   loggedInUserBranchId: number;
-  constructor(public orgAssetManagerService: OrgAssetManagerService, private cdRef: ChangeDetectorRef) { }
+  constructor(public orgAssetManagerService: OrgAssetManagerService, private cdRef: ChangeDetectorRef,
+    public toastr: ToastrService) { }
 
   ngOnInit() {
     this.filesarray = new Array();
@@ -48,7 +50,7 @@ export class OrgAssetFollowupComponent implements OnInit {
       const file: File = event.target.files[0];
       //console.log('size', file.size);
       if (file.size > 5242880) {
-        toastr.error("File is too big. Max File Size: 5 MB", "Validation error");
+        this.toastr.error("File is too big. Max File Size: 5 MB", "Validation error");
         this.isShowLoader = false;
         return;
       }
@@ -88,11 +90,11 @@ export class OrgAssetFollowupComponent implements OnInit {
 
 
   showSuccess() {
-    toastr.success("File Added Successfully.", "Success");
+    this.toastr.success("File Added Successfully.", "Success");
   }
 
   showUploadError() {
-    toastr.error("An error occurred while uploading file.", "Validation error");
+    this.toastr.error("An error occurred while uploading file.", "Validation error");
   }
 
   Download_doc(item) {
@@ -107,12 +109,12 @@ export class OrgAssetFollowupComponent implements OnInit {
     this.isShowLoader = true;
 
     if (!this.filesarray) {
-      toastr.error("Please upload documents.", "Validation error");
+      this.toastr.error("Please upload documents.", "Validation error");
       this.isShowLoader = false;
       return;
     }
     if (!this.comments) {
-      toastr.error("Please enter comments", "Validation error");
+      this.toastr.error("Please enter comments", "Validation error");
       this.isShowLoader = false;
       return;
     }
@@ -137,7 +139,7 @@ export class OrgAssetFollowupComponent implements OnInit {
     this.orgAssetManagerService.saveFollupData(this.Documents_parameters).subscribe(
       data => {
         this.isShowLoader = false;
-        toastr.success("Documents saved successfully.", "Success");
+        this.toastr.success("Documents saved successfully.", "Success");
         $("#view-property-followup").modal('hide');
         this.filesarray = new Array();
       });

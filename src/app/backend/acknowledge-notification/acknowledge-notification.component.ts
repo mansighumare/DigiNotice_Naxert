@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AddOrgPropertyModel } from 'src/app/models/org-asset-manager';
 import { AuthenticationService, AppConfig } from 'src/app/services';
 import { AccountService } from 'src/app/services/account.service';
 import { NotificationService } from 'src/app/services/notification.service';
 declare var $;
-declare var toastr
+
 
 @Component({
   selector: 'app-acknowledge-notification',
@@ -18,7 +19,8 @@ export class AcknowledgeNotificationComponent implements OnInit {
     private router: Router,
     public authService: AuthenticationService,
     private appConfig: AppConfig,
-    private notificationServices: NotificationService) { }
+    private notificationServices: NotificationService,
+    public toastr: ToastrService) { }
 
   loggedInUserRole: any;
   loggedInUserId: any;
@@ -129,7 +131,7 @@ export class AcknowledgeNotificationComponent implements OnInit {
     this.notificationServices.Acknowledge(id,this.loggedInUserId).subscribe(
       (r) => {
         
-        toastr.success(r[0].message, "Success");
+        this.toastr.success(r[0].message, "Success");
         this.getNotification();
         this.getNotifactionCount();
         this.isShowLoader = false;
